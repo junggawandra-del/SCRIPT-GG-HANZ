@@ -84,7 +84,7 @@ local WA_LINK     = "https://wa.me/6285162984757?text=Halo%20Hanz%20Darkside,%20
 
 -- [[ 🌀 CORE ENGINE VARIABLES ]] ------------------------------
 local random_id        = math.random(10000, 1000000)
-local REAL_PASSWORD    = "SKYSEE"
+local REAL_PASSWORD    = "HANZ"
 local ping_jump_active = false
 local auto_win_active  = false
 local pj_side          = "NONE"
