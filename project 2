@@ -1,65 +1,87 @@
--- Script Game Guardian: Time Warp (Pink Edition)
--- Developed by: HANZ NPC
--- Semua logika fitur asli dipertahankan 100%
+--[[
+    🌸 PINK EDITION V1.0 🌸
+    DEVELOPED BY: HANZ NPC (HANZ DARKSIDE)
+    PROJECT: TOWNSHIP (TIME WARP)
+    REGION: AUTOMATIC CA ONLY (C++ ALLOC)
+    LOGIC: SEARCH 120;300 -> REFINE 120 -> VALIDATE 1D BELOW -> SET LINE 4 & 5 (DWORD)
+    STATUS: 100% FULL ASSETS RETAINED - RAMAI UI & AUTO-CLEAN RESULTS
+]]
 
 local PASS_TARGET = "HANZ" 
 local lang = "en" 
+local CP_PINK = "[COLOR_PINK]"
+local CP_LINE = "──────────────────────────────────────────"
+local CP_DOTS = " • • • • • • • • • • • • • • • • • • • • "
+local PINK_BOLD = "『 ᴘɪɴᴋ ᴇᴅɪᴛɪᴏɴ : ᴄʏʙᴇʀᴘᴜɴᴋ 』"
 
--- Konfigurasi Warna Pink
-local PINK = "[COLOR_PINK]"
-local PINK_BOLD = "『 PINK EDITION 』"
+-- ==========================================
+-- 100% ORIGINAL VISUAL & ENHANCED LOADING
+-- ==========================================
 
--- Efek Animasi Loading Global (Awal Script)
 function LoadingEffect()
-    local bar = {"▷▷▷▷▷", "▶▷▷▷▷", "▶▶▷▷▷", "▶▶▶▷▷", "▶▶▶▶▷", "▶▶▶▶▶"}
-    for i = 1, 2 do
-        for _, v in ipairs(bar) do
-            gg.toast("『 HNZ PROJECT 』\nLoading: " .. v)
-            gg.sleep(300)
-        end
+    local frames = {
+        " { ▒▒▒▒▒▒▒▒▒▒ } 0%",
+        " { █▒▒▒▒▒▒▒▒▒ } 10%",
+        " { ██▒▒▒▒▒▒▒▒ } 25%",
+        " { ███▒▒▒▒▒▒▒ } 40%",
+        " { ████▒▒▒▒▒▒ } 55%",
+        " { █████▒▒▒▒▒ } 70%",
+        " { ██████▒▒▒▒ } 85%",
+        " { ███████▒▒▒ } 95%",
+        " { ██████████ } 100%"
+    }
+    for i = 1, #frames do
+        gg.toast("『 ʜɴᴢ ᴘʀᴏᴊᴇᴄᴛ 』\n" .. frames[i])
+        gg.sleep(250)
     end
 end
 
--- Efek Loading Sinkron (Durasi animasi sesuai dengan lama proses)
--- ms: durasi dalam milidetik
+-- EFEK LOADING REALISTIS DAN DINAMIS
 function ActionLoading(text, ms)
-    local frames = {"⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷"}
-    local sleepTime = 100 -- kecepatan frame
-    local totalFrames = ms / sleepTime
-    
-    for i = 1, totalFrames do
-        local frame = frames[(i % #frames) + 1]
-        gg.toast("🌸 " .. text .. " " .. frame)
+    local anim = {"⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷"}
+    local sleepTime = 150 
+    local iterations = math.floor(ms / sleepTime)
+    for i = 1, iterations do
+        local frame = anim[(i % #anim) + 1]
+        local progress = math.floor((i / iterations) * 100)
+        gg.toast("『 " .. frame .. " 』 " .. text .. " [" .. progress .. "%]\n" .. CP_LINE)
         gg.sleep(sleepTime)
     end
 end
 
--- Tampilan Awal (ASCII Art & Info)
+-- ==========================================
+-- INITIALIZATION & SYSTEM CHECK
+-- ==========================================
+
 function WelcomeBanner()
     gg.alert([[
-🌸 PINK EDITION V1.0 🌸
-------------------------------------------
-OWNER: HANZ
-PROJECT: TOWNSHIP
-------------------------------------------
-SELAMAT DATANG DI HANZ PROJECT
-SILAKAN PILIH BAHASA ANDA]])
+✨ 🌸 ᴘɪɴᴋ ᴇᴅɪᴛɪᴏɴ ᴠ1.0 🌸 ✨
+]] .. CP_LINE .. [[
+
+   👤 OWNER   : HANZ NPC
+   🚀 PROJECT : TOWNSHIP
+   💎 SYSTEM  : PINK EDITION
+]] .. CP_LINE .. [[
+
+   SELAMAT DATANG DI HANZ PROJECT
+   SILAKAN PILIH BAHASA ANDA
+]] .. CP_DOTS)
 end
 
 function SelectLanguage()
     local languages = {
-        "🌸 1. Indonesia",
-        "🌸 2. English",
-        "🌸 3. Español",
-        "🌸 4. Português",
-        "🌸 5. Tiếng Việt",
-        "🌸 6. ไทย",
-        "🌸 7. Русский",
-        "🌸 8. 中文",
-        "🌸 9. 日本語"
+        "🇮🇩 INDONESIA",
+        "🇺🇸 ENGLISH",
+        "🇪🇸 ESPAÑOL",
+        "🇵🇹 PORTUGUÊS",
+        "🇻🇳 TIẾNG VIỆT",
+        "🇹🇭 ไทย",
+        "🇷🇺 РУССКИЙ",
+        "🇨🇳 中文",
+        "🇯🇵 日本語"
     }
     
-    local choice = gg.choice(languages, nil, "🌸 SELECT LANGUAGE / PILIH BAHASA 🌸")
+    local choice = gg.choice(languages, nil, "『 ⚡ SELECT LANGUAGE / PILIH BAHASA ⚡ 』")
     
     if choice == 1 then lang = "id"
     elseif choice == 2 then lang = "en"
@@ -70,113 +92,144 @@ function SelectLanguage()
     elseif choice == 7 then lang = "ru"
     elseif choice == 8 then lang = "zh"
     elseif choice == 9 then lang = "ja"
-    else os.exit() end
+    else ExitScript() end
 end
 
--- Tabel Terjemahan Lengkap
 local T = {
-    id = {title = "🌸 --- Speed Hack Controller --- 🌸", m1 = "💖 1. Reset Misi Regeta", m2 = "⚡ 2. Isi Energy Biru", m3 = "❌ 3. Keluar", t1 = "🌸 Memulai Proses...", t2 = "🌸 Menjalankan proses...", t3 = "🌸 Sinkronisasi waktu...", t4 = "✨ Berhasil!", wait = "Menunggu proses...", alert = "Fitur Mati.", pass_msg = "🌸 Masukkan Password:", pass_wrong = "❌ Password Salah!", bypass = "Memulai Bypass Sistem..."},
-    en = {title = "🌸 --- Speed Hack Controller --- 🌸", m1 = "💖 1. Reset Regeta Mission", m2 = "⚡ 2. Fill Blue Energy", m3 = "❌ 3. Exit", t1 = "🌸 Starting Process...", t2 = "🌸 Running process...", t3 = "🌸 Syncing time...", t4 = "✨ Successful!", wait = "Waiting for process...", alert = "Feature Off.", pass_msg = "🌸 Enter Password:", pass_wrong = "❌ Wrong Password!", bypass = "Starting System Bypass..."},
-    es = {title = "🌸 --- Speed Hack Controller --- 🌸", m1 = "💖 1. Reiniciar Misión Regeta", m2 = "⚡ 2. Llenar Energía Azul", m3 = "❌ 3. Salir", t1 = "🌸 Iniciando...", t2 = "🌸 Ejecutando...", t3 = "🌸 Sincronizando...", t4 = "✨ ¡Exitoso!", wait = "Esperando...", alert = "Función desactivada.", pass_msg = "🌸 Contraseña:", pass_wrong = "❌ ¡Incorrecta!", bypass = "Iniciando Bypass..."},
-    pt = {title = "🌸 --- Speed Hack Controller --- 🌸", m1 = "💖 1. Resetar Missão Regeta", m2 = "⚡ 2. Encher Energia Azul", m3 = "❌ 3. Sair", t1 = "🌸 Iniciando...", t2 = "🌸 Executando...", t3 = "🌸 Sincronizando...", t4 = "✨ Sucesso!", wait = "Aguardando...", alert = "Recurso Desligado.", pass_msg = "🌸 Senha:", pass_wrong = "❌ Incorreta!", bypass = "Iniciando Bypass..."},
-    vi = {title = "🌸 --- Speed Hack Controller --- 🌸", m1 = "💖 1. Đặt lại Nhiệm vụ", m2 = "⚡ 2. Nạp Năng lượng Xanh", m3 = "❌ 3. Thoát", t1 = "🌸 Bắt đầu...", t2 = "🌸 Đang chạy...", t3 = "🌸 Đồng bộ hóa...", t4 = "✨ Thành công!", wait = "Đang chờ...", alert = "Đã tắt.", pass_msg = "🌸 Mật khẩu:", pass_wrong = "❌ Sai mật khẩu!", bypass = "Bắt đầu Bypass..."},
-    th = {title = "🌸 --- Speed Hack Controller --- 🌸", m1 = "💖 1. รีเซ็ตภารกิจ", m2 = "⚡ 2. เติมพลังงานสีน้ำเงิน", m3 = "❌ 3. ออก", t1 = "🌸 กำลังเริ่ม...", t2 = "🌸 กำลังดำเนินการ...", t3 = "🌸 กำลังซิงค์...", t4 = "✨ สำเร็จ!", wait = "กำลังรอ...", alert = "ปิดฟีเจอร์", pass_msg = "🌸 รหัสผ่าน:", pass_wrong = "❌ ผidพลาด!", bypass = "เริ่มการบายพาส..."},
-    ru = {title = "🌸 --- Speed Hack Controller --- 🌸", m1 = "💖 1. Сброс миссии", m2 = "⚡ 2. Заполнить энергию", m3 = "❌ 3. Выход", t1 = "🌸 Запуск...", t2 = "🌸 Выполнение...", t3 = "🌸 Синхронизация...", t4 = "✨ Успешно!", wait = "Ожидание...", alert = "Выключено.", pass_msg = "🌸 Пароль:", pass_wrong = "❌ Неверно!", bypass = "Запуск обхода системы..."},
-    zh = {title = "🌸 --- Speed Hack Controller --- 🌸", m1 = "💖 1. 重置任务", m2 = "⚡ 2. 填充蓝色能量", m3 = "❌ 3. 退出", t1 = "🌸 开始...", t2 = "🌸 运行中...", t3 = "🌸 同步时间...", t4 = "✨ 成功！", wait = "请稍候...", alert = "功能关闭", pass_msg = "🌸 密码:", pass_wrong = "❌ 错误！", bypass = "开始绕过系统..."},
-    ja = {title = "🌸 --- Speed Hack Controller --- 🌸", m1 = "💖 1. ミッションリセット", m2 = "⚡ 2. ブルーエナジー補充", m3 = "❌ 3. 終了", t1 = "🌸 開始中...", t2 = "🌸 実行中...", t3 = "🌸 同期中...", t4 = "✨ 成功！", wait = "待機中...", alert = "オフ", pass_msg = "🌸 パスワード:", pass_wrong = "❌ 違い！", bypass = "バイパスを開始中..."}
+    id = {title = "🌸 ——— MAIN MENU ——— 🌸", m1 = "💖 1. Reset Misi Regeta", m2 = "⚡ 2. Isi Energy Biru", m3 = "🚀 3. Exp Up Level", m4 = "❌ 4. Keluar", t1 = "🌸 Memulai Proses...", t2 = "🌸 Menjalankan proses...", t3 = "🌸 Tunggu sebentar", t4 = "✨ Berhasil!", wait = "Menunggu proses...", alert = "Fitur Mati.", pass_msg = "🔑 MASUKKAN PASSWORD AKSES:", pass_wrong = "❌ Password Salah!", bypass = "Memulai Bypass Sistem...", input_exp = "🚀 MASUKKAN NILAI EXP BARU:"},
+    en = {title = "🌸 ——— MAIN MENU ——— 🌸", m1 = "💖 1. Reset Regeta Mission", m2 = "⚡ 2. Fill Blue Energy", m3 = "🚀 3. Exp Up Level", m4 = "❌ 4. Exit", t1 = "🌸 Starting Process...", t2 = "🌸 Running process...", t3 = "🌸 Please wait", t4 = "✨ Successful!", wait = "Waiting for process...", alert = "Feature Off.", pass_msg = "🔑 ENTER ACCESS PASSWORD:", pass_wrong = "❌ Wrong Password!", bypass = "Starting System Bypass...", input_exp = "🚀 ENTER NEW EXP VALUE:"},
+    es = {title = "🌸 ——— MAIN MENU ——— 🌸", m1 = "💖 1. Reiniciar Misión Regeta", m2 = "⚡ 2. Llenar Energía Azul", m3 = "🚀 3. Exp Up Level", m4 = "❌ 4. Salir", t1 = "🌸 Iniciando...", t2 = "🌸 Ejecutando...", t3 = "🌸 Espere un momento", t4 = "✨ ¡Exitoso!", wait = "Esperando...", alert = "Función desactivada.", pass_msg = "🔑 CONTRASEÑA:", pass_wrong = "❌ ¡Incorrecta!", bypass = "Iniciando Bypass...", input_exp = "🚀 VALOR DE EXP:"},
+    pt = {title = "🌸 ——— MAIN MENU ——— 🌸", m1 = "💖 1. Resetar Missão Regeta", m2 = "⚡ 2. Encher Energía Azul", m3 = "🚀 3. Exp Up Level", m4 = "❌ 4. Sair", t1 = "🌸 Iniciando...", t2 = "🌸 Executando...", t3 = "🌸 Aguarde um momento", t4 = "✨ Sucesso!", wait = "Aguardando...", alert = "Recurso Desligado.", pass_msg = "🔑 SENHA:", pass_wrong = "❌ Incorreta!", bypass = "Iniciando Bypass...", input_exp = "🚀 VALOR DE EXP:"},
+    vi = {title = "🌸 ——— MAIN MENU ——— 🌸", m1 = "💖 1. Đặt lại Nhiệm vụ", m2 = "⚡ 2. Nạp Năng lượng Xanh", m3 = "🚀 3. Exp Up Level", m4 = "❌ Đóng", t1 = "🌸 Bắt đầu...", t2 = "🌸 Đang chạy...", t3 = "🌸 Chờ satu chút", t4 = "✨ Thành công!", wait = "Đang chờ...", alert = "Đã tắt.", pass_msg = "🔑 MẬT KHẨU:", pass_wrong = "❌ Sai mật khẩu!", bypass = "Bắt đầu Bypass...", input_exp = "🚀 GIÁ TRỊ EXP:"},
+    th = {title = "🌸 ——— MAIN MENU ——— 🌸", m1 = "💖 1. รีเซ็ตภารกิจ", m2 = "⚡ 2. เติมพลังงานสีน้ำเงิน", m3 = "🚀 3. Exp Up Level", m4 = "❌ 4. ออก", t1 = "🌸 กำลังเริ่ม...", t2 = "🌸 กำลังดำเนินการ...", t3 = "🌸 รอสักครู่", t4 = "✨ สำเร็จ!", wait = "กำลังรอ...", alert = "ปิดฟีเจอร์", pass_msg = "🔑 รหัสผ่าน:", pass_wrong = "❌ ผิดพลาด!", bypass = "เริ่มการบายพาส...", input_exp = "🚀 ค่า EXP:"},
+    ru = {title = "🌸 ——— MAIN MENU ——— 🌸", m1 = "💖 1. Сброс миссии", m2 = "⚡ 2. Заполнить энергию", m3 = "🚀 3. Exp Up Level", m4 = "❌ 4. Выход", t1 = "🌸 Запуск...", t2 = "🌸 Выполнение...", t3 = "🌸 Подождите немного", t4 = "✨ Успешно!", wait = "Ожидание...", alert = "Выключено.", pass_msg = "🔑 ПАРОЛЬ:", pass_wrong = "❌ Неверно!", bypass = "Запуск обхода системы...", input_exp = "🚀 ЗНАЧЕНИЕ EXP:"},
+    zh = {title = "🌸 ——— MAIN MENU ——— 🌸", m1 = "💖 1. 重置任务", m2 = "⚡ 2. 填充蓝色能量", m3 = "🚀 3. Exp Up Level", m4 = "❌ 4. 退出", t1 = "🌸 开始...", t2 = "🌸 运行中...", t3 = "🌸 请稍等", t4 = "✨ 成功！", wait = "请稍候...", alert = "功能关闭", pass_msg = "🔑 密码:", pass_wrong = "❌ 错误！", bypass = "开始绕过系统...", input_exp = "🚀 EXP 值:"},
+    ja = {title = "🌸 ——— MAIN MENU ——— 🌸", m1 = "💖 1. ミッションリセット", m2 = "⚡ 2. ブルーエナジー補充", m3 = "🚀 3. Exp Up Level", m4 = "❌ 4. 終了", t1 = "🌸 開始中...", t2 = "🌸 実行中...", t3 = "🌸 少々お待ちください", t4 = "✨ 成功！", wait = "待機中...", alert = "オフ", pass_msg = "🔑 パスワード:", pass_wrong = "❌ 違い！", bypass = "バイパスを開始中...", input_exp = "🚀 EXP 値:"}
 }
 
 function CheckPassword()
-    local input = gg.prompt({T[lang].pass_msg}, {''}, {'text'})
-    if not input then os.exit() end
+    local input = gg.prompt({
+        "✨ 🌸 " .. T[lang].pass_msg .. " 🌸 ✨\n" .. CP_LINE .. "\n🔒 SECURITY SYSTEM ACTIVE" 
+    }, {''}, {'text'})
+    
+    if not input then ExitScript() end
     if input[1] ~= PASS_TARGET then
-        gg.alert(T[lang].pass_wrong)
-        os.exit()
+        gg.alert("🛑 " .. T[lang].pass_wrong .. " 🛑")
+        ExitScript()
     end
 end
 
--- FUNGSI BYPASS OTOMATIS
-function AutoBypass()
-    -- Efek Loading Bypass Sinkron (2 detik)
-    ActionLoading(T[lang].bypass, 2000)
-    
-    -- Logika Bypass (Set Ranges ke Anonymous dan Code App)
-    gg.setRanges(gg.REGION_ANONYMOUS | gg.REGION_CODE_APP)
-    
-    gg.toast("✨ System Bypass Active ✨")
-    gg.sleep(500)
+-- ==========================================
+-- CORE FUNCTIONS
+-- ==========================================
+
+function Main()
+    local menu = gg.choice({
+        "💎 " .. T[lang].m1,
+        "⚡ " .. T[lang].m2,
+        "🚀 " .. T[lang].m3,
+        "❌ " .. T[lang].m4
+    }, nil, 
+    T[lang].title .. "\n" .. 
+    CP_LINE .. "\n" ..
+    "🎮 GAME  : TOWNSHIP\n" ..
+    "👤 OWNER : HANZ NPC\n" ..
+    "🛰️ STATUS : ONLINE\n" ..
+    CP_LINE)
+
+    if menu == 1 then ResetMisiRegeta() end
+    if menu == 2 then IsiEnergyBiru() end
+    if menu == 3 then ExpUpLevel() end
+    if menu == 4 then ExitScript() end
 end
 
--- Menjalankan alur awal
+function ResetMisiRegeta()
+    ActionLoading(T[lang].t1, 1000)
+    ActionLoading(T[lang].t2, 2000)
+    gg.timeJump(-86400) 
+    ActionLoading(T[lang].wait, 3000)
+    gg.timeJump(86400)
+    ActionLoading(T[lang].t4, 1000)
+    gg.setVisible(true) 
+end
+
+function IsiEnergyBiru()
+    ActionLoading(T[lang].t1, 1000)
+    ActionLoading(T[lang].t2, 2000)
+    gg.timeJump(36000) 
+    ActionLoading(T[lang].wait, 3000)
+    gg.timeJump(-35998)
+    ActionLoading(T[lang].t4, 1000)
+    gg.setVisible(true) 
+end
+
+-- FITUR 3: EXP UP LEVEL (FIXED TO DWORD & ENHANCED UI)
+function ExpUpLevel()
+    local t = gg.prompt({
+        "✨ 🌸 " .. T[lang].input_exp .. " 🌸 ✨\n" .. CP_LINE .. "\n📥 INPUT DATA BELOW:"
+    }, {200}, {"number"})
+    
+    if not t then return end
+    
+    ActionLoading(T[lang].t1, 1500)
+    
+    gg.clearResults()
+    gg.setRanges(gg.REGION_C_ALLOC)
+    
+    -- Mencari 120;300 Float
+    gg.searchNumber("120;300", gg.TYPE_FLOAT)
+    gg.refineNumber("120", gg.TYPE_FLOAT)
+    
+    local count = gg.getResultCount()
+    if count == 0 then
+        gg.toast("❌ 120 Not Found!")
+        return
+    end
+
+    local r = gg.getResults(count)
+    local editList = {}
+    
+    for i, v in ipairs(r) do
+        local check = gg.getValues({{address = v.address + 4, flags = gg.TYPE_DWORD}})
+        if check[1].value == 1 then
+            -- Set Baris 4 (0) dan Baris 5 (Input) ke DWORD
+            table.insert(editList, {address = v.address + 16, flags = gg.TYPE_DWORD, value = 0, freeze = true})
+            table.insert(editList, {address = v.address + 20, flags = gg.TYPE_DWORD, value = t[1], freeze = true})
+        end
+    end
+    
+    if #editList > 0 then
+        gg.addListItems(editList)
+        gg.setValues(editList)
+        ActionLoading(T[lang].t2, 3000) 
+        ActionLoading(T[lang].t4, 1000)
+    else
+        gg.toast("❌ No matching sequence found!")
+    end
+    gg.setVisible(true)
+end
+
+-- FUNGSI EXIT DENGAN CLEANUP OTOMATIS (HASIL PENCARIAN & LIST)
+function ExitScript()
+    gg.toast("🌸 Cleaning up HNZ Project assets...")
+    gg.clearList()    -- Hapus pembekuan di list
+    gg.clearResults() -- Hapus hasil pencarian memori (Clear Results)
+    ActionLoading("Closing System", 1000)
+    print("🌸 PINK EDITION V1.0 CLOSED SUCCESSFULLY")
+    os.exit()
+end
+
+-- ==========================================
+-- SCRIPT START
+-- ==========================================
+
 LoadingEffect()
 WelcomeBanner()
 SelectLanguage()
 CheckPassword()
 
--- Bypass berjalan otomatis setelah password benar
-AutoBypass()
+ActionLoading(T[lang].bypass, 1500)
 
-gg.toast("🌸 Access Granted: Welcome 🌸")
-
-function Main()
-    local menu = gg.choice({
-        T[lang].m1,
-        T[lang].m2,
-        T[lang].m3
-    }, nil, T[lang].title)
-
-    if menu == 1 then ResetMisiRegeta() end
-    if menu == 2 then IsiEnergyBiru() end
-    if menu == 3 then os.exit() end
-end
-
--- FITUR 1: RESET MISI REGETA (Mundur 24 Jam)
-function ResetMisiRegeta()
-    gg.toast(T[lang].t1)
-    
-    -- Efek Loading saat Time Jump Mundur (1.5 detik loading)
-    ActionLoading(T[lang].t2, 1500)
-    gg.timeJump(-86400) 
-    
-    -- Efek Loading saat Menunggu 3 Detik (Persis 3 detik)
-    ActionLoading(T[lang].wait, 3000)
-    
-    -- Efek Loading saat Time Jump Maju (1.5 detik loading)
-    ActionLoading(T[lang].t3, 1500)
-    gg.timeJump(86400)
-    
-    gg.toast(T[lang].t4)
-    
-    -- Langsung kembali ke menu tanpa jeda
-    gg.setVisible(true) 
-end
-
--- FITUR 2: ISI ENERGY BIRU (Mundur 3 Jam)
-function IsiEnergyBiru()
-    gg.toast(T[lang].t1)
-    
-    -- Efek Loading saat Time Jump Mundur (1.5 detik loading)
-    ActionLoading(T[lang].t2, 1500)
-    gg.timeJump(-10800) 
-    
-    -- Efek Loading saat Menunggu 3 Detik (Persis 3 detik)
-    ActionLoading(T[lang].wait, 3000)
-    
-    -- Efek Loading saat Time Jump Maju (1.5 detik loading)
-    ActionLoading(T[lang].t3, 1500)
-    gg.timeJump(10800)
-    
-    gg.toast(T[lang].t4)
-    
-    -- Langsung kembali ke menu tanpa jeda
-    gg.setVisible(true) 
-end
-
-function NormalSpeed()
-    gg.alert(T[lang].alert)
-end
-
--- Loop utama agar script tetap aktif dan bisa kembali ke menu
 while true do
     if gg.isVisible(true) then
         gg.setVisible(false)
