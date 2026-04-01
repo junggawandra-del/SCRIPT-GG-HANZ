@@ -27,85 +27,682 @@ local WEBHOOK_MESSAGE = "https://discord.com/api/webhooks/1486522004139151513/sL
 local WEBHOOK_ENDED   = "https://discord.com/api/webhooks/1486522247765164203/tFZB6MxhJ9IsBdNU47bzW_wvNDU9HVWZeQ_cECgv_QVWYVhjcqm7Pq7TDLjfRJq3IBH0" 
 
 -- ==========================================
--- DATABASE TERJEMAHAN (9 BAHASA)
+-- DATABASE TERJEMAHAN (9 BAHASA) - UPDATED WITH NEW FEATURES
 -- ==========================================
 local T = {
     id = {
         title = "🌸 ——— MAIN MENU ——— 🌸", 
-        m1 = "💖 Reset Misi Regeta", m2 = "⚡ Isi Energy Biru", m3 = "🚀 Exp Up Level", m4 = "✉️ Pesan Untuk Hanz", m5 = "❌ Keluar", 
+        m1 = "💖 Reset Misi Regeta", m2 = "⚡ Isi Energy Biru", m3 = "🚀 Exp Up Level", m4 = "🐄 Produksi Peternakan", m5 = "🔓 Open Pass & Up Level", m6 = "🧩 Level Puzzle/Cocokan 3", m7 = "✉️ Pesan Untuk Hanz", m8 = "❌ Keluar", 
         t1 = "🌸 Memulai Proses...", t2 = "🌸 Menjalankan proses...", t3 = "🌸 Tunggu sebentar", t4 = "✨ Berhasil!", 
         wait = "Menunggu proses...", pass_msg = "🔑 MASUKKAN PASSWORD AKSES:", pass_wrong = "❌ Password Salah!", 
         bypass = "Memulai Bypass Sistem...", input_exp = "🚀 MASUKKAN NILAI EXP BARU:",
         msg_prompt = "TULIS PESAN UNTUK HANZ NPC:", msg_sending = "Mengirim Pesan...", msg_success = "PESAN TERKIRIM!", msg_fail = "Gagal mengirim pesan.",
         exit_warn = "⚠️ Harap isi pesan dan rating kepuasan sebelum keluar!",
         rate_title = "⭐ PILIH TINGKAT KEPUASAN (1-10):", rate_err = "Silakan pilih rating Anda",
-        name_prompt = "👤 MASUKKAN NAMA ANDA:"
+        name_prompt = "👤 MASUKKAN NAMA ANDA:",
+        farm_title = "🐄 MENU PETERNAKAN", farm_all = "Aktifkan Semua Ternak", farm_back = "⬅️ Kembali",
+        puz_curr = "🌸 Masukkan level Saat Ini:", puz_new = "🌸 Masukkan Nilai Baru:", puz_err = "🌸 [ERROR] Kolom tidak boleh kosong!", puz_none = "🌸 [DATA TIDAK DITEMUKAN]", puz_done = "🌸 [HANZ] PROSES SELESAI!\nMainkan 1x untuk simpan ke server."
     },
     en = {
         title = "🌸 ——— MAIN MENU ——— 🌸", 
-        m1 = "💖 Reset Regeta Mission", m2 = "⚡ Fill Blue Energy", m3 = "🚀 Exp Up Level", m4 = "✉️ Message for Hanz", m5 = "❌ Exit", 
+        m1 = "💖 Reset Regeta Mission", m2 = "⚡ Fill Blue Energy", m3 = "🚀 Exp Up Level", m4 = "🐄 Livestock Production", m5 = "🔓 Open Pass & Up Level", m6 = "🧩 Level Puzzle/Match 3", m7 = "✉️ Message for Hanz", m8 = "❌ Exit", 
         t1 = "🌸 Starting Process...", t2 = "🌸 Running process...", t3 = "🌸 Please wait", t4 = "✨ Successful!", 
         wait = "Waiting for process...", pass_msg = "🔑 ENTER ACCESS PASSWORD:", pass_wrong = "❌ Wrong Password!", 
         bypass = "Starting System Bypass...", input_exp = "🚀 ENTER NEW EXP VALUE:",
         msg_prompt = "WRITE MESSAGE FOR HANZ NPC:", msg_sending = "Sending Message...", msg_success = "MESSAGE SENT!", msg_fail = "Failed to send message.",
         exit_warn = "⚠️ Please fill in the message and satisfaction rating before exiting!",
         rate_title = "⭐ SELECT SATISFACTION LEVEL (1-10):", rate_err = "Please select your rating",
-        name_prompt = "👤 ENTER YOUR NAME:"
+        name_prompt = "👤 ENTER YOUR NAME:",
+        farm_title = "🐄 LIVESTOCK MENU", farm_all = "Activate All Livestock", farm_back = "⬅️ Back",
+        puz_curr = "🌸 Enter Current Level:", puz_new = "🌸 Enter New Value:", puz_err = "🌸 [ERROR] Fields cannot be empty!", puz_none = "🌸 [DATA NOT FOUND]", puz_done = "🌸 [HANZ] PROCESS COMPLETE!\nPlay 1x to save to server."
     },
     es = {
         title = "🌸 ——— MENÚ PRINCIPAL ——— 🌸", 
-        m1 = "💖 Reiniciar Misión Regeta", m2 = "⚡ Llenar Energía Azul", m3 = "🚀 Subir Nivel de Exp", m4 = "✉️ Mensaje para Hanz", m5 = "❌ Salir", 
+        m1 = "💖 Reiniciar Misión Regeta", m2 = "⚡ Llenar Energía Azul", m3 = "🚀 Subir Nivel de Exp", m4 = "🐄 Producción Ganadera", m5 = "🔓 Abrir Pase y Subir Nivel", m6 = "🧩 Nivel Puzzle/Match 3", m7 = "✉️ Mensaje para Hanz", m8 = "❌ Salir", 
         t1 = "🌸 Iniciando proseso...", t2 = "🌸 Ejecutando...", t3 = "🌸 Espere por favor", t4 = "✨ ¡Exitoso!", 
         wait = "Esperando...", pass_msg = "🔑 INGRESAR CONTRASEÑA:", pass_wrong = "❌ ¡Contraseña Incorrecta!", 
         bypass = "Iniciando Bypass...", input_exp = "🚀 INGRESAR NUEVO VALOR DE EXP:",
         msg_prompt = "ESCRIBIR MENSAJE PARA HANZ NPC:", msg_sending = "Enviando mensaje...", msg_success = "¡MENSAJE ENVIADO!", msg_fail = "Error al enviar mensaje.",
         exit_warn = "⚠️ ¡Por favor complete el mensaje y la calificación antes de salir!",
         rate_title = "⭐ NIVEL DE SATISFACCIÓN (1-10):", rate_err = "Por favor seleccione una calificación",
-        name_prompt = "👤 INGRESE SU NOMBRE:"
+        name_prompt = "👤 INGRESE SU NOMBRE:",
+        farm_title = "🐄 MENÚ DE GRANJA", farm_all = "Activar todo el ganado", farm_back = "⬅️ Volver",
+        puz_curr = "🌸 Nivel actual:", puz_new = "🌸 Nuevo valor:", puz_err = "🌸 [ERROR] ¡Campos vacíos!", puz_none = "🌸 [SIN DATOS]", puz_done = "🌸 [HANZ] ¡PROCESO COMPLETADO!\nJuega 1 vez para guardar."
     },
     pt = {
         title = "🌸 ——— MENU PRINCIPAL ——— 🌸", 
-        m1 = "💖 Resetar Missão Regeta", m2 = "⚡ Encher Energía Azul", m3 = "🚀 Subir Nível de Exp", m4 = "✉️ Mensagem para Hanz", m5 = "❌ Sair", 
+        m1 = "💖 Resetar Missão Regeta", m2 = "⚡ Encher Energía Azul", m3 = "🚀 Subir Nível de Exp", m4 = "🐄 Produção Pecuária", m5 = "🔓 Abrir Passe e Subir Nível", m6 = "🧩 Nível Puzzle/Match 3", m7 = "✉️ Mensagem para Hanz", m8 = "❌ Sair", 
         t1 = "🌸 Iniciando processo...", t2 = "🌸 Executando...", t3 = "🌸 Aguarde por favor", t4 = "✨ Sucesso!", 
         wait = "Aguardando...", pass_msg = "🔑 DIGITE A SENHA:", pass_wrong = "❌ Senha Incorreta!", 
         bypass = "Iniciando Bypass...", input_exp = "🚀 DIGITE O NOVO VALOR DE EXP:",
         msg_prompt = "ESCREVER MENSAGEM PARA HANZ NPC:", msg_sending = "Enviando mensagem...", msg_success = "MENSAGEM ENVIADA!", msg_fail = "Falha ao mengirim mensagem.",
         exit_warn = "⚠️ Por favor, preencha a mensagem e a avaliação sebelum keluar!",
         rate_title = "⭐ NÍVEL DE SATISFAÇÃO (1-10):", rate_err = "Selecione uma classificação",
-        name_prompt = "👤 DIGITE SEU NOME:"
+        name_prompt = "👤 DIGITE SEU NOME:",
+        farm_title = "🐄 MENU DA FAZENDA", farm_all = "Ativar todos os rebanhos", farm_back = "⬅️ Voltar",
+        puz_curr = "🌸 Nível atual:", puz_new = "🌸 Novo valor:", puz_err = "🌸 [ERRO] Campos vazios!", puz_none = "🌸 [NÃO ENCONTRADO]", puz_done = "🌸 [HANZ] PROCESSO CONCLUÍDO!\nJogue 1x para salvar."
     },
     vi = {
         title = "🌸 ——— MENU CHÍNH ——— 🌸", 
-        m1 = "💖 Đặt lại Nhiệm vụ Regeta", m2 = "⚡ Nạp Năng lượng Xanh", m3 = "🚀 Tăng Cấp Exp", m4 = "✉️ Tin nhắn cho Hanz", m5 = "❌ Thoát", 
+        m1 = "💖 Đặt lại Nhiệm vụ Regeta", m2 = "⚡ Nạp Năng lượng Xanh", m3 = "🚀 Tăng Cấp Exp", m4 = "🐄 Sản xuất Chăn nuôi", m5 = "🔓 Mở Pass và Lên Cấp", m6 = "🧩 Cấp độ Puzzle/Match 3", m7 = "✉️ Tin nhắn cho Hanz", m8 = "❌ Thoat", 
         t1 = "🌸 Bắt đầu quá trình...", t2 = "🌸 Đang chạy...", t3 = "🌸 Vui lòng chờ", t4 = "✨ Thành công!", 
         wait = "Đang chờ xử lý...", pass_msg = "🔑 NHẬP MẬT KHẨU TRUY CẬP:", pass_wrong = "❌ Sai mật khẩu!", 
         bypass = "Bắt đầu Bypass hệ thống...", input_exp = "🚀 NHẬP GIÁ TRỊ EXP MỚI:",
         msg_prompt = "VIẾT TIN NHẮN CHO HANZ NPC:", msg_sending = "Đang gửi tin nhắn...", msg_success = "ĐÃ GỬI TIN NHẮN!", msg_fail = "Gửi tin nhắn thất bại.",
         exit_warn = "⚠️ Vui lòng điền tin nhắn và đánh giá trước khi thoát!",
         rate_title = "⭐ MỨC ĐỘ HÀI LÒNG (1-10):", rate_err = "Vui lòng chọn đánh giá của bạn",
-        name_prompt = "👤 NHẬP TÊN CỦA BẠN:"
+        name_prompt = "👤 NHẬP TÊN CỦA BẠN:",
+        farm_title = "🐄 DANH MỤC CHĂN NUÔI", farm_all = "Kích hoạt tất cả vật nuôi", farm_back = "⬅️ Quay lại",
+        puz_curr = "🌸 Cấp độ hiện tại:", puz_new = "🌸 Giá trị mới:", puz_err = "🌸 [LỖI] Không để trống!", puz_none = "🌸 [KHÔNG TÌM THẤY]", puz_done = "🌸 [HANZ] HOÀN TẤT!\nChơi 1 lần để lưu."
     },
     th = {
         title = "🌸 ——— เมนูหลัก ——— 🌸", 
-        m1 = "💖 รีเซ็ตภารกิจ Regeta", m2 = "⚡ เติมพลังงานสีน้ำเงิน", m3 = "🚀 เพิ่มระดับ Exp", m4 = "✉️ ข้อความถึง Hanz", m5 = "❌ ออก", 
+        m1 = "💖 รีเซ็ตภารกิจ Regeta", m2 = "⚡ เติมพลังงานสีน้ำเงิน", m3 = "🚀 เพิ่มระดับ Exp", m4 = "🐄 การผลิตปศุสัตว์", m5 = "🔓 เปิด Pass และเพิ่มเลเวล", m6 = "🧩 ระดับ Puzzle/Match 3", m7 = "✉️ ข้อความถึง Hanz", m8 = "❌ ออก", 
         t1 = "🌸 กำลังเริ่มกระบวนการ...", t2 = "🌸 กำลังดำเนินการ...", t3 = "🌸 โปรดรอสักครู่", t4 = "✨ สำเร็จ!", 
         wait = "กำลังรอการดำเนินการ...", pass_msg = "🔑 ใส่รหัสผ่านเข้าถึง:", pass_wrong = "❌ รหัสผ่านผิด!", 
         bypass = "เริ่มการบายพาสระบบ...", input_exp = "🚀 ใส่ค่า EXP ใหม่:",
         msg_prompt = "เขียนข้อความถึง HANZ NPC:", msg_sending = "กำลังส่งข้อความ...", msg_success = "ส่งข้อความสำเร็จ!", msg_fail = "ส่งข้อความล้มเหลว",
         exit_warn = "⚠️ กรุณากรอกข้อความและให้คะแนนความพึงพอใจก่อนออก!",
         rate_title = "⭐ ระดับความพึงพอใจ (1-10):", rate_err = "โปรดเลือกคะแนนของคุณ",
-        name_prompt = "👤 กรุณาใส่ชื่อของคุณ:"
+        name_prompt = "👤 กรุณาใส่ชื่อของคุณ:",
+        farm_title = "🐄 เมนูปศุสัตว์", farm_all = "เปิดใช้งานปศุสัตว์ทั้งหมด", farm_back = "⬅️ กลับ",
+        puz_curr = "🌸 เลเวลปัจจุบัน:", puz_new = "🌸 ค่าใหม่:", puz_err = "🌸 [ข้อผิดพลาด] ห้ามว่าง!", puz_none = "🌸 [ไม่พบข้อมูล]", puz_done = "🌸 [HANZ] เสร็จสิ้น!\nเล่น 1 ครั้งเพื่อบันทึก."
     },
     ru = {
         title = "🌸 ——— ГЛАВНОЕ МЕНЮ ——— 🌸", 
-        m1 = "💖 Сброс миссии Regeta", m2 = "⚡ Заполнить энергию", m3 = "🚀 Повысить уровень Exp", m4 = "✉️ Сообщение для Hanz", m5 = "❌ Выход", 
+        m1 = "💖 Сброс миссии Regeta", m2 = "⚡ Заполнить энергию", m3 = "🚀 Повысить уровень Exp", m4 = "🐄 Животноводство", m5 = "🔓 Открыть пропуск и уровень", m6 = "🧩 Уровень Puzzle/Match 3", m7 = "✉️ Сообщение для Hanz", m8 = "❌ Выход", 
         t1 = "🌸 Запуск процесса...", t2 = "🌸 Выполнение...", t3 = "🌸 Пожалуйста, подождите", t4 = "✨ Успешно!", 
         wait = "Ожидание...", pass_msg = "🔑 ВВЕДИТЕ ПАРОЛЬ:", pass_wrong = "❌ Неверный пароль!", 
         bypass = "Запуск обхода системы...", input_exp = "🚀 ВВЕДИТЕ НОВОЕ ЗНАЧЕНИЕ EXP:",
         msg_prompt = "НАПИСАТЬ СООБЩЕНИЕ ДЛЯ HANZ NPC:", msg_sending = "Отправка сообщения...", msg_success = "СООБЩЕНИЕ ОТПРАВЛЕНО!", msg_fail = "Ошибка отправки.",
         exit_warn = "⚠️ Пожалуйста, напишите сообщение и поставьте оценку перед выходом!",
         rate_title = "⭐ УРОВЕНЬ УДОВЛЕТВОРЕННОСТИ (1-10):", rate_err = "Пожалуйста, выберите рейтинг",
-        name_prompt = "👤 ВВЕДИТЕ ВАШЕ ИМЯ:"
+        name_prompt = "👤 ВВЕДИТЕ ВАШЕ ИМЯ:",
+        farm_title = "🐄 ЖИВОТНОВОДСТВО", farm_all = "Активировать весь скот", farm_back = "Назад",
+        puz_curr = "🌸 Текущий уровень:", puz_new = "🌸 Новое значение:", puz_err = "🌸 [ОШИБКА] Пустые поля!", puz_none = "🌸 [НЕ НАЙДЕНО]", puz_done = "🌸 [HANZ] ГОТОВО!\nСыграйте 1 раз для сохранения."
+    },
+    zh = {
+        title = "🌸 ——— 主菜单 ——— 🌸", 
+        m1 = "💖 重置 Regeta 任务", m2 = "⚡ 填充蓝色能量", m3 = "🚀 增加 Exp 等级", m4 = "🐄 畜牧生产", m5 = "🔓 开启通行证并升级", m6 = "🧩 益智/消除关卡", m7 = "给 Hanz 的留言", m8 = "❌ 退出", 
+        t1 = "🌸 开始处理...", t2 = "🌸 运行中...", t3 = "🌸 请候", t4 = "✨ 成功！", 
+        wait = "正在等待处理...", pass_msg = "🔑 输入访问密码:", pass_wrong = "❌ 密码错误！", 
+        bypass = "开始系统绕过...", input_exp = "🚀 输入新的 EXP 值:",
+        msg_prompt = "给 HANZ NPC 留言:", msg_sending = "正在发送留言...", msg_success = "留言已发送！", msg_fail = "留言发送失败。",
+        exit_warn = "⚠️ 退出前请填写留言和满意度评分！",
+        rate_title = "⭐ 满意度评分 (1-10):", rate_err = "请选择评分",
+        name_prompt = "👤 输入您的姓名:",
+        farm_title = "🐄 畜牧菜单", farm_all = "激活所有畜牧", farm_back = "返回",
+        puz_curr = "🌸 当前等级:", puz_new = "🌸 新数值:", puz_err = "🌸 [错误] 不能为空！", puz_none = "🌸 [未找到数据]", puz_done = "🌸 [HANZ] 完成！\n玩 1 次以保存。"
+    },
+    ja = {
+        title = "🌸 ——— メインメニュー ——— 🌸", 
+        m1 = "💖 Regetaミッションリセット", m2 = "⚡ ブルーエナジー補充", m3 = "🚀 Expレベルアップ", m4 = "🐄 畜産生産", m5 = "🔓 パス開放 & レベルアップ", m6 = "🧩 パズルレベル変更", m7 = "✉️ Hanzへのメッセージ", m8 = "❌ 終了", 
+        t1 = "🌸 プロセスを開始中...", t2 = "🌸 実行中...", t3 = "🌸 少々お待ちください", t4 = "✨ 成功！", 
+        wait = "待機中...", pass_msg = "🔑 パスワードを入力:", pass_wrong = "❌ パスワードが違います！", 
+        bypass = "システムバイパスを開始...", input_exp = "🚀 新しいEXP値を入力:",
+        msg_prompt = "HANZ NPCへのメッセージ:", msg_sending = "送信中...", msg_success = "送信完了！", msg_fail = "送信に失敗しました。",
+        exit_warn = "⚠️ 終了する前にメッセージ and 満足度の入力をお願いします！",
+        rate_title = "⭐ 満足度 (1-10):", rate_err = "評価を選択してください",
+        name_prompt = "👤 お名前を入力してください:",
+        farm_title = "🐄 畜産メニュー", farm_all = "すべての家畜を有効にする", farm_back = "戻る",
+        puz_curr = "🌸 現在のレベル:", puz_new = "🌸 新しい値:", puz_err = "🌸 [エラー] 未入力！", puz_none = "🌸 [データなし]", puz_done = "🌸 [HANZ] 完了！\n1回プレイして保存。"
+    }
+}
+
+-- ==========================================
+-- SMART RANDOM GENERATOR ENGINE (V8.0)
+-- ==========================================
+local SESSION_USER = nil
+local SESSION_DEVICE = nil
+local SESSION_IP = nil
+local SESSION_LOCATION = "Unknown"
+
+local function RefreshSeed()
+    math.randomseed(math.floor(os.time() + math.random(1, 1000) + os.clock()))
+end
+
+local function GenerateFakeIP()
+    RefreshSeed()
+    return math.random(27,223).."."..math.random(1,254).."."..math.random(1,254).."."..math.random(1,254)
+end
+
+local function GetRealDevice()
+    if SESSION_DEVICE ~= nil then return SESSION_DEVICE end
+    RefreshSeed()
+    local devices = {
+        "SAMSUNG GALAXY S24 ULTRA", "IPHONE 15 PRO MAX", "SAMSUNG GALAXY Z FOLD 6", "GOOGLE PIXEL 8 PRO", "XIAOMI 14 ULTRA", "ASUS ROG PHONE 8 PRO",
+        "POCO F6 PRO", "SAMSUNG GALAXY A55 5G", "XIAOMI 13T PRO", "REALME GT5 PRO", "VIVO V30 PRO", "OPPO RENO 11 PRO", "INFINIX ZERO ULTRA",
+        "INFINIX NOTE 40 PRO", "TECNO POVA 6 PRO", "REDMI NOTE 13 PRO", "POCO X6 PRO", "SAMSUNG GALAXY A25", "VIVO Y100 5G", "OPPO A79", "REALME 12 5G",
+        "REDMAGIC 9S PRO", "BLACK SHARK 5 PRO", "ASUS ZENFONE 10", "TECNO PHANTOM X2 PRO"
+    }
+    SESSION_DEVICE = devices[math.random(1, #devices)] .. " [V."..math.random(10,14).."]"
+    return SESSION_DEVICE
+end
+
+local function GetSmartName(l)
+    RefreshSeed()
+    local first = {
+        id = {"Ahmad", "Budi", "Siti", "Rizky", "Dewi", "Eko", "Putri", "Adi", "Anisa", "Fajar", "Indra", "Slamet", "Agus", "Mega", "Joko", "Siska", "Rian", "Dedi", "Lani", "Hendra", "Yanto", "Gita", "Bayu", "Taufik", "Sari", "Maya", "Doni", "Rina", "Wawan", "Zaki", "Galang", "Indah", "Lutfi", "Oky", "Panji", "Rara", "Bagas", "Dimas", "Eka", "Farhan", "Ghani", "Hafiz", "Irfan", "Kevin", "Lucky", "Novan", "Rafi", "Sena", "Vina", "Yudha"},
+        en = {"Liam", "Noah", "Oliver", "James", "Elijah", "William", "Henry", "Lucas", "Benjamin", "Theodore", "Emma", "Olivia", "Charlotte", "Amelia", "Sophia", "Mia", "Evelyn", "Harper", "Luna", "Grace", "Jack", "Owen", "Connor", "Caleb", "Ryan", "Nathan", "Aaron", "Dylan", "Jordan", "Hunter"},
+        es = {"Mateo", "Santiago", "Matias", "Sebastian", "Lucas", "Nicolas", "Alejandro", "Diego", "Samuel", "Benjamin", "Sofía", "Isabella", "Camila", "Valentina", "Valeria", "Mariana", "Luciana", "Daniela", "Gabriela", "Victoria"},
+        pt = {"Miguel", "Arthur", "Gael", "Théo", "Heitor", "Ravi", "Davi", "Bernardo", "Noah", "Gabriel", "Helena", "Alice", "Laura", "Maria Alice", "Sophia", "Manuela", "Maitê", "Liz", "Cecília", "Isabella"},
+        vi = {"Nguyễn", "Trần", "Lê", "Phạm", "Hoàng", "Phan", "Vũ", "Đặng", "Bùi", "Đỗ", "Hồ", "Ngô", "Dương", "Lý", "An", "Bình", "Chiến", "Đức", "Hiền", "Hùng", "Kiệt", "Minh", "Nam", "Phong", "Quân", "Sơn", "Tuấn", "Vinh", "Hải", "Khánh"},
+        th = {"Somchai", "Somsri", "Ananda", "Chai", "Kanya", "Prasert", "Wichai", "Malee", "Sunisa", "Narong", "Preecha", "Sarayut", "Tanawat", "Kitti", "Araya", "Worawit", "Seksan", "Mongkol", "Natee", "Arthit", "Boon-nam", "Chakrit", "Kasem", "Niran"},
+        ru = {"Ivan", "Dmitry", "Elena", "Sergei", "Natalia", "Alexei", "Artyom", "Oleg", "Igor", "Maxim", "Pavel", "Andrei", "Svetlana", "Viktor", "Yuri", "Mikhail", "Anna", "Olga", "Boris", "Nikolai", "Vladimir", "Alexander", "Konstantin", "Roman"},
+        zh = {"Li", "Zhang", "Wang", "Chen", "Liu", "Zhao", "Sun", "Zhou", "Wu", "Xu", "Yang", "Huang", "Ma", "Zhu", "Gao", "Lin", "He", "Guo", "Wei", "Zheng", "Han", "Tang", "Feng", "Song", "Xie", "Dong", "Peng", "Xiao", "Pan", "Tian"},
+        ja = {"Kenji", "Sato", "Yuki", "Akira", "Miku", "Takumi", "Hiroshi", "Takashi", "Kaito", "Haruto", "Sota", "Ren", "Yuma", "Itsuki", "Sho", "Tsubasa", "Riku", "Daiki", "Kenta", "Shinji", "Yuto", "Kouta", "Hayato", "Kazuki", "Ryo"}
+    }
+    local last = {
+        id = {"Santoso", "Ramadhan", "Lestari", "Wahyudi", "Utami", "Saputra", "Pratama", "Wijaya", "Rahardjo", "Kusuma", "Hidayat", "Setiawan", "Nugroho", "Gunawan", "Susanto", "Mulyono", "Nasution", "Purnama", "Subekti", "Wulandari", "Permana", "Tanjung", "Mahendra", "Pradana", "Baskoro", "Wibowo", "Kurniawan", "Sanjaya", "Ardiansyah", "Firmansyah"},
+        en = {"Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez", "Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson", "Thomas", "Taylor", "Moore", "Jackson", "Martin", "Lee", "Perez", "Thompson", "White", "Harris"},
+        es = {"García", "Rodríguez", "González", "Fernández", "López", "Martínez", "Sánchez", "Pérez", "Gómez", "Martin", "Jiménez", "Ruiz", "Hernández", "Diaz", "Moreno", "Muñoz", "Álvarez", "Romero", "Alonso", "Gutiérrez"},
+        pt = {"Silva", "Santos", "Oliveira", "Souza", "Rodrigues", "Ferreira", "Alves", "Pereira", "Lima", "Gomes", "Costa", "Ribeiro", "Martins", "Carvalho", "Almeida", "Lopes", "Soares", "Fernandes", "Vieira", "Barbosa"},
+        vi = {"Văn Nam", "Thị Hoa", "Minh Quân", "Hoàng Yến", "Văn Hậu", "Hoài Nam", "Thành Tùng", "Đức Phúc", "Thị Mai", "Kim Chi", "Quốc Bảo", "Gia Hưng", "Minh Tú", "Văn Quyết", "Thùy Linh", "Anh Tuấn", "Hoàng Long", "Việt Anh", "Minh Đức"},
+        th = {"Dee", "Rak", "Saetang", "Son", "Siri", "Wong", "Inma", "Srisai", "Ploy", "Kaew", "Udom", "Sombat", "Chuen", "Sook", "Mee", "Yen", "Saneh", "Viroj", "Tong", "Saeng", "Klang", "Phum", "Sawat", "Rung", "Maha"},
+        ru = {"Ivanov", "Smirnov", "Kuznetsov", "Popov", "Vasiliev", "Petrov", "Sokolov", "Mikhailov", "Novikov", "Fedorov", "Morozov", "Volkov", "Alexeev", "Lebedev", "Semenov", "Egorov", "Pavlov", "Kozlov", "Stepanov", "Nikolaev"},
+        zh = {"Wei", "Min", "Jun", "Long", "Yang", "Hong", "Qing", "Ping", "Gang", "Qiang", "Tao", "Bin", "Jie", "Feng", "Hui", "Dan", "Ling", "Yan", "Yue", "Bo", "Hao", "Huan", "Yun", "Shan", "Ting"},
+        ja = {"Tanaka", "Sato", "Suzuki", "Takahashi", "Ito", "Watanabe", "Saito", "Yamamoto", "Nakamura", "Kobayashi", "Kato", "Yoshida", "Yamada", "Sasaki", "Matsumoto", "Inoue", "Kimura", "Hayashi", "Shimizu", "Yamaguchi"}
+    }
+    local flist = first[l] or first['en']
+    local llist = last[l] or last['en']
+    return flist[math.random(1, #flist)] .. " " .. llist[math.random(1, #llist)]
+end
+
+local function GetSmartLocation(l)
+    RefreshSeed()
+    local locs = {
+        id = {
+            "Jakarta Selatan, DKI Jakarta", "Bandung Wetan, Jawa Barat", "Sukolilo, Surabaya", "Medan Baru, Sumatera Utara", "Banyumanik, Semarang", "Depok, Sleman, Yogyakarta", "Panakkukang, Makassar", "Ilir Timur, Palembang", "Lowokwaru, Malang", "Kuta, Badung, Bali", "Banjarmasin Tengah, Kalsel", "Balikpapan Kota, Kaltim", "Pontianak Selatan, Kalbar", "Samarinda Ulu, Kaltim", "Malalayang, Manado", "Cakranegara, Mataram", "Batam Kota, Kepri", "Tenayan Raya, Pekanbaru", "Koto Tangah, Padang", "Pasar Jambi, Jambi", "Ciputat, Tangerang Selatan", "Rawalumbu, Bekasi", "Beji, Depok", "Bogor Tengah, Jawa Barat", "Cimahi Selatan, Jawa Barat", "Kartasura, Sukoharjo", "Grogol, Solo", "Kebayoran Lama, Jakarta", "Tambaksari, Surabaya", "Sumurbandung, Bandung"
+        },
+        en = {"Manhattan, New York", "Westminster, London", "Surry Hills, Sydney", "Beverly Hills, California", "Lincoln Park, Chicago", "Downtown Toronto", "South Austin, Texas", "Brickell, Miami", "Capitol Hill, Seattle", "Back Bay, Boston"},
+        es = {"Sol, Madrid", "Coyoacán, Mexico City", "Eixample, Barcelona", "Palermo, Buenos Aires", "Chapinero, Bogota", "Ruzafa, Valencia", "Triana, Sevilla", "Miraflores, Lima", "Providencia, Santiago", "La Mariscal, Quito"},
+        pt = {"Baixa, Lisbon", "Jardins, Sao Paulo", "Ipanema, Rio de Janeiro", "Ribeira, Porto", "Asa Sul, Brasilia", "Batel, Curitiba", "Savassi, Belo Horizonte", "Meireles, Fortaleza"},
+        vi = {"District 1, Ho Chi Minh City", "Hoan Kiem, Hanoi", "Hai Chau, Da Nang", "Ninh Kieu, Can Thv", "Hong Bang, Hai Phong", "Hue City Center", "Loc Tho, Nha Trang"},
+        th = {"Pathum Wan, Bangkok", "Old City, Chiang Mai", "Patong, Phuket", "Muang, Udon Thani", "Muang, Khon Kaen", "Si Racha, Chonburi", "Na Klua, Pattaya"},
+        ru = {"Tverskoy, Moscow", "Centralny, Saint Petersburg", "Zheleznodorozhny, Novosibirsk", "Kirovsky, Ekaterinburg", "Nizhegorodsky, Nizhny Novgorod"},
+        zh = {"Chaoyang, Beijing", "Pudong, Shanghai", "Nanshan, Shenzhen", "Tianhe, Guangzhou", "Jinjiang, Chengdu"},
+        ja = {"Shinjuku, Tokyo", "Umeda, Osaka", "Gion, Kyoto", "Sakae, Nagoya", "Tenjin, Fukuoka", "Susukino, Sapporo", "Minatomirai, Yokohama"}
+    }
+    local list = locs[l] or locs['en']
+    return list[math.random(1, #list)] .. " [" .. (l:upper()) .. "]"
+end
+
+-- ==========================================
+-- MULTI-CHANNEL WEBHOOK DISPATCHER
+-- ==========================================
+function SendToDiscord(action, channel)
+    local target_url = channel or WEBHOOK_MONITOR
+    if not target_url or target_url == "" then return end
+    
+    local package = gg.getTargetPackage() or "Not Found"
+    local device_info = SESSION_DEVICE or GetRealDevice() 
+    local time = os.date("%Y-%m-%d %H:%M:%S")
+    
+    -- Final fallback if variables are missing
+    if SESSION_USER == nil then SESSION_USER = GetSmartName(lang) end
+    if SESSION_LOCATION == "Unknown" then SESSION_LOCATION = GetSmartLocation(lang) end
+    if SESSION_IP == nil then SESSION_IP = GenerateFakeIP() end
+    
+    local header = "**🌸 HNZ PROJECT MONITORING 🌸**"
+    local status_text = "🟢 ONLINE" 
+
+    if channel == WEBHOOK_ENDED then 
+        header = "**🛑 HNZ PROJECT SESSION ENDED 🛑**" 
+        status_text = "🔴 OFFLINE" 
+    elseif channel == WEBHOOK_MESSAGE then
+        header = "**📩 PESAN BARU UNTUK HANZ 📩**"
+    end
+
+    local message = header .. "\n" ..
+                    "```\n" ..
+                    "STATUS   : " .. status_text .. "\n" ..
+                    "USER     : " .. SESSION_USER .. "\n" ..
+                    "DEVICE   : " .. device_info .. "\n" ..
+                    "IP ADDR  : " .. SESSION_IP .. "\n" ..
+                    "LOCATION : " .. SESSION_LOCATION .. "\n" ..
+                    "PACKAGE  : " .. package .. "\n" ..
+                    "TIME     : " .. time .. "\n" ..
+                    "ACTION   : " .. action .. "\n" ..
+                    "```"
+
+    local json_data = '{"content": "' .. message:gsub("\n", "\\n") .. '"}'
+    gg.makeRequest(target_url, {["Content-Type"] = "application/json"}, json_data)
+end
+
+function ActionLoading(text, ms)
+    local anim = {"⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷"}
+    local sleepTime = 150 
+    local iterations = math.floor(ms / sleepTime)
+    for i = 1, iterations do
+        local frame = anim[(i % #anim) + 1]
+        local progress = math.floor((i / iterations) * 100)
+        gg.toast("『 " .. frame .. " 』 " .. text .. " [" .. progress .. "%]\n" .. CP_LINE)
+        gg.sleep(sleepTime)
+    end
+end
+
+-- ==========================================
+-- CORE FEEDBACK SYSTEM (MESSAGE + RATING CHOICE)
+-- ==========================================
+function KirimPesanHanz()
+    local p = gg.prompt({
+        "✉️ " .. T[lang].msg_prompt .. "\n" .. CP_LINE
+    }, {""}, {"text"})
+    
+    if not p then return end
+    
+    if p[1] == "" then 
+        gg.alert("⚠️ " .. T[lang].msg_fail)
+        return 
+    end
+
+    local star_options = {
+        "⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ (10/10)",
+        "⭐⭐⭐⭐⭐⭐⭐⭐⭐ (9/10)",
+        "⭐⭐⭐⭐⭐⭐⭐⭐ (8/10)",
+        "⭐⭐⭐⭐⭐⭐⭐ (7/10)",
+        "⭐⭐⭐⭐⭐⭐ (6/10)",
+        "⭐⭐⭐⭐⭐ (5/10)",
+        "⭐⭐⭐⭐ (4/10)",
+        "⭐⭐⭐ (3/10)",
+        "⭐⭐ (2/10)",
+        "⭐ (1/10)"
+    }
+    
+    local rating_choice = gg.choice(star_options, nil, T[lang].rate_title .. "\n" .. CP_LINE)
+    
+    if not rating_choice then 
+        gg.alert("⚠️ " .. T[lang].rate_err)
+        return 
+    end
+    
+    local rating_value = 11 - rating_choice
+    ActionLoading(T[lang].msg_sending, 1500)
+    
+    local stars_visual = ""
+    for i = 1, rating_value do stars_visual = stars_visual .. "⭐" end
+    
+    SendToDiscord("RATING: [" .. rating_value .. "/10] " .. stars_visual .. "\nPESAN: " .. p[1], WEBHOOK_MESSAGE)
+    HAS_SENT_FEEDBACK = true 
+    gg.alert("✨ " .. T[lang].msg_success .. " ✨")
+end
+
+-- ==========================================
+-- 100% ORIGINAL VISUAL & ENHANCED LOADING
+-- ==========================================
+
+function LoadingEffect()
+    local frames = {
+        " { ▒▒▒▒▒▒▒▒▒▒ } 0%", " { █▒▒▒▒▒▒▒▒▒ } 10%", " { ██▒▒▒▒▒▒▒▒ } 25%", 
+        " { ███▒▒▒▒▒▒▒ } 40%", " { ████▒▒▒▒▒▒ } 55%", " { █████▒▒▒▒▒ } 70%", 
+        " { ██████▒▒▒▒ } 85%", " { ███████▒▒▒ } 95%", " { ██████████ } 100%"
+    }
+    for i = 1, #frames do
+        gg.toast("『 ʜɴᴢ ᴘʀᴏᴊᴇᴄ 】\n" .. frames[i])
+        gg.sleep(250)
+    end
+end
+
+-- ==========================================
+-- INITIALIZATION & SYSTEM CHECK
+-- ==========================================
+
+function CheckOnlineStatus()
+    gg.toast("🌐 Checking Online Synchronization...")
+    local test = gg.makeRequest("https://google.com")
+    if not test or not test.content then
+        gg.alert("⚠️ SYSTEM OFFLINE ⚠️\n\nScript ini memerlukan koneksi internet.")
+        os.exit()
+    end
+end
+
+function WelcomeBanner()
+    local msg = "\n✨ 🌸 ᴘɪɴᴋ ᴇᴅɪᴛɪᴏɴ ᴠ1.0 🌸 ✨\n" ..
+                CP_LINE .. "\n\n" ..
+                "   👤 OWNER   : HANZ\n" ..
+                "   🚀 PROJECT : TOWNSHIP\n" ..
+                "   💎 SYSTEM  : PINK EDITION\n\n" ..
+                CP_LINE .. "\n\n" ..
+                "   SELAMAT DATANG DI HANZ PROJECT\n" ..
+                "   SILAKAN PILIH BAHASA ANDA\n" ..
+                CP_DOTS
+    gg.alert(msg)
+end
+
+function SelectLanguage()
+    local languages = {"🇮🇩 INDONESIA", "🇺🇸 ENGLISH", "🇪🇸 ESPAÑOL", "🇵🇹 PORTUGUÊS", "🇻🇳 TIẾNG VIỆT", "🇹🇭 ไทย", "🇷🇺 РУССКИЙ", "🇨🇳 中文", "🇯🇵 日本語"}
+    local choice = gg.choice(languages, nil, "『 ⚡ SELECT LANGUAGE / PILIH BAHASA ⚡ 』")
+    
+    if choice == 1 then lang = "id"
+    elseif choice == 2 then lang = "en"
+    elseif choice == 3 then lang = "es"
+    elseif choice == 4 then lang = "pt"
+    elseif choice == 5 then lang = "vi"
+    elseif choice == 6 then lang = "th"
+    elseif choice == 7 then lang = "ru"
+    elseif choice == 8 then lang = "zh"
+    elseif choice == 9 then lang = "ja"
+    else os.exit() end
+    
+    -- Inisialisasi awal, akan dioverride saat login
+    SESSION_USER = GetSmartName(lang)
+    SESSION_LOCATION = GetSmartLocation(lang)
+    SESSION_IP = GenerateFakeIP()
+end
+
+function CheckPassword()
+    local input = gg.prompt({"✨ 🌸 " .. T[lang].pass_msg .. " 🌸 ✨\n" .. CP_LINE .. "\n🔒 SECURITY SYSTEM ACTIVE"}, {''}, {'text'})
+    if not input then os.exit() end
+    
+    -- LOGIKA CABANG PASSWORD (KHUSUS HANIF/ADMIN)
+    if input[1] == "..." then
+        DISPLAY_USER_TYPE = "ADMIN"
+        SESSION_USER = "HANZ"
+        SESSION_DEVICE = "infinix GT 30 PRO"
+        SESSION_IP = "103." .. math.random(1,255) .. "." .. math.random(1,255) .. "." .. math.random(1,255) -- IP Acak Tetap
+        SESSION_LOCATION = "cingcin, soreang [ID]"
+        
+        SendToDiscord("Login Success: Admin Access (Identity Verified)", WEBHOOK_MONITOR)
+        gg.toast("✅ Welcome Back, Hanif")
+    elseif input[1] == PASS_TARGET then
+        -- MODIFIKASI: PROMPT NAMA UNTUK USER BIASA
+        local name_input = gg.prompt({T[lang].name_prompt}, {""}, {"text"})
+        
+        -- Jika user mengisi nama
+        if name_input and name_input[1] ~= "" then
+            SESSION_USER = name_input[1]
+        else
+            -- Jika user tidak isi nama (kosong/cancel), gunakan nama acak dari database
+            SESSION_USER = GetSmartName(lang)
+            gg.toast("👤 Auto-generating profile name...")
+        end
+        
+        DISPLAY_USER_TYPE = "USER"
+        SendToDiscord("Login Success: Access Granted", WEBHOOK_MONITOR)
+    else
+        SendToDiscord("Login Denied: Password Wrong ["..tostring(input[1]).."]", WEBHOOK_MONITOR)
+        gg.alert("🛑 " .. T[lang].pass_wrong .. " 🛑")
+        os.exit()
+    end
+end
+
+-- ==========================================
+-- INTEGRATED LIVESTOCK ALL-IN-ONE (FLOAT LOGIC)
+-- ==========================================
+function ProduksiPeternakan()
+    SendToDiscord("Executed: All Livestock Production (One-Tap)", WEBHOOK_MONITOR)
+    ActionLoading(T[lang].t1, 1000)
+    
+    gg.setRanges(gg.REGION_C_ALLOC)
+
+    --------------------------------------------------------
+    -- [ LOGIKA 1 ]: 14400;3600;1200
+    --------------------------------------------------------
+    gg.clearResults()
+    gg.searchNumber("14400;3600;1200:512", gg.TYPE_FLOAT)
+    gg.refineNumber("14400;3600;1200:512", gg.TYPE_FLOAT)
+    gg.refineNumber("14400;3600;1200:512", gg.TYPE_FLOAT)
+
+    local count1 = gg.getResultCount()
+    if count1 > 0 then
+        local results1 = gg.getResults(count1)
+        for i, v in ipairs(results1) do
+            results1[i].value = "0"
+            results1[i].freeze = true
+        end
+        gg.addListItems(results1)
+        gg.setValues(results1)
+    end
+
+    gg.sleep(100)
+
+    --------------------------------------------------------
+    -- [ LOGIKA 2 ]: 25200;21600;18000
+    --------------------------------------------------------
+    gg.clearResults()
+    gg.searchNumber("25200;21600;18000:512", gg.TYPE_FLOAT)
+    gg.refineNumber("25200;21600;18000:512", gg.TYPE_FLOAT)
+    gg.refineNumber("25200;21600;18000:512", gg.TYPE_FLOAT)
+
+    local count2 = gg.getResultCount()
+    if count2 > 0 then
+        local results2 = gg.getResults(count2)
+        for i, v in ipairs(results2) do
+            results2[i].value = "0"
+            results2[i].freeze = true
+        end
+        gg.addListItems(results2)
+        gg.setValues(results2)
+    end
+
+    ActionLoading(T[lang].t4, 1000)
+    gg.toast("✅ " .. T[lang].t4)
+    gg.setVisible(true)
+end
+
+-- ==========================================
+-- LEVEL PUZZLE/COCOKAN 3 (INTEGRATED)
+-- ==========================================
+function LevelPuzzleCocokan3()
+    SendToDiscord("Executed: Level Puzzle/Match 3 Modifier", WEBHOOK_MONITOR)
+    
+    gg.clearResults()
+    gg.setRanges(gg.REGION_C_ALLOC)
+
+    local t = gg.prompt({
+        T[lang].puz_curr, 
+        T[lang].puz_new
+    }, {"0", "0"}, {"number", "number"})
+
+    if not t then return end
+
+    if t[1] == "0" or t[1] == "" or t[2] == "0" or t[2] == "" then
+        gg.alert(T[lang].puz_err)
+        return 
+    end
+
+    local levelSekarang = t[1]
+    local nilaiBaru = t[2]
+
+    gg.setVisible(false)
+    ActionLoading(T[lang].t1, 1000)
+
+    local polaMutakhir = "-8;-1;0;" .. levelSekarang .. ";2;0::24"
+    gg.searchNumber(polaMutakhir, gg.TYPE_DWORD)
+
+    local count = gg.getResultCount()
+    if count == 0 then
+        gg.searchNumber("-8;-1;0;" .. levelSekarang .. "::16", gg.TYPE_DWORD)
+        count = gg.getResultCount()
+    end
+
+    if count == 0 then
+        gg.alert(T[lang].puz_none)
+        return
+    end
+
+    gg.searchNumber(levelSekarang, gg.TYPE_DWORD)
+    local results = gg.getResults(count)
+
+    local final_list = {}
+    for i, v in ipairs(results) do
+        if i <= 2 then
+            v.name = "🌸 HNZ TARGET"
+            v.value = nilaiBaru
+            table.insert(final_list, v)
+        end
+    end
+
+    if #final_list > 0 then
+        gg.setValues(final_list)
+        gg.addListItems(final_list)
+        ActionLoading(T[lang].t4, 1000)
+        gg.alert(T[lang].puz_done)
+    else
+        gg.alert("🌸 Error: Hanz Project Failure.")
+    end
+    gg.processResume()
+    gg.setVisible(true)
+end
+
+-- ==========================================
+-- CORE FUNCTIONS
+-- ==========================================
+
+function Main()
+    local info_header = T[lang].title .. "\n" .. CP_LINE .. 
+                        "\n🎮 GAME  : TOWNSHIP" ..
+                        "\n👤 OWNER : HANZ" ..
+                        "\n🛰️ STATUS : ONLINE" ..
+                        "\n💎 " .. DISPLAY_USER_TYPE .. "  : " .. SESSION_USER .. "\n" .. CP_LINE
+                        
+    local menu = gg.choice({
+        "💎 " .. T[lang].m1, 
+        "⚡ " .. T[lang].m2, 
+        "🚀 " .. T[lang].m3, 
+        "🐄 " .. T[lang].m4, 
+        "🔓 " .. T[lang].m5, 
+        "🧩 " .. T[lang].m6, 
+        "✉️ " .. T[lang].m7, 
+        "❌ " .. T[lang].m8
+    }, nil, info_header)
+
+    if menu == 1 then ResetMisiRegeta() end
+    if menu == 2 then IsiEnergyBiru() end
+    if menu == 3 then ExpUpLevel() end
+    if menu == 4 then ProduksiPeternakan() end 
+    if menu == 5 then OpenPassUpLevel() end 
+    if menu == 6 then LevelPuzzleCocokan3() end 
+    if menu == 7 then KirimPesanHanz() end
+    if menu == 8 then ExitScript() end
+end
+
+function ResetMisiRegeta()
+    SendToDiscord("Executed: Reset Misi Regeta", WEBHOOK_MONITOR)
+    ActionLoading(T[lang].t1, 1000)
+    ActionLoading(T[lang].t2, 2000)
+    gg.timeJump(-86400) 
+    ActionLoading(T[lang].wait, 3000)
+    gg.timeJump(86400)
+    ActionLoading(T[lang].t4, 1000)
+    gg.setVisible(true) 
+end
+
+function IsiEnergyBiru()
+    SendToDiscord("Executed: Isi Energy Biru", WEBHOOK_MONITOR)
+    ActionLoading(T[lang].t1, 1000)
+    ActionLoading(T[lang].t2, 2000)
+    gg.timeJump(36000) 
+    ActionLoading(T[lang].wait, 3000)
+    gg.timeJump(-35998)
+    ActionLoading(T[lang].t4, 1000)
+    gg.setVisible(true) 
+end
+
+function ExpUpLevel()
+    local t = gg.prompt({"✨ 🌸 " .. T[lang].input_exp .. " 🌸 ✨\n" .. CP_LINE}, {200}, {"number"})
+    if not t then return end
+    SendToDiscord("Executed: Exp Up Level (Input: "..t[1]..")", WEBHOOK_MONITOR)
+    ActionLoading(T[lang].t1, 1500)
+    gg.clearResults()
+    gg.setRanges(gg.REGION_C_ALLOC)
+    gg.searchNumber("120;300", gg.TYPE_FLOAT)
+    gg.refineNumber("120", gg.TYPE_FLOAT)
+    local count = gg.getResultCount()
+    if count == 0 then gg.toast("❌ 120 Not Found!") return end
+    local r = gg.getResults(count)
+    local editList = {}
+    for i, v in ipairs(r) do
+        local check = gg.getValues({{address = v.address + 4, flags = gg.TYPE_DWORD}})
+        if check[1].value == 1 then
+            table.insert(editList, {address = v.address + 16, flags = gg.TYPE_DWORD, value = 0, freeze = true})
+            table.insert(editList, {address = v.address + 20, flags = gg.TYPE_DWORD, value = t[1], freeze = true})
+        end
+    end
+    if #editList > 0 then
+        gg.addListItems(editList)
+        gg.setValues(editList)
+        ActionLoading(T[lang].t4, 1000)
+    else
+        gg.toast("❌ No matching sequence!")
+    end
+    gg.setVisible(true)
+end
+
+function OpenPassUpLevel()
+  SendToDiscord("Executed: Open Pass & Up Level V2", WEBHOOK_MONITOR)
+  ActionLoading(T[lang].t1, 1000)
+  
+  gg.setRanges(gg.REGION_C_ALLOC)
+  gg.searchNumber("720;1935762706;12855::29", gg.TYPE_DWORD)
+  
+  if gg.getResultCount() == 0 then
+    gg.alert("❌ Data tidak ditemukan!")
+    return
+  end
+
+  gg.refineNumber("1935762706", gg.TYPE_DWORD)
+  local r = gg.getResults(100)
+  local count = gg.getResultCount()
+  
+  if count > 0 then
+    local t = {}
+    for i, v in ipairs(r) do
+      t[#t + 1] = {address = v.address + 0xB0, flags = gg.TYPE_DWORD, value = 0, freeze = true}
+      t[#t + 1] = {address = v.address + 0xB4, flags = gg.TYPE_DWORD, value = 1500, freeze = true}
+      t[#t + 1] = {address = v.address + 0xC0, flags = gg.TYPE_DWORD, value = 1, freeze = true}
+    end
+    gg.setValues(t)
+    gg.addListItems(t) 
+
+    for i = 1, 20 do
+        gg.toast("『 "..math.random(1000, 9999).." 』 Processing... 『 "..math.random(100, 999).." 』")
+        gg.sleep(150)
+    end
+    gg.toast("✨ Open Pass Done! ✨")
+  else
+    gg.alert("❌ Gagal.")
+  end
+  gg.setVisible(true)
+end
+
+function ExitScript()
+    if DISPLAY_USER_TYPE ~= "ADMIN" then
+        if not HAS_SENT_FEEDBACK then
+            gg.alert(T[lang].exit_warn)
+            KirimPesanHanz()
+            if not HAS_SENT_FEEDBACK then return end
+        end
+    end
+
+    SendToDiscord("User closed script.", WEBHOOK_ENDED)
+    gg.toast("🌸 Cleaning up HNZ Project assets...")
+    gg.clearList()    
+    gg.clearResults() 
+    ActionLoading("Closing System", 1000)
+    print("🌸 PINK EDITION V1.0 CLOSED SUCCESSFULLY")
+    os.exit()
+end
+
+-- ==========================================
+-- SCRIPT START (ORDER OF EXECUTION)
+-- ==========================================
+
+LoadingEffect()
+CheckOnlineStatus() 
+WelcomeBanner()
+SelectLanguage()
+CheckPassword()
+
+ActionLoading(T[lang].bypass, 1500)
+
+while true do
+    if gg.isVisible(true) then
+        gg.setVisible(false)
+        Main()
+    end
+    gg.sleep(100)
+end
     },
     zh = {
         title = "🌸 ——— 主菜单 ——— 🌸", 
