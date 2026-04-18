@@ -1,0 +1,159 @@
+-- ==========================================
+-- HNZ PROJECT - INTEGRATED SCRIPT
+-- ==========================================
+
+function Main()
+    -- [ LOGIKA SCRIPT 1 ]
+    gg.setVisible(false)
+    gg.setRanges(gg.REGION_C_ALLOC)
+    gg.clearResults()
+
+    gg.searchNumber("1970225964;1599361808;1936025667;65537", gg.TYPE_DWORD)
+
+    if gg.getResultCount() > 0 then
+        gg.refineNumber("1970225964", gg.TYPE_DWORD)
+        local count = gg.getResultCount()
+        local results = gg.getResults(count)
+        local freezeList = {}
+
+        for i, v in ipairs(results) do
+            freezeList[i] = {
+                address = v.address - 0x10, 
+                flags = gg.TYPE_DWORD,
+                value = 0,
+                freeze = true
+            }
+        end
+        gg.addListItems(freezeList)
+        gg.setValues(freezeList)
+        gg.toast("✅ System mendeteksi " .. count .. " Alamat")
+    else
+        gg.toast("⚠️ 1: Data tidak ditemukan")
+    end
+
+    -- [ JEDA 2 DETIK ]
+    gg.sleep(2000)
+
+    -- [ LOGIKA SCRIPT 2 ]
+    gg.clearResults()
+    gg.setRanges(gg.REGION_C_ALLOC)
+    gg.searchNumber("29;1970225964;7631471::70", gg.TYPE_DWORD)
+
+    if gg.getResultCount() > 0 then
+        local r = gg.getResults(10)
+        local baseAddress = 0
+
+        for i, v in ipairs(r) do
+            if v.value == 29 then
+                baseAddress = v.address
+                break
+            end
+        end
+
+        if baseAddress ~= 0 then
+            local targets = {}
+            -- Baris 4 sampai 9 (HANZ DATA 1-6)
+            for i = 1, 6 do
+                local offset = (i + 3) * 4
+                targets[i] = {address = baseAddress + offset, flags = gg.TYPE_DWORD, name = "HANZ DATA " .. i}
+            end
+            -- Baris 10 & 11
+            targets[7] = {address = baseAddress + (10 * 4), flags = gg.TYPE_DWORD, name = "HANZ NILAI POINTER"}
+            targets[8] = {address = baseAddress + (11 * 4), flags = gg.TYPE_DWORD, name = "HANZ NILAI"}
+
+            local results2 = gg.getValues(targets)
+            for i = 1, #results2 do
+                if i == 7 then
+                    results2[i].value = 0
+                    results2[i].freeze = true
+                end
+                results2[i].name = targets[i].name
+            end
+            gg.addListItems(results2)
+            gg.toast("✅ 2 Selesai: Data Disimpan")
+        end
+    else
+        gg.toast("⚠️ Logika 2: Data tidak ditemukan")
+    end
+
+    gg.setVisible(true)
+    MenuUtama()
+end
+
+-- ==========================================
+-- SISTEM MENU (GG CHOICE)
+-- ==========================================
+
+function MenuUtama()
+    local menu = gg.choice({
+        "💎 MATA UANG",
+        "🏗️ KONTRUKSI",
+        "🎫 KUPON",
+        "✨ PERMATA",
+        "🏆 KOLEKSI BATANGAN",
+        "⛏️ TAMBANG",
+        "❌ KELUAR"
+    }, nil, "🌸 MAIN MENU 🌸")
+
+    if menu == 1 then MenuMataUang() end
+    if menu == 2 then MenuKontruksi() end
+    if menu == 3 then MenuKupon() end
+    if menu == 4 then MenuPermata() end
+    if menu == 5 then MenuBatangan() end
+    if menu == 6 then MenuTambang() end
+    if menu == 7 then os.exit() end
+end
+
+-- --- SUB MENU ---
+
+function MenuMataUang()
+    local m = gg.choice({"1. GOLD/COIN", "2. T-CASH", "3. SEMANGGI", "4. REGETTA TOKEN", "🔙 KEMBALI"}, nil, "MENU MATA UANG")
+    if m == 5 or m == nil then MenuUtama() else
+        -- Logika kosong (nanti diisi)
+        gg.toast("Pilihan " .. m .. " dipilih")
+        MenuMataUang()
+    end
+end
+
+function MenuKontruksi()
+    local m = gg.choice({
+        "1. KACA", "2. BATU BATA", "3. BETON", "4. SEKOP", "5. KAPAK", 
+        "6. GERGAJI", "7. CAT MERAH", "8. PAKU", "9. PALU", "10. JACKHAMMER", 
+        "11. GERGAJI LISTRIK", "12. BOR", "🔙 KEMBALI"
+    }, nil, "MENU KONTRUKSI")
+    if m == 13 or m == nil then MenuUtama() else
+        gg.toast("Pilihan " .. m .. " dipilih")
+        MenuKontruksi()
+    end
+end
+
+function MenuKupon()
+    local m = gg.choice({"1. KUPON PESANAN", "2. KUPON PASAR", "3. KUPON LAHAN", "4. KUPON LUMBUNG", "5. KUPON PABRIK", "6. KUPON KERETA", "7. KUPON PULAU", "🔙 KEMBALI"}, nil, "MENU KUPON")
+    if m == 8 or m == nil then MenuUtama() else
+        MenuKupon()
+    end
+end
+
+function MenuPermata()
+    local m = gg.choice({"1. KUNING", "2. HIJAU", "3. MERAH", "🔙 KEMBALI"}, nil, "MENU PERMATA")
+    if m == 4 or m == nil then MenuUtama() else
+        MenuPermata()
+    end
+end
+
+function MenuBatangan()
+    local m = gg.choice({"1. BATANGAN PERUNGGU", "2. BATANGAN PERAK", "3. BATANGAN EMAS", "4. BATANGAN PLATINUM", "🔙 KEMBALI"}, nil, "MENU KOLEKSI BATANGAN")
+    if m == 5 or m == nil then MenuUtama() else
+        MenuBatangan()
+    end
+end
+
+function MenuTambang()
+    local m = gg.choice({"1. BELIUNG", "2. DYNAMITE", "3. BOM TNT", "4. HASIL TAMBANG X2", "🔙 KEMBALI"}, nil, "MENU TAMBANG")
+    if m == 5 or m == nil then MenuUtama() else
+        MenuTambang()
+    end
+end
+
+-- Jalankan Script
+Main()
