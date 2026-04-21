@@ -20,19 +20,26 @@ local HAS_SENT_FEEDBACK = false
 local DISPLAY_USER_TYPE = "USER" -- Default
 
 -- ==========================================
--- ONLINE WEBHOOK CONFIGURATION (3 CHANNELS)
+-- URL CONFIGURATION (WEBHOOK)
 -- ==========================================
 local WEBHOOK_MONITOR = "https://discord.com/api/webhooks/1481830154731913226/BtKIvQgDhTHetaDRyPfIVbbMTmkmbDtCP0J-fOgKPFpyCNiIVomoPSFqWMfCPvn3OTmG" 
 local WEBHOOK_MESSAGE = "https://discord.com/api/webhooks/1486522004139151513/sLAq0aTy2WgS-tbPxlVnfO4eLqw5-4crh2yh7Qt12PdpafefjVzhZoq-DugmOxQACmR-" 
 local WEBHOOK_ENDED   = "https://discord.com/api/webhooks/1486522247765164203/tFZB6MxhJ9IsBdNU47bzW_wvNDU9HVWZeQ_cECgv_QVWYVhjcqm7Pq7TDLjfRJq3IBH0" 
 
 -- ==========================================
--- DATABASE TERJEMAHAN (9 BAHASA) - UPDATED WITH NEW FEATURES
+-- ASSET VISUAL SCRIPT PESANAN
+-- ==========================================
+local B_P = "═"
+local L_P = "║"
+local S_P = "────────────────────────────────────"
+
+-- ==========================================
+-- DATABASE TERJEMAHAN (9 BAHASA)
 -- ==========================================
 local T = {
     id = {
         title = "🌸 ——— MAIN MENU ——— 🌸", 
-        m1 = "💖 Reset Misi Regeta", m2 = "⚡ Isi Energy Biru", m3 = "🚀 Exp Up Level", m4 = "🐄 Produksi Peternakan", m5 = "🔓 Open Pass & Up Level", m6 = "🧩 Level Puzzle/Cocokan 3", m7 = "✉️ Pesan Untuk Hanz", m8 = "❌ Keluar", 
+        m1 = "💖 Reset Misi Regeta", m2 = "⚡ Isi Energy Biru", m3 = "🚀 Exp Up Level", m4 = "🐄 Produksi Peternakan", m5 = "🔓 Open Pass & Up Level", m6 = "🧩 Level Puzzle/Cocokan 3", m7 = "❄️ Freeze & Change Reward", m_regatta = "🏆 REGATTA AUTO COMPLETED", m8 = "✉️ Pesan Untuk Hanz", m_others = "📂 MENU LAINNYA", m9 = "❌ Keluar", 
         t1 = "🌸 Memulai Proses...", t2 = "🌸 Menjalankan proses...", t3 = "🌸 Tunggu sebentar", t4 = "✨ Berhasil!", 
         wait = "Menunggu proses...", pass_msg = "🔑 MASUKKAN PASSWORD AKSES:", pass_wrong = "❌ Password Salah!", 
         bypass = "Memulai Bypass Sistem...", input_exp = "🚀 MASUKKAN NILAI EXP BARU:",
@@ -41,11 +48,12 @@ local T = {
         rate_title = "⭐ PILIH TINGKAT KEPUASAN (1-10):", rate_err = "Silakan pilih rating Anda",
         name_prompt = "👤 MASUKKAN NAMA ANDA:",
         farm_title = "🐄 MENU PETERNAKAN", farm_all = "Aktifkan Semua Ternak", farm_back = "⬅️ Kembali",
-        puz_curr = "🌸 Masukkan level Saat Ini:", puz_new = "🌸 Masukkan Nilai Baru:", puz_err = "🌸 [ERROR] Kolom tidak boleh kosong!", puz_none = "🌸 [DATA TIDAK DITEMUKAN]", puz_done = "🌸 [HANZ] PROSES SELESAI!\nMainkan 1x untuk simpan ke server."
+        puz_curr = "🌸 Masukkan level Saat Ini:", puz_new = "🌸 Masukkan Nilai Baru:", puz_err = "🌸 [ERROR] Kolom tidak boleh kosong!", puz_none = "🌸 [DATA TIDAK DITEMUKAN]", puz_done = "🌸 [HANZ] PROSES SELESAI!\nMainkan 1x untuk simpan ke server.",
+        online_err = "❌ Gagal mengambil data dari GitHub!"
     },
     en = {
         title = "🌸 ——— MAIN MENU ——— 🌸", 
-        m1 = "💖 Reset Regeta Mission", m2 = "⚡ Fill Blue Energy", m3 = "🚀 Exp Up Level", m4 = "🐄 Livestock Production", m5 = "🔓 Open Pass & Up Level", m6 = "🧩 Level Puzzle/Match 3", m7 = "✉️ Message for Hanz", m8 = "❌ Exit", 
+        m1 = "💖 Reset Regeta Mission", m2 = "⚡ Fill Blue Energy", m3 = "🚀 Exp Up Level", m4 = "🐄 Livestock Production", m5 = "🔓 Open Pass & Up Level", m6 = "🧩 Level Puzzle/Match 3", m7 = "❄️ Freeze & Change Reward", m_regatta = "🏆 REGATTA AUTO COMPLETED", m8 = "✉️ Message for Hanz", m_others = "📂 OTHER MENU", m9 = "❌ Exit", 
         t1 = "🌸 Starting Process...", t2 = "🌸 Running process...", t3 = "🌸 Please wait", t4 = "✨ Successful!", 
         wait = "Waiting for process...", pass_msg = "🔑 ENTER ACCESS PASSWORD:", pass_wrong = "❌ Wrong Password!", 
         bypass = "Starting System Bypass...", input_exp = "🚀 ENTER NEW EXP VALUE:",
@@ -54,11 +62,12 @@ local T = {
         rate_title = "⭐ SELECT SATISFACTION LEVEL (1-10):", rate_err = "Please select your rating",
         name_prompt = "👤 ENTER YOUR NAME:",
         farm_title = "🐄 LIVESTOCK MENU", farm_all = "Activate All Livestock", farm_back = "⬅️ Back",
-        puz_curr = "🌸 Enter Current Level:", puz_new = "🌸 Enter New Value:", puz_err = "🌸 [ERROR] Fields cannot be empty!", puz_none = "🌸 [DATA NOT FOUND]", puz_done = "🌸 [HANZ] PROCESS COMPLETE!\nPlay 1x to save to server."
+        puz_curr = "🌸 Enter Current Level:", puz_new = "🌸 Enter New Value:", puz_err = "🌸 [ERROR] Fields cannot be empty!", puz_none = "🌸 [DATA NOT FOUND]", puz_done = "🌸 [HANZ] PROCESS COMPLETE!\nPlay 1x to save to server.",
+        online_err = "❌ Failed to fetch data from GitHub!"
     },
     es = {
         title = "🌸 ——— MENÚ PRINCIPAL ——— 🌸", 
-        m1 = "💖 Reiniciar Misión Regeta", m2 = "⚡ Llenar Energía Azul", m3 = "🚀 Subir Nivel de Exp", m4 = "🐄 Producción Ganadera", m5 = "🔓 Abrir Pase y Subir Nivel", m6 = "🧩 Nivel Puzzle/Match 3", m7 = "✉️ Mensaje para Hanz", m8 = "❌ Salir", 
+        m1 = "💖 Reiniciar Misión Regeta", m2 = "⚡ Llenar Energía Azul", m3 = "🚀 Subir Nivel de Exp", m4 = "🐄 Producción Ganadera", m5 = "🔓 Abrir Pase y Subir Nivel", m6 = "🧩 Nivel Puzzle/Match 3", m7 = "❄️ Congelar y Cambiar Recompensa", m_regatta = "🏆 REGATTA COMPLETADO AUTO", m8 = "✉️ Mensaje para Hanz", m_others = "📂 OTROS MENÚS", m9 = "❌ Salir", 
         t1 = "🌸 Iniciando proseso...", t2 = "🌸 Ejecutando...", t3 = "🌸 Espere por favor", t4 = "✨ ¡Exitoso!", 
         wait = "Esperando...", pass_msg = "🔑 INGRESAR CONTRASEÑA:", pass_wrong = "❌ ¡Contraseña Incorrecta!", 
         bypass = "Iniciando Bypass...", input_exp = "🚀 INGRESAR NUEVO VALOR DE EXP:",
@@ -67,11 +76,12 @@ local T = {
         rate_title = "⭐ NIVEL DE SATISFACCIÓN (1-10):", rate_err = "Por favor seleccione una calificación",
         name_prompt = "👤 INGRESE SU NOMBRE:",
         farm_title = "🐄 MENÚ DE GRANJA", farm_all = "Activar todo el ganado", farm_back = "⬅️ Volver",
-        puz_curr = "🌸 Nivel actual:", puz_new = "🌸 Nuevo valor:", puz_err = "🌸 [ERROR] ¡Campos vacíos!", puz_none = "🌸 [SIN DATOS]", puz_done = "🌸 [HANZ] ¡PROCESO COMPLETADO!\nJuega 1 vez para guardar."
+        puz_curr = "🌸 Nivel actual:", puz_new = "🌸 Nuevo valor:", puz_err = "🌸 [ERROR] ¡Campos vacíos!", puz_none = "🌸 [SIN DATOS]", puz_done = "🌸 [HANZ] ¡PROCESO COMPLETADO!\nJuega 1 vez para guardar.",
+        online_err = "❌ ¡Error al obtener datos de GitHub!"
     },
     pt = {
         title = "🌸 ——— MENU PRINCIPAL ——— 🌸", 
-        m1 = "💖 Resetar Missão Regeta", m2 = "⚡ Encher Energía Azul", m3 = "🚀 Subir Nível de Exp", m4 = "🐄 Produção Pecuária", m5 = "🔓 Abrir Passe e Subir Nível", m6 = "🧩 Nível Puzzle/Match 3", m7 = "✉️ Mensagem para Hanz", m8 = "❌ Sair", 
+        m1 = "💖 Resetar Missão Regeta", m2 = "⚡ Encher Energía Azul", m3 = "🚀 Subir Nível de Exp", m4 = "🐄 Produção Pecuária", m5 = "🔓 Abrir Passe e Subir Nível", m6 = "🧩 Nível Puzzle/Match 3", m7 = "❄️ Congelar & Mudar Recompensa", m_regatta = "🏆 REGATTA AUTO COMPLETADO", m8 = "✉️ Mensagem para Hanz", m_others = "📂 OUTROS MENUS", m9 = "❌ Sair", 
         t1 = "🌸 Iniciando processo...", t2 = "🌸 Executando...", t3 = "🌸 Aguarde por favor", t4 = "✨ Sucesso!", 
         wait = "Aguardando...", pass_msg = "🔑 DIGITE A SENHA:", pass_wrong = "❌ Senha Incorreta!", 
         bypass = "Iniciando Bypass...", input_exp = "🚀 DIGITE O NOVO VALOR DE EXP:",
@@ -80,24 +90,26 @@ local T = {
         rate_title = "⭐ NÍVEL DE SATISFAÇÃO (1-10):", rate_err = "Selecione uma classificação",
         name_prompt = "👤 DIGITE SEU NOME:",
         farm_title = "🐄 MENU DA FAZENDA", farm_all = "Ativar todos os rebanhos", farm_back = "⬅️ Voltar",
-        puz_curr = "🌸 Nível atual:", puz_new = "🌸 Novo valor:", puz_err = "🌸 [ERRO] Campos vazios!", puz_none = "🌸 [NÃO ENCONTRADO]", puz_done = "🌸 [HANZ] PROCESSO CONCLUÍDO!\nJogue 1x para salvar."
+        puz_curr = "🌸 Nivel atual:", puz_new = "🌸 Novo valor:", puz_err = "🌸 [ERRO] Campos vazios!", puz_none = "🌸 [NÃO ENCONTRADO]", puz_done = "🌸 [HANZ] PROCESSO CONCLUÍDO!\nJogue 1x para salvar.",
+        online_err = "❌ Falha ao buscar dados do GitHub!"
     },
     vi = {
         title = "🌸 ——— MENU CHÍNH ——— 🌸", 
-        m1 = "💖 Đặt lại Nhiệm vụ Regeta", m2 = "⚡ Nạp Năng lượng Xanh", m3 = "🚀 Tăng Cấp Exp", m4 = "🐄 Sản xuất Chăn nuôi", m5 = "🔓 Mở Pass và Lên Cấp", m6 = "🧩 Cấp độ Puzzle/Match 3", m7 = "✉️ Tin nhắn cho Hanz", m8 = "❌ Thoat", 
+        m1 = "💖 Đặt lại Nhiệm vụ Regeta", m2 = "⚡ Nạp Năng lượng Xanh", m3 = "🚀 Tăng Cấp Exp", m4 = "🐄 Sản xuất Chăn nuôi", m5 = "🔓 Mở Pass và Lên Cấp", m6 = "🧩 Cấp độ Puzzle/Match 3", m7 = "❄️ Đóng băng & Đổi Thưởng", m_regatta = "🏆 TỰ ĐỘNG HOÀN THÀNH REGATTA", m8 = "✉️ Tin nhắn cho Hanz", m_others = "📂 MENU KHÁC", m9 = "❌ Thoat", 
         t1 = "🌸 Bắt đầu quá trình...", t2 = "🌸 Đang chạy...", t3 = "🌸 Vui lòng chờ", t4 = "✨ Thành công!", 
         wait = "Đang chờ xử lý...", pass_msg = "🔑 NHẬP MẬT KHẨU TRUY CẬP:", pass_wrong = "❌ Sai mật khẩu!", 
         bypass = "Bắt đầu Bypass hệ thống...", input_exp = "🚀 NHẬP GIÁ TRỊ EXP MỚI:",
-        msg_prompt = "VIẾT TIN NHẮN CHO HANZ NPC:", msg_sending = "Đang gửi tin nhắn...", msg_success = "ĐÃ GỬI TIN NHẮN!", msg_fail = "Gửi tin nhắn thất bại.",
+        msg_prompt = "VIẾT TIN NHẰN CHO HANZ NPC:", msg_sending = "Đang gửi tin nhắn...", msg_success = "ĐÃ GỬI TIN NHẮN!", msg_fail = "Gửi tin nhắn thất bại.",
         exit_warn = "⚠️ Vui lòng điền tin nhắn và đánh giá trước khi thoát!",
         rate_title = "⭐ MỨC ĐỘ HÀI LÒNG (1-10):", rate_err = "Vui lòng chọn đánh giá của bạn",
         name_prompt = "👤 NHẬP TÊN CỦA BẠN:",
         farm_title = "🐄 DANH MỤC CHĂN NUÔI", farm_all = "Kích hoạt tất cả vật nuôi", farm_back = "⬅️ Quay lại",
-        puz_curr = "🌸 Cấp độ hiện tại:", puz_new = "🌸 Giá trị mới:", puz_err = "🌸 [LỖI] Không để trống!", puz_none = "🌸 [KHÔNG TÌM THẤY]", puz_done = "🌸 [HANZ] HOÀN TẤT!\nChơi 1 lần để lưu."
+        puz_curr = "🌸 Cấp độ hiện tại:", puz_new = "🌸 Giá trị mới:", puz_err = "🌸 [LỖI] Không để trống!", puz_none = "🌸 [KHÔNG TÌM THẤY]", puz_done = "🌸 [HANZ] HOÀN TẤT!\nChơi 1 lần untuk lưu.",
+        online_err = "❌ Lỗi khi lấy dữ liệu từ GitHub!"
     },
     th = {
         title = "🌸 ——— เมนูหลัก ——— 🌸", 
-        m1 = "💖 รีเซ็ตภารกิจ Regeta", m2 = "⚡ เติมพลังงานสีน้ำเงิน", m3 = "🚀 เพิ่มระดับ Exp", m4 = "🐄 การผลิตปศุสัตว์", m5 = "🔓 เปิด Pass และเพิ่มเลเวล", m6 = "🧩 ระดับ Puzzle/Match 3", m7 = "✉️ ข้อความถึง Hanz", m8 = "❌ ออก", 
+        m1 = "💖 รีเซ็ตภารกิจ Regeta", m2 = "⚡ เติมพลังงานสีน้ำเงิน", m3 = "🚀 เพิ่มระดับ Exp", m4 = "🐄 การผลิตปศุสัตว์", m5 = "🔓 เปิด Pass และเพิ่มเลเวล", m6 = "🧩 ระดับ Puzzle/Match 3", m7 = "❄️ แช่แข็งและเปลี่ยนรางวัล", m_regatta = "🏆 เสร็จสิ้น REGATTA อัตโนมัติ", m8 = "✉️ ข้อความถึง Hanz", m_others = "📂 เมนูอื่น ๆ", m9 = "❌ ออก", 
         t1 = "🌸 กำลังเริ่มกระบวนการ...", t2 = "🌸 กำลังดำเนินการ...", t3 = "🌸 โปรดรอสักครู่", t4 = "✨ สำเร็จ!", 
         wait = "กำลังรอการดำเนินการ...", pass_msg = "🔑 ใส่รหัสผ่านเข้าถึง:", pass_wrong = "❌ รหัสผ่านผิด!", 
         bypass = "เริ่มการบายพาสระบบ...", input_exp = "🚀 ใส่ค่า EXP ใหม่:",
@@ -105,12 +117,13 @@ local T = {
         exit_warn = "⚠️ กรุณากรอกข้อความและให้คะแนนความพึงพอใจก่อนออก!",
         rate_title = "⭐ ระดับความพึงพอใจ (1-10):", rate_err = "โปรดเลือกคะแนนของคุณ",
         name_prompt = "👤 กรุณาใส่ชื่อของคุณ:",
-        farm_title = "🐄 เมนูปศุสัตว์", farm_all = "เปิดใช้งานปศุสัตว์ทั้งหมด", farm_back = "⬅️ กลับ",
-        puz_curr = "🌸 เลเวลปัจจุบัน:", puz_new = "🌸 ค่าใหม่:", puz_err = "🌸 [ข้อผิดพลาด] ห้ามว่าง!", puz_none = "🌸 [ไม่พบข้อมูล]", puz_done = "🌸 [HANZ] เสร็จสิ้น!\nเล่น 1 ครั้งเพื่อบันทึก."
+        farm_title = "🐄 เมนูปศุสัตว์", farm_all = "เปิดใช้งานปศุสัตว์ทั้งหมด", farm_back = "กลับ",
+        puz_curr = "🌸 เลเวลปัจจุบัน:", puz_new = "🌸 ค่าใหม่:", puz_err = "🌸 [ข้อผิดพลาด] ห้ามว่าง!", puz_none = "🌸 [ไม่พบข้อมูล]", puz_done = "🌸 [HANZ] เสร็จสิ้น!\nเล่น 1 ครั้งเพื่อบันทึก.",
+        online_err = "❌ ไม่สามารถดึงข้อมูลจาก GitHub ได้!"
     },
     ru = {
         title = "🌸 ——— ГЛАВНОЕ МЕНЮ ——— 🌸", 
-        m1 = "💖 Сброс миссии Regeta", m2 = "⚡ Заполнить энергию", m3 = "🚀 Повысить уровень Exp", m4 = "🐄 Животноводство", m5 = "🔓 Открыть пропуск и уровень", m6 = "🧩 Уровень Puzzle/Match 3", m7 = "✉️ Сообщение для Hanz", m8 = "❌ Выход", 
+        m1 = "💖 Сброс миссии Regeta", m2 = "⚡ Заполнить энергию", m3 = "🚀 Повысить уровень Exp", m4 = "🐄 Животноводство", m5 = "🔓 Открыть пропуск и уровень", m6 = "🧩 Уровень Puzzle/Match 3", m7 = "❄️ Заморозить и Изменить", m_regatta = "🏆 REGATTA АВТО ЗАВЕРШЕНО", m8 = "✉️ Сообщение для Hanz", m_others = "📂 ДРУГИЕ МЕНЮ", m9 = "❌ Выход", 
         t1 = "🌸 Запуск процесса...", t2 = "🌸 Выполнение...", t3 = "🌸 Пожалуйста, подождите", t4 = "✨ Успешно!", 
         wait = "Ожидание...", pass_msg = "🔑 ВВЕДИТЕ ПАРОЛЬ:", pass_wrong = "❌ Неверный пароль!", 
         bypass = "Запуск обхода системы...", input_exp = "🚀 ВВЕДИТЕ НОВОЕ ЗНАЧЕНИЕ EXP:",
@@ -119,11 +132,12 @@ local T = {
         rate_title = "⭐ УРОВЕНЬ УДОВЛЕТВОРЕННОСТИ (1-10):", rate_err = "Пожалуйста, выберите рейтинг",
         name_prompt = "👤 ВВЕДИТЕ ВАШЕ ИМЯ:",
         farm_title = "🐄 ЖИВОТНОВОДСТВО", farm_all = "Активировать весь скот", farm_back = "Назад",
-        puz_curr = "🌸 Текущий уровень:", puz_new = "🌸 Новое значение:", puz_err = "🌸 [ОШИБКА] Пустые поля!", puz_none = "🌸 [НЕ НАЙДЕНО]", puz_done = "🌸 [HANZ] ГОТОВО!\nСыграйте 1 раз для сохранения."
+        puz_curr = "🌸 Текущий уровень:", puz_new = "🌸 Новое значение:", puz_err = "🌸 [ОШИБКА] Пустые поля!", puz_none = "🌸 [НЕ НАЙДЕНО]", puz_done = "🌸 [HANZ] ГОТОВО!\nСыграйте 1 раз для сохранения.",
+        online_err = "❌ Не удалось получить данные с GitHub!"
     },
     zh = {
         title = "🌸 ——— 主菜单 ——— 🌸", 
-        m1 = "💖 重置 Regeta 任务", m2 = "⚡ 填充蓝色能量", m3 = "🚀 增加 Exp 等级", m4 = "🐄 畜牧生产", m5 = "🔓 开启通行证并升级", m6 = "🧩 益智/消除关卡", m7 = "给 Hanz 的留言", m8 = "❌ 退出", 
+        m1 = "💖 重置 Regeta 任务", m2 = "⚡ 填充蓝色能量", m3 = "🚀 增加 Exp 等级", m4 = "🐄 畜牧生产", m5 = "🔓 开启通行证并升级", m6 = "🧩 益智/消除关卡", m7 = "❄️ 冻结并更改奖励", m_regatta = "🏆 REGATTA 自动完成", m8 = "给 Hanz 的留言", m_others = "📂 其他菜单", m9 = "❌ 退出", 
         t1 = "🌸 开始处理...", t2 = "🌸 运行中...", t3 = "🌸 请候", t4 = "✨ 成功！", 
         wait = "正在等待处理...", pass_msg = "🔑 输入访问密码:", pass_wrong = "❌ 密码错误！", 
         bypass = "开始系统绕过...", input_exp = "🚀 输入新的 EXP 值:",
@@ -132,11 +146,12 @@ local T = {
         rate_title = "⭐ 满意度评分 (1-10):", rate_err = "请选择评分",
         name_prompt = "👤 输入您的姓名:",
         farm_title = "🐄 畜牧菜单", farm_all = "激活所有畜牧", farm_back = "返回",
-        puz_curr = "🌸 当前等级:", puz_new = "🌸 新数值:", puz_err = "🌸 [错误] 不能为空！", puz_none = "🌸 [未找到数据]", puz_done = "🌸 [HANZ] 完成！\n玩 1 次以保存。"
+        puz_curr = "🌸 当前等级:", puz_new = "🌸 新数值:", puz_err = "🌸 [错误] 不能为空！", puz_none = "🌸 [未找到数据]", puz_done = "🌸 [HANZ] 完成！\n玩 1 次以保存。",
+        online_err = "❌ 无法从 GitHub 获取数据！"
     },
     ja = {
         title = "🌸 ——— メインメニュー ——— 🌸", 
-        m1 = "💖 Regetaミッションリセット", m2 = "⚡ ブルーエナジー補充", m3 = "🚀 Expレベルアップ", m4 = "🐄 畜産生産", m5 = "🔓 パス開放 & レベルアップ", m6 = "🧩 パズルレベル変更", m7 = "✉️ Hanzへのメッセージ", m8 = "❌ 終了", 
+        m1 = "💖 Regetaミッションリセット", m2 = "⚡ ブルーエナジー補充", m3 = "🚀 Expレベルアップ", m4 = "🐄 畜産生産", m5 = "🔓 パス開放 & レベルアップ", m6 = "🧩 パズルレベル変更", m7 = "❄️ フリーズ & 報酬変更", m_regatta = "🏆 レガッタ自動完了", m8 = "✉️ Hanzへのメッセージ", m_others = "📂 その他のメニュー", m9 = "❌ 終了", 
         t1 = "🌸 プロセスを開始中...", t2 = "🌸 実行中...", t3 = "🌸 少々お待ちください", t4 = "✨ 成功！", 
         wait = "待機中...", pass_msg = "🔑 パスワードを入力:", pass_wrong = "❌ パスワードが違います！", 
         bypass = "システムバイパスを開始...", input_exp = "🚀 新しいEXP値を入力:",
@@ -145,7 +160,8 @@ local T = {
         rate_title = "⭐ 満足度 (1-10):", rate_err = "評価を選択してください",
         name_prompt = "👤 お名前を入力してください:",
         farm_title = "🐄 畜産メニュー", farm_all = "すべての家畜を有効にする", farm_back = "戻る",
-        puz_curr = "🌸 現在のレベル:", puz_new = "🌸 新しい値:", puz_err = "🌸 [エラー] 未入力！", puz_none = "🌸 [データなし]", puz_done = "🌸 [HANZ] 完了！\n1回プレイして保存。"
+        puz_curr = "🌸 現在のレベル:", puz_new = "🌸 新しい値:", puz_err = "🌸 [エラー] 未入力！", puz_none = "🌸 [データなし]", puz_done = "🌸 [HANZ] 完了！\n1回プレイして保存。",
+        online_err = "❌ GitHubからのデータ取得に失敗しました！"
     }
 }
 
@@ -238,7 +254,6 @@ function SendToDiscord(action, channel)
     local device_info = SESSION_DEVICE or GetRealDevice() 
     local time = os.date("%Y-%m-%d %H:%M:%S")
     
-    -- Final fallback if variables are missing
     if SESSION_USER == nil then SESSION_USER = GetSmartName(lang) end
     if SESSION_LOCATION == "Unknown" then SESSION_LOCATION = GetSmartLocation(lang) end
     if SESSION_IP == nil then SESSION_IP = GenerateFakeIP() end
@@ -282,7 +297,150 @@ function ActionLoading(text, ms)
 end
 
 -- ==========================================
--- CORE FEEDBACK SYSTEM (MESSAGE + RATING CHOICE)
+-- LOGIKA ENERGY BIRU V2 (MEMORY HACK) - UPDATED 
+-- ==========================================
+function EnergyBiruV2()
+    gg.clearResults()
+    gg.setVisible(false)
+    gg.setRanges(gg.REGION_C_ALLOC)
+
+    ActionLoading("SYSTEM INITIALIZING...", 1600)
+
+    local list = {
+        "10,000", 
+        "20,000", 
+        "30,000 [ RECOMMENDED ]", 
+        "40,000", 
+        "50,000", 
+        "60,000", 
+        "70,000", 
+        "80,000", 
+        "90,000", 
+        "100,000"
+    }
+    
+    local select = gg.choice(list, nil, "--- HNZ PROJECT: SELECT VALUE ---")
+    
+    if select == nil then 
+        gg.setVisible(true)
+        return 
+    end
+
+    local values = {10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000}
+    local userValue = values[select]
+
+    gg.toast("🔍 Scanning Memory CAlloc...")
+    gg.searchNumber("100;220;450;40;80;155:512", gg.TYPE_DWORD)
+    
+    local count = gg.getResultCount()
+    if count > 0 then
+        local results = gg.getResults(count)
+        local editList = {}
+
+        for i, v in ipairs(results) do
+            if v.value == "40" or v.value == "80" or v.value == "155" then
+                table.insert(editList, {address = v.address, flags = v.flags, value = 0})
+            elseif v.value == "100" or v.value == "220" or v.value == "450" then
+                table.insert(editList, {address = v.address, flags = v.flags, value = userValue})
+            end
+        end
+
+        gg.setValues(editList)
+        gg.alert("✅ SUCCESS!\nApplied Value: " .. userValue .. "\nOffsets 40, 80, 155 set to 0.")
+    else
+        gg.alert("❌ Data not found in CAlloc!")
+    end
+    
+    gg.setVisible(true)
+end
+
+function IsiEnergyBiruMenu()
+    local sub = gg.choice({
+        "⚡ Energy Biru V1 (Time Jump)",
+        "⚡ Energy Biru V2 (Memory Hack)",
+        "⬅️ Kembali"
+    }, nil, "--- PILIH METODE ENERGY ---")
+
+    if sub == nil then return end
+    if sub == 1 then
+        SendToDiscord("Executed: Isi Energy Biru V1", WEBHOOK_MONITOR)
+        ActionLoading(T[lang].t1, 1000)
+        gg.timeJump(36000) 
+        gg.sleep(500)
+        gg.timeJump(-35998)
+        ActionLoading(T[lang].t4, 1000)
+    elseif sub == 2 then
+        SendToDiscord("Executed: Isi Energy Biru V2", WEBHOOK_MONITOR)
+        EnergyBiruV2()
+    end
+end
+
+-- ==========================================
+-- LOGIKA GITHUB ONLINE LOADERS
+-- ==========================================
+function FreezeChangeReward()
+    local GITHUB_LOGIC_URL = "https://raw.githubusercontent.com/junggawandra-del/SCRIPT-GG-HANZ/refs/heads/main/FREEZE%20%26%20CHANGE%20REWARD"
+    SendToDiscord("Executed: Freeze & Change Reward (Online)", WEBHOOK_MONITOR)
+    ActionLoading(T[lang].t1, 1500)
+    local response = gg.makeRequest(GITHUB_LOGIC_URL)
+    if response and response.content then
+        local loaded_script, err = load(response.content)
+        if loaded_script then
+            ActionLoading(T[lang].t2, 1000)
+            loaded_script()
+        else
+            gg.alert("❌ [SCRIPT ERROR]\n" .. tostring(err))
+        end
+    else
+        gg.alert(T[lang].online_err .. "\nCheck Connection or URL.")
+    end
+    gg.setVisible(true)
+end
+
+function RegattaAutoCompleted()
+    -- ISI LINK GITHUB RAW DI BAWAH INI
+    local URL_REGATTA = "https://raw.githubusercontent.com/junggawandra-del/SCRIPT-GG-HANZ/blob/main/ARTv2.lua" 
+    
+    SendToDiscord("Executed: Regatta Auto Completed", WEBHOOK_MONITOR)
+    ActionLoading(T[lang].t1, 1500)
+    local response = gg.makeRequest(URL_REGATTA)
+    if response and response.content then
+        local loaded_script, err = load(response.content)
+        if loaded_script then
+            ActionLoading(T[lang].t2, 1000)
+            loaded_script()
+        else
+            gg.alert("❌ [SCRIPT ERROR]\n" .. tostring(err))
+        end
+    else
+        gg.alert(T[lang].online_err)
+    end
+    gg.setVisible(true)
+end
+
+function MenuLainnya()
+    -- ISI LINK GITHUB RAW DI BAWAH INI
+    local URL_LAINNYA = "https://raw.githubusercontent.com/LINK_ANDA_DI_SINI"
+    
+    SendToDiscord("Executed: Menu Lainnya", WEBHOOK_MONITOR)
+    ActionLoading(T[lang].t1, 1500)
+    local response = gg.makeRequest(URL_LAINNYA)
+    if response and response.content then
+        local loaded_script, err = load(response.content)
+        if loaded_script then
+            ActionLoading(T[lang].t2, 1000)
+            loaded_script()
+        else
+            gg.alert("❌ [SCRIPT ERROR]\n" .. tostring(err))
+        end
+    else
+        gg.alert(T[lang].online_err)
+    end
+    gg.setVisible(true)
+end
+
+-- ==========================================
+-- FEEDBACK SYSTEM
 -- ==========================================
 function KirimPesanHanz()
     local p = gg.prompt({
@@ -328,7 +486,7 @@ function KirimPesanHanz()
 end
 
 -- ==========================================
--- 100% ORIGINAL VISUAL & ENHANCED LOADING
+-- CORE FUNCTIONS & VISUALS
 -- ==========================================
 
 function LoadingEffect()
@@ -342,10 +500,6 @@ function LoadingEffect()
         gg.sleep(250)
     end
 end
-
--- ==========================================
--- INITIALIZATION & SYSTEM CHECK
--- ==========================================
 
 function CheckOnlineStatus()
     gg.toast("🌐 Checking Online Synchronization...")
@@ -384,7 +538,6 @@ function SelectLanguage()
     elseif choice == 9 then lang = "ja"
     else os.exit() end
     
-    -- Inisialisasi awal, akan dioverride saat login
     SESSION_USER = GetSmartName(lang)
     SESSION_LOCATION = GetSmartLocation(lang)
     SESSION_IP = GenerateFakeIP()
@@ -394,161 +547,191 @@ function CheckPassword()
     local input = gg.prompt({"✨ 🌸 " .. T[lang].pass_msg .. " 🌸 ✨\n" .. CP_LINE .. "\n🔒 SECURITY SYSTEM ACTIVE"}, {''}, {'text'})
     if not input then os.exit() end
     
-    -- LOGIKA CABANG PASSWORD (KHUSUS HANIF/ADMIN)
     if input[1] == "..." then
         DISPLAY_USER_TYPE = "ADMIN"
         SESSION_USER = "HANZ"
         SESSION_DEVICE = "infinix GT 30 PRO"
-        SESSION_IP = "103." .. math.random(1,255) .. "." .. math.random(1,255) .. "." .. math.random(1,255) -- IP Acak Tetap
+        SESSION_IP = "103." .. math.random(1,255) .. "." .. math.random(1,255) .. "." .. math.random(1,255)
         SESSION_LOCATION = "cingcin, soreang [ID]"
-        
-        SendToDiscord("Login Success: Admin Access (Identity Verified)", WEBHOOK_MONITOR)
+        SendToDiscord("Login Success: Admin Access", WEBHOOK_MONITOR)
         gg.toast("✅ Welcome Back, Hanif")
     elseif input[1] == PASS_TARGET then
-        -- MODIFIKASI: PROMPT NAMA UNTUK USER BIASA
         local name_input = gg.prompt({T[lang].name_prompt}, {""}, {"text"})
-        
-        -- Jika user mengisi nama
         if name_input and name_input[1] ~= "" then
             SESSION_USER = name_input[1]
         else
-            -- Jika user tidak isi nama (kosong/cancel), gunakan nama acak dari database
             SESSION_USER = GetSmartName(lang)
-            gg.toast("👤 Auto-generating profile name...")
+            gg.toast("👤 Auto-generating name...")
         end
-        
         DISPLAY_USER_TYPE = "USER"
-        SendToDiscord("Login Success: Access Granted", WEBHOOK_MONITOR)
+        SendToDiscord("Login Success: User Access", WEBHOOK_MONITOR)
     else
-        SendToDiscord("Login Denied: Password Wrong ["..tostring(input[1]).."]", WEBHOOK_MONITOR)
+        SendToDiscord("Login Denied: Wrong Password", WEBHOOK_MONITOR)
         gg.alert("🛑 " .. T[lang].pass_wrong .. " 🛑")
         os.exit()
     end
 end
 
--- ==========================================
--- INTEGRATED LIVESTOCK ALL-IN-ONE (FLOAT LOGIC)
--- ==========================================
 function ProduksiPeternakan()
-    SendToDiscord("Executed: All Livestock Production (One-Tap)", WEBHOOK_MONITOR)
+    SendToDiscord("Executed: All Livestock Production", WEBHOOK_MONITOR)
     ActionLoading(T[lang].t1, 1000)
-    
     gg.setRanges(gg.REGION_C_ALLOC)
-
-    --------------------------------------------------------
-    -- [ LOGIKA 1 ]: 14400;3600;1200
-    --------------------------------------------------------
     gg.clearResults()
     gg.searchNumber("14400;3600;1200:512", gg.TYPE_FLOAT)
-    gg.refineNumber("14400;3600;1200:512", gg.TYPE_FLOAT)
-    gg.refineNumber("14400;3600;1200:512", gg.TYPE_FLOAT)
-
     local count1 = gg.getResultCount()
     if count1 > 0 then
         local results1 = gg.getResults(count1)
         for i, v in ipairs(results1) do
-            results1[i].value = "0"
+            results1[i].value = 0
             results1[i].freeze = true
         end
         gg.addListItems(results1)
         gg.setValues(results1)
     end
-
-    gg.sleep(100)
-
-    --------------------------------------------------------
-    -- [ LOGIKA 2 ]: 25200;21600;18000
-    --------------------------------------------------------
     gg.clearResults()
     gg.searchNumber("25200;21600;18000:512", gg.TYPE_FLOAT)
-    gg.refineNumber("25200;21600;18000:512", gg.TYPE_FLOAT)
-    gg.refineNumber("25200;21600;18000:512", gg.TYPE_FLOAT)
-
     local count2 = gg.getResultCount()
     if count2 > 0 then
         local results2 = gg.getResults(count2)
         for i, v in ipairs(results2) do
-            results2[i].value = "0"
+            results2[i].value = 0
             results2[i].freeze = true
         end
         gg.addListItems(results2)
         gg.setValues(results2)
     end
-
     ActionLoading(T[lang].t4, 1000)
     gg.toast("✅ " .. T[lang].t4)
     gg.setVisible(true)
 end
 
--- ==========================================
--- LEVEL PUZZLE/COCOKAN 3 (INTEGRATED)
--- ==========================================
 function LevelPuzzleCocokan3()
-    SendToDiscord("Executed: Level Puzzle/Match 3 Modifier", WEBHOOK_MONITOR)
-    
+    SendToDiscord("Executed: Level Puzzle Modifier", WEBHOOK_MONITOR)
     gg.clearResults()
     gg.setRanges(gg.REGION_C_ALLOC)
-
-    local t = gg.prompt({
-        T[lang].puz_curr, 
-        T[lang].puz_new
-    }, {"0", "0"}, {"number", "number"})
-
+    local t = gg.prompt({T[lang].puz_curr, T[lang].puz_new}, {"0", "0"}, {"number", "number"})
     if not t then return end
-
     if t[1] == "0" or t[1] == "" or t[2] == "0" or t[2] == "" then
         gg.alert(T[lang].puz_err)
         return 
     end
-
-    local levelSekarang = t[1]
-    local nilaiBaru = t[2]
-
     gg.setVisible(false)
     ActionLoading(T[lang].t1, 1000)
-
-    local polaMutakhir = "-8;-1;0;" .. levelSekarang .. ";2;0::24"
-    gg.searchNumber(polaMutakhir, gg.TYPE_DWORD)
-
+    local pola = "-8;-1;0;" .. t[1] .. ";2;0::24"
+    gg.searchNumber(pola, gg.TYPE_DWORD)
     local count = gg.getResultCount()
     if count == 0 then
-        gg.searchNumber("-8;-1;0;" .. levelSekarang .. "::16", gg.TYPE_DWORD)
+        gg.searchNumber("-8;-1;0;" .. t[1] .. "::16", gg.TYPE_DWORD)
         count = gg.getResultCount()
     end
-
     if count == 0 then
         gg.alert(T[lang].puz_none)
         return
     end
-
-    gg.searchNumber(levelSekarang, gg.TYPE_DWORD)
-    local results = gg.getResults(count)
-
+    gg.refineNumber(t[1], gg.TYPE_DWORD) 
+    local results = gg.getResults(gg.getResultCount())
     local final_list = {}
     for i, v in ipairs(results) do
         if i <= 2 then
             v.name = "🌸 HNZ TARGET"
-            v.value = nilaiBaru
+            v.value = t[2]
             table.insert(final_list, v)
         end
     end
-
     if #final_list > 0 then
         gg.setValues(final_list)
         gg.addListItems(final_list)
         ActionLoading(T[lang].t4, 1000)
         gg.alert(T[lang].puz_done)
-    else
-        gg.alert("🌸 Error: Hanz Project Failure.")
     end
-    gg.processResume()
     gg.setVisible(true)
 end
 
--- ==========================================
--- CORE FUNCTIONS
--- ==========================================
+function OpenPassUpLevel()
+    SendToDiscord("Executed: Open Pass Bypass 3.0", WEBHOOK_MONITOR)
+    gg.setVisible(false)
+    ActionLoading(T[lang].t1, 1500)
+    gg.clearResults()
+    gg.setRanges(gg.REGION_C_ALLOC)
+    gg.searchNumber("1634038552;1953394547;1701536617;116;6447364", gg.TYPE_DWORD)
+    gg.refineNumber("6447364", gg.TYPE_DWORD)
+    local count = gg.getResultCount()
+    local results = gg.getResults(count)
+    if count > 0 then
+        local t = {}
+        for i, v in ipairs(results) do
+            local baseAddress = v.address
+            table.insert(t, {address = baseAddress + 104, flags = gg.TYPE_DWORD, value = 0, freeze = true})
+            table.insert(t, {address = baseAddress + 108, flags = gg.TYPE_DWORD, value = 1500, freeze = true})
+            table.insert(t, {address = baseAddress + 120, flags = gg.TYPE_DWORD, value = 1, freeze = true})
+        end
+        gg.setValues(t)
+        gg.addListItems(t)
+        gg.alert("✅ Eksekusi Berhasil!\n" .. count .. " data diubah.")
+    else
+        gg.alert("❌ Gagal: Data tidak ditemukan.")
+    end
+    gg.setVisible(true)
+end
 
+function ResetMisiRegeta()
+    SendToDiscord("Executed: Reset Misi Regeta", WEBHOOK_MONITOR)
+    ActionLoading(T[lang].t1, 1000)
+    gg.timeJump(-86400) 
+    gg.sleep(500)
+    gg.timeJump(86400)
+    ActionLoading(T[lang].t4, 1000)
+    gg.setVisible(true) 
+end
+
+function ExpUpLevel()
+    local t = gg.prompt({"✨ 🌸 " .. T[lang].input_exp .. " 🌸 ✨\n" .. CP_LINE}, {200}, {"number"})
+    if not t then return end
+    SendToDiscord("Executed: Exp Up Level ("..t[1]..")", WEBHOOK_MONITOR)
+    ActionLoading(T[lang].t1, 1500)
+    gg.clearResults()
+    gg.setRanges(gg.REGION_C_ALLOC)
+    gg.searchNumber("120;300", gg.TYPE_FLOAT)
+    gg.refineNumber("120", gg.TYPE_FLOAT)
+    local count = gg.getResultCount()
+    if count == 0 then gg.toast("❌ 120 Not Found!") return end
+    local r = gg.getResults(count)
+    local editList = {}
+    for i, v in ipairs(r) do
+        local check = gg.getValues({{address = v.address + 4, flags = gg.TYPE_DWORD}})
+        if check and check[1] and tonumber(check[1].value) == 1 then
+            table.insert(editList, {address = v.address + 16, flags = gg.TYPE_DWORD, value = 0, freeze = true})
+            table.insert(editList, {address = v.address + 20, flags = gg.TYPE_DWORD, value = t[1], freeze = true})
+        end
+    end
+    if #editList > 0 then
+        gg.addListItems(editList)
+        gg.setValues(editList)
+        ActionLoading(T[lang].t4, 1000)
+    end
+    gg.setVisible(true)
+end
+
+function ExitScript()
+    if DISPLAY_USER_TYPE ~= "ADMIN" then
+        if not HAS_SENT_FEEDBACK then
+            gg.alert(T[lang].exit_warn)
+            KirimPesanHanz()
+            if not HAS_SENT_FEEDBACK then return end
+        end
+    end
+    SendToDiscord("User closed script.", WEBHOOK_ENDED)
+    gg.toast("🌸 Cleaning up HNZ Project assets...")
+    gg.clearList()    
+    gg.clearResults() 
+    ActionLoading("Closing System", 1000)
+    print("🌸 PINK EDITION V1.0 CLOSED SUCCESSFULLY")
+    os.exit()
+end
+
+-- ==========================================
+-- MAIN MENU LOOP
+-- ==========================================
 function Main()
     local info_header = T[lang].title .. "\n" .. CP_LINE .. 
                         "\n🎮 GAME  : TOWNSHIP" ..
@@ -563,137 +746,35 @@ function Main()
         "🐄 " .. T[lang].m4, 
         "🔓 " .. T[lang].m5, 
         "🧩 " .. T[lang].m6, 
-        "✉️ " .. T[lang].m7, 
-        "❌ " .. T[lang].m8
+        "❄️ " .. T[lang].m7,
+        "🏆 " .. T[lang].m_regatta, -- MENU BARU 1 (DI ATAS PESAN)
+        "✉️ " .. T[lang].m8,
+        "📂 " .. T[lang].m_others,  -- MENU BARU 2 (DI BAWAH PESAN)
+        "❌ " .. T[lang].m9
     }, nil, info_header)
 
+    if menu == nil then return end 
     if menu == 1 then ResetMisiRegeta() end
-    if menu == 2 then IsiEnergyBiru() end
+    if menu == 2 then IsiEnergyBiruMenu() end 
     if menu == 3 then ExpUpLevel() end
     if menu == 4 then ProduksiPeternakan() end 
     if menu == 5 then OpenPassUpLevel() end 
     if menu == 6 then LevelPuzzleCocokan3() end 
-    if menu == 7 then KirimPesanHanz() end
-    if menu == 8 then ExitScript() end
-end
-
-function ResetMisiRegeta()
-    SendToDiscord("Executed: Reset Misi Regeta", WEBHOOK_MONITOR)
-    ActionLoading(T[lang].t1, 1000)
-    ActionLoading(T[lang].t2, 2000)
-    gg.timeJump(-86400) 
-    ActionLoading(T[lang].wait, 3000)
-    gg.timeJump(86400)
-    ActionLoading(T[lang].t4, 1000)
-    gg.setVisible(true) 
-end
-
-function IsiEnergyBiru()
-    SendToDiscord("Executed: Isi Energy Biru", WEBHOOK_MONITOR)
-    ActionLoading(T[lang].t1, 1000)
-    ActionLoading(T[lang].t2, 2000)
-    gg.timeJump(36000) 
-    ActionLoading(T[lang].wait, 3000)
-    gg.timeJump(-35998)
-    ActionLoading(T[lang].t4, 1000)
-    gg.setVisible(true) 
-end
-
-function ExpUpLevel()
-    local t = gg.prompt({"✨ 🌸 " .. T[lang].input_exp .. " 🌸 ✨\n" .. CP_LINE}, {200}, {"number"})
-    if not t then return end
-    SendToDiscord("Executed: Exp Up Level (Input: "..t[1]..")", WEBHOOK_MONITOR)
-    ActionLoading(T[lang].t1, 1500)
-    gg.clearResults()
-    gg.setRanges(gg.REGION_C_ALLOC)
-    gg.searchNumber("120;300", gg.TYPE_FLOAT)
-    gg.refineNumber("120", gg.TYPE_FLOAT)
-    local count = gg.getResultCount()
-    if count == 0 then gg.toast("❌ 120 Not Found!") return end
-    local r = gg.getResults(count)
-    local editList = {}
-    for i, v in ipairs(r) do
-        local check = gg.getValues({{address = v.address + 4, flags = gg.TYPE_DWORD}})
-        if check[1].value == 1 then
-            table.insert(editList, {address = v.address + 16, flags = gg.TYPE_DWORD, value = 0, freeze = true})
-            table.insert(editList, {address = v.address + 20, flags = gg.TYPE_DWORD, value = t[1], freeze = true})
-        end
-    end
-    if #editList > 0 then
-        gg.addListItems(editList)
-        gg.setValues(editList)
-        ActionLoading(T[lang].t4, 1000)
-    else
-        gg.toast("❌ No matching sequence!")
-    end
-    gg.setVisible(true)
-end
-
-function OpenPassUpLevel()
-  SendToDiscord("Executed: Open Pass & Up Level V2", WEBHOOK_MONITOR)
-  ActionLoading(T[lang].t1, 1000)
-  
-  gg.setRanges(gg.REGION_C_ALLOC)
-  gg.searchNumber("720;1935762706;12855::29", gg.TYPE_DWORD)
-  
-  if gg.getResultCount() == 0 then
-    gg.alert("❌ Data tidak ditemukan!")
-    return
-  end
-
-  gg.refineNumber("1935762706", gg.TYPE_DWORD)
-  local r = gg.getResults(100)
-  local count = gg.getResultCount()
-  
-  if count > 0 then
-    local t = {}
-    for i, v in ipairs(r) do
-      t[#t + 1] = {address = v.address + 0xB0, flags = gg.TYPE_DWORD, value = 0, freeze = true}
-      t[#t + 1] = {address = v.address + 0xB4, flags = gg.TYPE_DWORD, value = 1500, freeze = true}
-      t[#t + 1] = {address = v.address + 0xC0, flags = gg.TYPE_DWORD, value = 1, freeze = true}
-    end
-    gg.setValues(t)
-    gg.addListItems(t) 
-
-    for i = 1, 20 do
-        gg.toast("『 "..math.random(1000, 9999).." 』 Processing... 『 "..math.random(100, 999).." 』")
-        gg.sleep(150)
-    end
-    gg.toast("✨ Open Pass Done! ✨")
-  else
-    gg.alert("❌ Gagal.")
-  end
-  gg.setVisible(true)
-end
-
-function ExitScript()
-    if DISPLAY_USER_TYPE ~= "ADMIN" then
-        if not HAS_SENT_FEEDBACK then
-            gg.alert(T[lang].exit_warn)
-            KirimPesanHanz()
-            if not HAS_SENT_FEEDBACK then return end
-        end
-    end
-
-    SendToDiscord("User closed script.", WEBHOOK_ENDED)
-    gg.toast("🌸 Cleaning up HNZ Project assets...")
-    gg.clearList()    
-    gg.clearResults() 
-    ActionLoading("Closing System", 1000)
-    print("🌸 PINK EDITION V1.0 CLOSED SUCCESSFULLY")
-    os.exit()
+    if menu == 7 then FreezeChangeReward() end
+    if menu == 8 then RegattaAutoCompleted() end -- EKSEKUSI MENU BARU 1
+    if menu == 9 then KirimPesanHanz() end
+    if menu == 10 then MenuLainnya() end -- EKSEKUSI MENU BARU 2
+    if menu == 11 then ExitScript() end
 end
 
 -- ==========================================
--- SCRIPT START (ORDER OF EXECUTION)
+-- STARTING POINT
 -- ==========================================
-
 LoadingEffect()
 CheckOnlineStatus() 
 WelcomeBanner()
 SelectLanguage()
 CheckPassword()
-
 ActionLoading(T[lang].bypass, 1500)
 
 while true do
