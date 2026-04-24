@@ -9,6 +9,7 @@ local URL_TITLE = "https://raw.githubusercontent.com/username/repo/main/title.lu
 local URL_STIKER = "https://raw.githubusercontent.com/username/repo/main/stiker.lua"
 local URL_PACK = "https://raw.githubusercontent.com/username/repo/main/pack.lua"
 local URL_DEKORASI = "https://raw.githubusercontent.com/username/repo/main/dekorasi.lua"
+local URL_ACARA = "https://raw.githubusercontent.com/junggawandra-del/MISI-TERBATAS-TOWNSHIP/refs/heads/main/LOGIKA" -- Tambahan Menu Baru
 
 -- URL SKIN
 local URL_SKIN_SAPI = "https://raw.githubusercontent.com/username/repo/main/skin_sapi.lua"
@@ -153,6 +154,7 @@ function MenuUtama()
         "🎁 PACK",
         "👕 SKIN",
         "🛋️ DEKORASI",
+        "⏰ ACARA TERBATAS WAKTU", -- Menu baru ditambahkan di sini
         "❌ KELUAR"
     }, nil, "MAIN MENU\nOWNER: HANZ\nTARGET: TOWNSHIP")
 
@@ -164,7 +166,8 @@ function MenuUtama()
     if menu == 6 then LoadOnline(URL_PACK, "PACK") end
     if menu == 7 then MenuSkin() end
     if menu == 8 then LoadOnline(URL_DEKORASI, "DEKORASI") end
-    if menu == 9 then os.exit() end
+    if menu == 9 then LoadOnline(URL_ACARA, "ACARA TERBATAS WAKTU") end -- Logika menu baru
+    if menu == 10 then os.exit() end
     
     if menu == nil then end 
 end
