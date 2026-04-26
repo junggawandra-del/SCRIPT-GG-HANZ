@@ -1,15 +1,25 @@
 -- ==========================================
--- HNZ PROJECT - INTEGRATED SCRIPT (UPDATED)
+-- HNZ PROJECT - INTEGRATED SCRIPT (ULTIMATE UPDATED)
 -- ==========================================
 
--- Variabel URL GitHub (Ganti dengan link raw github Anda)
+-- Variabel URL GitHub (Silahkan ganti link dengan link raw github Anda yang sesuai)
 local URL_AVATAR = "https://raw.githubusercontent.com/username/repo/main/avatar.lua"
 local URL_BADGE = "https://raw.githubusercontent.com/username/repo/main/badge.lua"
 local URL_TITLE = "https://raw.githubusercontent.com/username/repo/main/title.lua"
 local URL_STIKER = "https://raw.githubusercontent.com/username/repo/main/stiker.lua"
 local URL_PACK = "https://raw.githubusercontent.com/username/repo/main/pack.lua"
 local URL_DEKORASI = "https://raw.githubusercontent.com/username/repo/main/dekorasi.lua"
-local URL_ACARA = "https://raw.githubusercontent.com/junggawandra-del/MISI-TERBATAS-TOWNSHIP/refs/heads/main/LOGIKA" -- Tambahan Menu Baru
+local URL_ACARA = "https://raw.githubusercontent.com/junggawandra-del/MISI-TERBATAS-TOWNSHIP/refs/heads/main/LOGIKA"
+
+-- URL MENU KEBUTUHAN (LOGIKA DI AMBIL DARI GITHUB)
+local URL_KONTRUKSI = "https://raw.githubusercontent.com/username/repo/main/kontruksi.lua"
+local URL_KUPON = "https://raw.githubusercontent.com/junggawandra-del/KEBUTUHAN-TWNSHIP/refs/heads/main/KUPON"
+local URL_PERMATA = "https://raw.githubusercontent.com/username/repo/main/permata.lua"
+local URL_BATANGAN = "https://raw.githubusercontent.com/username/repo/main/batangan.lua"
+local URL_TAMBANG = "https://raw.githubusercontent.com/username/repo/main/tambang.lua"
+local URL_LAB = "https://raw.githubusercontent.com/username/repo/main/lab.lua"
+local URL_PUZZLE = "https://raw.githubusercontent.com/username/repo/main/puzzle.lua"
+local URL_PERKS = "https://raw.githubusercontent.com/username/repo/main/perks.lua"
 
 -- URL SKIN
 local URL_SKIN_SAPI = "https://raw.githubusercontent.com/username/repo/main/skin_sapi.lua"
@@ -154,7 +164,7 @@ function MenuUtama()
         "🎁 PACK",
         "👕 SKIN",
         "🛋️ DEKORASI",
-        "⏰ ACARA TERBATAS WAKTU", -- Menu baru ditambahkan di sini
+        "⏰ ACARA TERBATAS WAKTU",
         "❌ KELUAR"
     }, nil, "MAIN MENU\nOWNER: HANZ\nTARGET: TOWNSHIP")
 
@@ -166,14 +176,14 @@ function MenuUtama()
     if menu == 6 then LoadOnline(URL_PACK, "PACK") end
     if menu == 7 then MenuSkin() end
     if menu == 8 then LoadOnline(URL_DEKORASI, "DEKORASI") end
-    if menu == 9 then LoadOnline(URL_ACARA, "ACARA TERBATAS WAKTU") end -- Logika menu baru
+    if menu == 9 then LoadOnline(URL_ACARA, "ACARA TERBATAS WAKTU") end
     if menu == 10 then os.exit() end
     
     if menu == nil then end 
 end
 
 -- ==========================================
--- SUB MENU KEBUTUHAN
+-- SUB MENU KEBUTUHAN (UPDATED)
 -- ==========================================
 
 function MenuKebutuhan()
@@ -184,16 +194,22 @@ function MenuKebutuhan()
         "✨ PERMATA",
         "🏆 KOLEKSI BATANGAN",
         "⛏️ TAMBANG",
+        "🧪 LAB",
+        "🧩 PUZZLE",
+        "🎁 PERKS",
         "🔙 KEMBALI"
     }, nil, "MENU KEBUTUHAN")
 
     if mk == 1 then MenuMataUang() end
-    if mk == 2 then MenuKontruksi() end
-    if mk == 3 then MenuKupon() end
-    if mk == 4 then MenuPermata() end
-    if mk == 5 then MenuBatangan() end
-    if mk == 6 then MenuTambang() end
-    if mk == 7 or mk == nil then MenuUtama() end
+    if mk == 2 then LoadOnline(URL_KONTRUKSI, "KONTRUKSI") end
+    if mk == 3 then LoadOnline(URL_KUPON, "KUPON") end
+    if mk == 4 then LoadOnline(URL_PERMATA, "PERMATA") end
+    if mk == 5 then LoadOnline(URL_BATANGAN, "KOLEKSI BATANGAN") end
+    if mk == 6 then LoadOnline(URL_TAMBANG, "TAMBANG") end
+    if mk == 7 then LoadOnline(URL_LAB, "LAB") end
+    if mk == 8 then LoadOnline(URL_PUZZLE, "PUZZLE") end
+    if mk == 9 then LoadOnline(URL_PERKS, "PERKS") end
+    if mk == 10 or mk == nil then MenuUtama() end
 end
 
 -- ==========================================
@@ -233,7 +249,7 @@ function MenuSkin()
 end
 
 -- ==========================================
--- LOGIKA FITUR MATA UANG
+-- LOGIKA FITUR MATA UANG (TIDAK BERUBAH)
 -- ==========================================
 
 function MenuMataUang()
@@ -280,7 +296,7 @@ function MenuMataUang()
         MenuMataUang()
 
     elseif m == 2 then
-        -- [ LOGIKA BARU T-CASH SESUAI PERMINTAAN ]
+        -- [ LOGIKA T-CASH ]
         gg.setVisible(false)
         local list = gg.getListItems()
         
@@ -353,7 +369,7 @@ function MenuMataUang()
         MenuMataUang()
 
     elseif m == 3 then
-        -- [ LOGIKA BARU SEMANGGI ]
+        -- [ LOGIKA SEMANGGI ]
         gg.setVisible(false)
         local items = gg.getListItems()
         local editList = {}
@@ -402,7 +418,7 @@ function MenuMataUang()
         MenuMataUang()
 
     elseif m == 4 then
-        -- [ LOGIKA BARU REGATTA TOKEN - SESUAI PERMINTAAN ]
+        -- [ LOGIKA REGATTA TOKEN ]
         gg.setVisible(false)
         local items = gg.getListItems()
         local edit_list = {}
@@ -460,42 +476,6 @@ function MenuMataUang()
         end
         MenuMataUang()
     end
-end
-
--- ==========================================
--- SUB MENU LAINNYA
--- ==========================================
-
-function MenuKontruksi()
-    local m = gg.choice({
-        "1. KACA", "2. BATU BATA", "3. BETON", "4. SEKOP", "5. KAPAK", 
-        "6. GERGAJI", "7. CAT MERAH", "8. PAKU", "9. PALU", "10. JACKHAMMER", 
-        "11. GERGAJI LISTRIK", "12. BOR", "🔙 KEMBALI"
-    }, nil, "MENU KONTRUKSI")
-    if m == 13 or m == nil then MenuKebutuhan() else
-        gg.toast("Pilihan " .. m .. " dipilih")
-        MenuKontruksi()
-    end
-end
-
-function MenuKupon()
-    local m = gg.choice({"1. KUPON PESANAN", "2. KUPON PASAR", "3. KUPON LAHAN", "4. KUPON LUMBUNG", "5. KUPON PABRIK", "6. KUPON KERETA", "7. KUPON PULAU", "🔙 KEMBALI"}, nil, "MENU KUPON")
-    if m == 8 or m == nil then MenuKebutuhan() else MenuKupon() end
-end
-
-function MenuPermata()
-    local m = gg.choice({"1. KUNING", "2. HIJAU", "3. MERAH", "🔙 KEMBALI"}, nil, "MENU PERMATA")
-    if m == 4 or m == nil then MenuKebutuhan() else MenuPermata() end
-end
-
-function MenuBatangan()
-    local m = gg.choice({"1. BATANGAN PERUNGGU", "2. BATANGAN PERAK", "3. BATANGAN EMAS", "4. BATANGAN PLATINUM", "🔙 KEMBALI"}, nil, "MENU KOLEKSI BATANGAN")
-    if m == 5 or m == nil then MenuKebutuhan() else MenuBatangan() end
-end
-
-function MenuTambang()
-    local m = gg.choice({"1. BELIUNG", "2. DYNAMITE", "3. BOM TNT", "4. HASIL TAMBANG X2", "🔙 KEMBALI"}, nil, "MENU TAMBANG")
-    if m == 5 or m == nil then MenuKebutuhan() else MenuTambang() end
 end
 
 -- ==========================================
