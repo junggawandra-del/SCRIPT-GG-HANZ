@@ -1,5 +1,8 @@
 -- ==========================================
--- HNZ PROJECT - INTEGRATED SCRIPT (ULTIMATE UPDATED)
+-- HANZ PROJECT - INTEGRATED SCRIPT (ULTIMATE UPDATED)
+-- ==========================================
+-- STATUS: ONLINE VERSION
+-- OWNER: HANZ
 -- ==========================================
 
 -- Variabel URL GitHub (Silahkan ganti link dengan link raw github Anda yang sesuai)
@@ -12,7 +15,7 @@ local URL_DEKORASI = "https://raw.githubusercontent.com/username/repo/main/dekor
 local URL_ACARA = "https://raw.githubusercontent.com/junggawandra-del/MISI-TERBATAS-TOWNSHIP/refs/heads/main/LOGIKA"
 
 -- URL MENU KEBUTUHAN (LOGIKA DI AMBIL DARI GITHUB)
-local URL_KONTRUKSI = "https://raw.githubusercontent.com/username/repo/main/kontruksi.lua"
+local URL_KONTRUKSI = "https://raw.githubusercontent.com/junggawandra-del/KEBUTUHAN-TWNSHIP/refs/heads/main/KONTRUKSI"
 local URL_KUPON = "https://raw.githubusercontent.com/junggawandra-del/KEBUTUHAN-TWNSHIP/refs/heads/main/KUPON"
 local URL_PERMATA = "https://raw.githubusercontent.com/username/repo/main/permata.lua"
 local URL_BATANGAN = "https://raw.githubusercontent.com/username/repo/main/batangan.lua"
@@ -35,19 +38,20 @@ local URL_SKIN_STASIUN = "https://raw.githubusercontent.com/username/repo/main/s
 local URL_SKIN_BANDARA = "https://raw.githubusercontent.com/junggawandra-del/SKIN/refs/heads/main/SKIN%20BANDARA"
 local URL_SKIN_PELABUHAN = "https://raw.githubusercontent.com/username/repo/main/skin_pelabuhan.lua"
 
--- Fungsi untuk mengambil script dari GitHub
+-- Fungsi untuk mengambil script dari GitHub secara Online
 function LoadOnline(url, name)
     gg.toast("⏳ Memuat data " .. name .. "...")
-    local req = gg.makeRequest(url).content
-    if req ~= nil and req ~= "" then
-        local script, err = load(req)
+    local req = gg.makeRequest(url)
+    
+    if req.content ~= nil and req.content ~= "" then
+        local script, err = load(req.content)
         if script then
             script()
         else
             gg.alert("❌ Gagal menjalankan script " .. name .. ":\n" .. tostring(err))
         end
     else
-        gg.alert("❌ Gagal mengambil data dari GitHub.\nPeriksa koneksi internet atau link: " .. name)
+        gg.alert("❌ Gagal mengambil data dari GitHub.\n1. Periksa koneksi internet\n2. Pastikan link RAW benar\nTarget: " .. name)
     end
 end
 
@@ -166,7 +170,7 @@ function MenuUtama()
         "🛋️ DEKORASI",
         "⏰ ACARA TERBATAS WAKTU",
         "❌ KELUAR"
-    }, nil, "MAIN MENU\nOWNER: HANZ\nTARGET: TOWNSHIP")
+    }, nil, "MAIN MENU ONLINE\nOWNER: HANZ\nTARGET: TOWNSHIP\nSTATUS: CONNECTED")
 
     if menu == 1 then MenuKebutuhan() end
     if menu == 2 then LoadOnline(URL_AVATAR, "AVATAR") end
@@ -481,6 +485,13 @@ end
 -- ==========================================
 -- PROSES EKSEKUSI (ANTI-EXIT LOOP)
 -- ==========================================
+
+-- Jalankan pengecekan koneksi ringan di awal
+local check = gg.makeRequest("https://www.google.com")
+if check.content == nil then
+    gg.alert("❌ Koneksi Internet Diperlukan untuk Menjalankan Script Online HANZ PROJECT!")
+    os.exit()
+end
 
 PeringatanAwal()
 Main()
