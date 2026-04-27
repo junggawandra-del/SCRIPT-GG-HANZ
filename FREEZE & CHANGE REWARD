@@ -17,11 +17,11 @@ local URL_ACARA = "https://raw.githubusercontent.com/junggawandra-del/MISI-TERBA
 -- URL MENU KEBUTUHAN (LOGIKA DI AMBIL DARI GITHUB)
 local URL_KONTRUKSI = "https://raw.githubusercontent.com/junggawandra-del/KEBUTUHAN-TWNSHIP/refs/heads/main/KONTRUKSI"
 local URL_KUPON = "https://raw.githubusercontent.com/junggawandra-del/KEBUTUHAN-TWNSHIP/refs/heads/main/KUPON"
-local URL_PERMATA = "https://raw.githubusercontent.com/username/repo/main/permata.lua"
-local URL_BATANGAN = "https://raw.githubusercontent.com/username/repo/main/batangan.lua"
-local URL_TAMBANG = "https://raw.githubusercontent.com/username/repo/main/tambang.lua"
-local URL_LAB = "https://raw.githubusercontent.com/username/repo/main/lab.lua"
-local URL_PUZZLE = "https://raw.githubusercontent.com/username/repo/main/puzzle.lua"
+local URL_PERMATA = "https://raw.githubusercontent.com/junggawandra-del/KEBUTUHAN-TWNSHIP/refs/heads/main/PERMATA"
+local URL_BATANGAN = "https://raw.githubusercontent.com/junggawandra-del/KEBUTUHAN-TWNSHIP/refs/heads/main/BATANGAN"
+local URL_TAMBANG = "https://raw.githubusercontent.com/junggawandra-del/KEBUTUHAN-TWNSHIP/refs/heads/main/TAMBANG"
+local URL_LAB = "https://raw.githubusercontent.com/junggawandra-del/KEBUTUHAN-TWNSHIP/refs/heads/main/LAB"
+local URL_PUZZLE = "https://raw.githubusercontent.com/junggawandra-del/KEBUTUHAN-TWNSHIP/refs/heads/main/PUZZLE"
 local URL_PERKS = "https://raw.githubusercontent.com/username/repo/main/perks.lua"
 
 -- URL SKIN
