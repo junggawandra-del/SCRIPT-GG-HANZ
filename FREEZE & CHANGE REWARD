@@ -7,10 +7,10 @@
 
 -- Variabel URL GitHub (Silahkan ganti link dengan link raw github Anda yang sesuai)
 local URL_AVATAR = "https://raw.githubusercontent.com/username/repo/main/avatar.lua"
-local URL_BADGE = "https://raw.githubusercontent.com/username/repo/main/badge.lua"
-local URL_TITLE = "https://raw.githubusercontent.com/username/repo/main/title.lua"
+local URL_BADGE = "https://raw.githubusercontent.com/junggawandra-del/KEBUTUHAN-TWNSHIP/refs/heads/main/LENCANA-BADGE"
+local URL_TITLE = "https://raw.githubusercontent.com/junggawandra-del/KEBUTUHAN-TWNSHIP/refs/heads/main/TITLE"
 local URL_STIKER = "https://raw.githubusercontent.com/username/repo/main/stiker.lua"
-local URL_PACK = "https://raw.githubusercontent.com/username/repo/main/pack.lua"
+local URL_PACK = "https://raw.githubusercontent.com/junggawandra-del/KEBUTUHAN-TWNSHIP/refs/heads/main/PACK"
 local URL_DEKORASI = "https://raw.githubusercontent.com/username/repo/main/dekorasi.lua"
 local URL_ACARA = "https://raw.githubusercontent.com/junggawandra-del/MISI-TERBATAS-TOWNSHIP/refs/heads/main/LOGIKA"
 
@@ -25,11 +25,11 @@ local URL_PUZZLE = "https://raw.githubusercontent.com/junggawandra-del/KEBUTUHAN
 local URL_PERKS = "https://raw.githubusercontent.com/junggawandra-del/KEBUTUHAN-TWNSHIP/refs/heads/main/PERKS"
 
 -- URL SKIN
-local URL_SKIN_SAPI = "https://raw.githubusercontent.com/username/repo/main/skin_sapi.lua"
+local URL_SKIN_SAPI = "https://raw.githubusercontent.com/junggawandra-del/SKIN/refs/heads/main/SKIN%20SAPI"
 local URL_SKIN_AYAM = "https://raw.githubusercontent.com/username/repo/main/skin_ayam.lua"
 local URL_SKIN_DOMBA = "https://raw.githubusercontent.com/username/repo/main/skin_domba.lua"
 local URL_SKIN_BABI = "https://raw.githubusercontent.com/junggawandra-del/SKIN/refs/heads/main/SKIN%20BABI"
-local URL_SKIN_HELICOPTER = "https://raw.githubusercontent.com/username/repo/main/skin_heli.lua"
+local URL_SKIN_HELICOPTER = "https://raw.githubusercontent.com/junggawandra-del/SKIN/refs/heads/main/SKIN%20HELICOPTER"
 local URL_SKIN_KERETA = "https://raw.githubusercontent.com/username/repo/main/skin_kereta.lua"
 local URL_SKIN_PESAWAT = "https://raw.githubusercontent.com/junggawandra-del/SKIN/refs/heads/main/SKIN%20PESAWAT"
 local URL_SKIN_KAPAL = "https://raw.githubusercontent.com/username/repo/main/skin_kapal.lua"
