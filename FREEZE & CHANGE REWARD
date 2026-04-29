@@ -1,4 +1,4 @@
--- ==========================================
+ -- ==========================================
 -- HANZ PROJECT - INTEGRATED SCRIPT (ULTIMATE UPDATED)
 -- ==========================================
 -- STATUS: ONLINE VERSION
@@ -26,8 +26,8 @@ local URL_PERKS = "https://raw.githubusercontent.com/junggawandra-del/KEBUTUHAN-
 
 -- URL SKIN
 local URL_SKIN_SAPI = "https://raw.githubusercontent.com/junggawandra-del/SKIN/refs/heads/main/SKIN%20SAPI"
-local URL_SKIN_AYAM = "https://raw.githubusercontent.com/username/repo/main/skin_ayam.lua"
-local URL_SKIN_DOMBA = "https://raw.githubusercontent.com/username/repo/main/skin_domba.lua"
+local URL_SKIN_AYAM = "https://raw.githubusercontent.com/junggawandra-del/SKIN/refs/heads/main/SKIN%20AYAM"
+local URL_SKIN_DOMBA = "https://raw.githubusercontent.com/junggawandra-del/SKIN/refs/heads/main/SKIN%20DOMBA"
 local URL_SKIN_BABI = "https://raw.githubusercontent.com/junggawandra-del/SKIN/refs/heads/main/SKIN%20BABI"
 local URL_SKIN_HELICOPTER = "https://raw.githubusercontent.com/junggawandra-del/SKIN/refs/heads/main/SKIN%20HELICOPTER"
 local URL_SKIN_KERETA = "https://raw.githubusercontent.com/username/repo/main/skin_kereta.lua"
