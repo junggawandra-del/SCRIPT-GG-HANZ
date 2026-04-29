@@ -30,11 +30,11 @@ local URL_SKIN_AYAM = "https://raw.githubusercontent.com/junggawandra-del/SKIN/r
 local URL_SKIN_DOMBA = "https://raw.githubusercontent.com/junggawandra-del/SKIN/refs/heads/main/SKIN%20DOMBA"
 local URL_SKIN_BABI = "https://raw.githubusercontent.com/junggawandra-del/SKIN/refs/heads/main/SKIN%20BABI"
 local URL_SKIN_HELICOPTER = "https://raw.githubusercontent.com/junggawandra-del/SKIN/refs/heads/main/SKIN%20HELICOPTER"
-local URL_SKIN_KERETA = "https://raw.githubusercontent.com/username/repo/main/skin_kereta.lua"
+local URL_SKIN_KERETA = "https://raw.githubusercontent.com/junggawandra-del/SKIN/refs/heads/main/SKIN%20KERETA-TRAIN"
 local URL_SKIN_PESAWAT = "https://raw.githubusercontent.com/junggawandra-del/SKIN/refs/heads/main/SKIN%20PESAWAT"
 local URL_SKIN_KAPAL = "https://raw.githubusercontent.com/username/repo/main/skin_kapal.lua"
 local URL_SKIN_CASTLE = "https://raw.githubusercontent.com/username/repo/main/skin_castle.lua"
-local URL_SKIN_STASIUN = "https://raw.githubusercontent.com/username/repo/main/skin_stasiun.lua"
+local URL_SKIN_STASIUN = "https://raw.githubusercontent.com/junggawandra-del/SKIN/refs/heads/main/SKIN%20STASIUN"
 local URL_SKIN_BANDARA = "https://raw.githubusercontent.com/junggawandra-del/SKIN/refs/heads/main/SKIN%20BANDARA"
 local URL_SKIN_PELABUHAN = "https://raw.githubusercontent.com/username/repo/main/skin_pelabuhan.lua"
 
@@ -502,4 +502,4 @@ while true do
         MenuUtama()
     end
     gg.sleep(100)
-end 
+end
