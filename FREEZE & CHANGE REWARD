@@ -1,9 +1,9 @@
--- ==========================================
--- HANZ PROJECT - INTEGRATED SCRIPT (ULTIMATE UPDATED)
--- ==========================================
--- STATUS: ONLINE VERSION
--- OWNER: HANZ
--- ==========================================
+-- ========================================== --
+--  HANZ PROJECT - INTEGRATED SCRIPT (ULTIMATE UPDATED) --
+-- ========================================== --
+-- STATUS: ONLINE VERSION --
+-- OWNER: HANZ --
+-- ========================================== --
 
 -- Variabel URL GitHub (Silahkan ganti link dengan link raw github Anda yang sesuai)
 local URL_AVATAR = "https://raw.githubusercontent.com/username/repo/main/avatar.lua"
@@ -11,7 +11,9 @@ local URL_BADGE = "https://raw.githubusercontent.com/junggawandra-del/KEBUTUHAN-
 local URL_TITLE = "https://raw.githubusercontent.com/junggawandra-del/KEBUTUHAN-TWNSHIP/refs/heads/main/TITLE"
 local URL_STIKER = "https://raw.githubusercontent.com/username/repo/main/stiker.lua"
 local URL_PACK = "https://raw.githubusercontent.com/junggawandra-del/KEBUTUHAN-TWNSHIP/refs/heads/main/PACK"
-local URL_DEKORASI = "https://raw.githubusercontent.com/username/repo/main/dekorasi.lua"
+local URL_DEKORASI = "https://pastebin.com/raw/gBVqQW2b"
+-- URL PREMIUM (DIAMBIL DARI GITHUB)
+local URL_PREMIUM = "https://raw.githubusercontent.com/username/repo/main/premium.lua"
 local URL_ACARA = "https://raw.githubusercontent.com/junggawandra-del/MISI-TERBATAS-TOWNSHIP/refs/heads/main/LOGIKA"
 
 -- URL MENU KEBUTUHAN (LOGIKA DI AMBIL DARI GITHUB)
@@ -32,34 +34,35 @@ local URL_SKIN_BABI = "https://raw.githubusercontent.com/junggawandra-del/SKIN/r
 local URL_SKIN_HELICOPTER = "https://raw.githubusercontent.com/junggawandra-del/SKIN/refs/heads/main/SKIN%20HELICOPTER"
 local URL_SKIN_KERETA = "https://raw.githubusercontent.com/junggawandra-del/SKIN/refs/heads/main/SKIN%20KERETA-TRAIN"
 local URL_SKIN_PESAWAT = "https://raw.githubusercontent.com/junggawandra-del/SKIN/refs/heads/main/SKIN%20PESAWAT"
-local URL_SKIN_KAPAL = "https://raw.githubusercontent.com/username/repo/main/skin_kapal.lua"
-local URL_SKIN_CASTLE = "https://raw.githubusercontent.com/username/repo/main/skin_castle.lua"
+local URL_SKIN_KAPAL = "https://raw.githubusercontent.com/junggawandra-del/SKIN/refs/heads/main/SKIN%20PERAHU"
+local URL_SKIN_CASTLE = "https://raw.githubusercontent.com/junggawandra-del/SKIN/refs/heads/main/SKIN%20CASTLE"
 local URL_SKIN_STASIUN = "https://raw.githubusercontent.com/junggawandra-del/SKIN/refs/heads/main/SKIN%20STASIUN"
 local URL_SKIN_BANDARA = "https://raw.githubusercontent.com/junggawandra-del/SKIN/refs/heads/main/SKIN%20BANDARA"
-local URL_SKIN_PELABUHAN = "https://raw.githubusercontent.com/username/repo/main/skin_pelabuhan.lua"
+local URL_SKIN_PELABUHAN = "https://raw.githubusercontent.com/junggawandra-del/SKIN/refs/heads/main/SKIN%20PELABUHAN"
 
 -- Fungsi untuk mengambil script dari GitHub secara Online
 function LoadOnline(url, name)
-    gg.toast("⏳ Memuat data " .. name .. "...")
-    local req = gg.makeRequest(url)
-    
-    if req.content ~= nil and req.content ~= "" then
-        local script, err = load(req.content)
-        if script then
-            script()
-        else
-            gg.alert("❌ Gagal menjalankan script " .. name .. ":\n" .. tostring(err))
-        end
+gg.toast("⏳ Memuat data " .. name .. "...")
+local req = gg.makeRequest(url)
+
+if req.content ~= nil and req.content ~= "" then
+    local script, err = load(req.content)
+    if script then
+        script()
     else
-        gg.alert("❌ Gagal mengambil data dari GitHub.\n1. Periksa koneksi internet\n2. Pastikan link RAW benar\nTarget: " .. name)
+        gg.alert("❌ Gagal menjalankan script " .. name .. ":\n" .. tostring(err))
     end
+else
+    gg.alert("❌ Gagal mengambil data dari GitHub.\n1. Periksa koneksi internet\n2. Pastikan link RAW benar\nTarget: " .. name)
+end
+
 end
 
 -- Fungsi Peringatan di Awal
 function PeringatanAwal()
-    gg.alert([[
+local teks_peringatan = [[
 ╔════════════════════════════════╗
-                        HANZ PROJECT SCRIPT
+           HANZ PROJECT SCRIPT
 ╚════════════════════════════════╝
 ⚠️ PERINGATAN:
 • Gunakan script ini dengan bijak.
@@ -69,437 +72,446 @@ function PeringatanAwal()
 • Saran, input data secukupnya jangan berlebihan.
 • Sebagian item saya batasi hanya 1000 pcs.
 • Harap laporkan jika ada kendala atau menu tidak bekerja.
+
 [ Tekan OK untuk Menjalankan Logika ]
-    ]])
+]]
+gg.alert(teks_peringatan)
 end
 
 function Main()
-    -- Sembunyikan GG sebelum menjalankan logika
-    gg.setVisible(false)
-    
-    -- [ LOGIKA SCRIPT 1 ]
-    gg.setRanges(gg.REGION_C_ALLOC)
-    gg.clearResults()
+-- Sembunyikan GG sebelum menjalankan logika
+gg.setVisible(false)
 
-    gg.searchNumber("1970225964;1599361808;1936025667;65537", gg.TYPE_DWORD)
+-- [ LOGIKA SCRIPT 1 ]
+gg.setRanges(gg.REGION_C_ALLOC)
+gg.clearResults()
 
-    if gg.getResultCount() > 0 then
-        gg.refineNumber("1970225964", gg.TYPE_DWORD)
-        local count = gg.getResultCount()
-        local results = gg.getResults(count)
-        local freezeList = {}
+gg.searchNumber("1970225964;1599361808;1936025667;65537", gg.TYPE_DWORD)
 
-        for i, v in ipairs(results) do
-            freezeList[i] = {
-                address = v.address - 0x10, 
-                flags = gg.TYPE_DWORD,
-                value = 0,
-                freeze = true
-            }
-        end
-        gg.addListItems(freezeList)
-        gg.setValues(freezeList)
-        gg.toast("✅ System mendeteksi " .. count .. " Alamat")
-    else
-        gg.toast("⚠️ 1: Data tidak ditemukan")
+if gg.getResultCount() > 0 then
+    gg.refineNumber("1970225964", gg.TYPE_DWORD)
+    local count = gg.getResultCount()
+    local results = gg.getResults(count)
+    local freezeList = {}
+
+    for i, v in ipairs(results) do
+        freezeList[i] = {
+            address = v.address - 0x10, 
+            flags = gg.TYPE_DWORD,
+            value = 0,
+            freeze = true
+        }
     end
-
-    -- [ JEDA 2 DETIK ]
-    gg.sleep(2000)
-
-    -- [ LOGIKA SCRIPT 2 ]
-    gg.clearResults()
-    gg.setRanges(gg.REGION_C_ALLOC)
-    gg.searchNumber("29;1970225964;7631471::70", gg.TYPE_DWORD)
-
-    if gg.getResultCount() > 0 then
-        local r = gg.getResults(10)
-        local baseAddress = 0
-
-        for i, v in ipairs(r) do
-            if v.value == 29 then
-                baseAddress = v.address
-                break
-            end
-        end
-
-        if baseAddress ~= 0 then
-            local targets = {}
-            -- Baris 4 sampai 9 (HANZ DATA 1-6)
-            for i = 1, 6 do
-                local offset = (i + 3) * 4
-                targets[i] = {address = baseAddress + offset, flags = gg.TYPE_DWORD, name = "HANZ DATA " .. i}
-            end
-            -- Baris 10 & 11
-            targets[7] = {address = baseAddress + (10 * 4), flags = gg.TYPE_DWORD, name = "HANZ NILAI POINTER"}
-            targets[8] = {address = baseAddress + (11 * 4), flags = gg.TYPE_DWORD, name = "HANZ NILAI"}
-
-            local results2 = gg.getValues(targets)
-            for i = 1, #results2 do
-                if i == 7 then
-                    -- Simpan nilai asli pointer
-                    results2[i].freeze = true
-                end
-                results2[i].name = targets[i].name
-            end
-            gg.addListItems(results2)
-            gg.toast("✅ 2 Selesai: Data Disimpan")
-        end
-    else
-        gg.toast("⚠️ Logika 2: Data tidak ditemukan")
-    end
-
-    -- Tampilkan kembali GG setelah logika selesai
-    gg.setVisible(true)
-    MenuUtama()
+    gg.addListItems(freezeList)
+    gg.setValues(freezeList)
+    gg.toast("✅ System mendeteksi " .. count .. " Alamat")
+else
+    gg.toast("⚠️ 1: Data tidak ditemukan")
 end
 
--- ==========================================
--- SISTEM MENU UTAMA
--- ==========================================
+-- [ JEDA 2 DETIK ]
+gg.sleep(2000)
+
+-- [ LOGIKA SCRIPT 2 ]
+gg.clearResults()
+gg.setRanges(gg.REGION_C_ALLOC)
+gg.searchNumber("29;1970225964;7631471::70", gg.TYPE_DWORD)
+
+if gg.getResultCount() > 0 then
+    local r = gg.getResults(10)
+    local baseAddress = 0
+
+    for i, v in ipairs(r) do
+        if v.value == 29 then
+            baseAddress = v.address
+            break
+        end
+    end
+
+    if baseAddress ~= 0 then
+        local targets = {}
+        -- Baris 4 sampai 9 (HANZ DATA 1-6)
+        for i = 1, 6 do
+            local offset = (i + 3) * 4
+            targets[i] = {address = baseAddress + offset, flags = gg.TYPE_DWORD, name = "HANZ DATA " .. i}
+        end
+        -- Baris 10 & 11
+        targets[7] = {address = baseAddress + (10 * 4), flags = gg.TYPE_DWORD, name = "HANZ NILAI POINTER"}
+        targets[8] = {address = baseAddress + (11 * 4), flags = gg.TYPE_DWORD, name = "HANZ NILAI"}
+
+        local results2 = gg.getValues(targets)
+        for i = 1, #results2 do
+            if i == 7 then
+                -- Simpan nilai asli pointer
+                results2[i].freeze = true
+            end
+            results2[i].name = targets[i].name
+        end
+        gg.addListItems(results2)
+        gg.toast("✅ 2 Selesai: Data Disimpan")
+    end
+else
+    gg.toast("⚠️ Logika 2: Data tidak ditemukan")
+end
+
+-- Tampilkan kembali GG setelah logika selesai
+gg.setVisible(true)
+MenuUtama()
+
+end
+
+-- ========================================== --
+-- SISTEM MENU UTAMA --
+-- ========================================== --
 
 function MenuUtama()
-    local menu = gg.choice({
-        "📦 KEBUTUHAN",
-        "👤 AVATAR",
-        "🎖️ BADGE",
-        "🏷️ TITLE",
-        "🎨 STIKER",
-        "🎁 PACK",
-        "👕 SKIN",
-        "🛋️ DEKORASI",
-        "⏰ ACARA TERBATAS WAKTU",
-        "❌ KELUAR"
-    }, nil, "MAIN MENU ONLINE\nOWNER: HANZ\nTARGET: TOWNSHIP\nSTATUS: CONNECTED")
+local menu = gg.choice({
+    "📦 KEBUTUHAN",
+    "👤 AVATAR",
+    "🎖️ BADGE",
+    "🏷️ TITLE",
+    "🎨 STIKER",
+    "🎁 PACK",
+    "👕 SKIN",
+    "🛋️ DEKORASI",
+    "💎 PREMIUM", -- Menu Baru Sesuai Request
+    "⏰ ACARA TERBATAS WAKTU",
+    "❌ KELUAR"
+}, nil, "MAIN MENU ONLINE\nOWNER: HANZ\nTARGET: TOWNSHIP\nSTATUS: CONNECTED")
 
-    if menu == 1 then MenuKebutuhan() end
-    if menu == 2 then LoadOnline(URL_AVATAR, "AVATAR") end
-    if menu == 3 then LoadOnline(URL_BADGE, "BADGE") end
-    if menu == 4 then LoadOnline(URL_TITLE, "TITLE") end
-    if menu == 5 then LoadOnline(URL_STIKER, "STIKER") end
-    if menu == 6 then LoadOnline(URL_PACK, "PACK") end
-    if menu == 7 then MenuSkin() end
-    if menu == 8 then LoadOnline(URL_DEKORASI, "DEKORASI") end
-    if menu == 9 then LoadOnline(URL_ACARA, "ACARA TERBATAS WAKTU") end
-    if menu == 10 then os.exit() end
-    
-    if menu == nil then end 
+if menu == 1 then MenuKebutuhan() end
+if menu == 2 then LoadOnline(URL_AVATAR, "AVATAR") end
+if menu == 3 then LoadOnline(URL_BADGE, "BADGE") end
+if menu == 4 then LoadOnline(URL_TITLE, "TITLE") end
+if menu == 5 then LoadOnline(URL_STIKER, "STIKER") end
+if menu == 6 then LoadOnline(URL_PACK, "PACK") end
+if menu == 7 then MenuSkin() end
+if menu == 8 then LoadOnline(URL_DEKORASI, "DEKORASI") end
+if menu == 9 then LoadOnline(URL_PREMIUM, "PREMIUM") end
+if menu == 10 then LoadOnline(URL_ACARA, "ACARA TERBATAS WAKTU") end
+if menu == 11 then os.exit() end
+
+if menu == nil then end 
+
 end
 
--- ==========================================
--- SUB MENU KEBUTUHAN (UPDATED)
--- ==========================================
+-- ========================================== --
+-- SUB MENU KEBUTUHAN (UPDATED) --
+-- ========================================== --
 
 function MenuKebutuhan()
-    local mk = gg.choice({
-        "💎 MATA UANG",
-        "🏗️ KONTRUKSI",
-        "🎫 KUPON",
-        "✨ PERMATA",
-        "🏆 KOLEKSI BATANGAN",
-        "⛏️ TAMBANG",
-        "🧪 LAB",
-        "🧩 PUZZLE",
-        "🎁 PERKS",
-        "🔙 KEMBALI"
-    }, nil, "MENU KEBUTUHAN")
+local mk = gg.choice({
+    "💎 MATA UANG",
+    "🏗️ KONTRUKSI",
+    "🎫 KUPON",
+    "✨ PERMATA",
+    "🏆 KOLEKSI BATANGAN",
+    "⛏️ TAMBANG",
+    "🧪 LAB",
+    "🧩 PUZZLE",
+    "🎁 PERKS",
+    "🔙 KEMBALI"
+}, nil, "MENU KEBUTUHAN")
 
-    if mk == 1 then MenuMataUang() end
-    if mk == 2 then LoadOnline(URL_KONTRUKSI, "KONTRUKSI") end
-    if mk == 3 then LoadOnline(URL_KUPON, "KUPON") end
-    if mk == 4 then LoadOnline(URL_PERMATA, "PERMATA") end
-    if mk == 5 then LoadOnline(URL_BATANGAN, "KOLEKSI BATANGAN") end
-    if mk == 6 then LoadOnline(URL_TAMBANG, "TAMBANG") end
-    if mk == 7 then LoadOnline(URL_LAB, "LAB") end
-    if mk == 8 then LoadOnline(URL_PUZZLE, "PUZZLE") end
-    if mk == 9 then LoadOnline(URL_PERKS, "PERKS") end
-    if mk == 10 or mk == nil then MenuUtama() end
+if mk == 1 then MenuMataUang() end
+if mk == 2 then LoadOnline(URL_KONTRUKSI, "KONTRUKSI") end
+if mk == 3 then LoadOnline(URL_KUPON, "KUPON") end
+if mk == 4 then LoadOnline(URL_PERMATA, "PERMATA") end
+if mk == 5 then LoadOnline(URL_BATANGAN, "KOLEKSI BATANGAN") end
+if mk == 6 then LoadOnline(URL_TAMBANG, "TAMBANG") end
+if mk == 7 then LoadOnline(URL_LAB, "LAB") end
+if mk == 8 then LoadOnline(URL_PUZZLE, "PUZZLE") end
+if mk == 9 then LoadOnline(URL_PERKS, "PERKS") end
+if mk == 10 or mk == nil then MenuUtama() end
+
 end
 
--- ==========================================
--- SUB MENU SKIN
--- ==========================================
+-- ========================================== --
+-- SUB MENU SKIN --
+-- ========================================== --
 
 function MenuSkin()
-    local ms = gg.choice({
-        "🐮 SKIN SAPI",
-        "🐔 SKIN AYAM",
-        "🐑 SKIN DOMBA",
-        "🐷 SKIN BABI",
-        "🚁 SKIN HELICOPTER",
-        "🚂 SKIN KERETA",
-        "✈️ SKIN PESAWAT",
-        "🚢 SKIN KAPAL",
-        "🏰 SKIN CASTLE",
-        "🚉 SKIN STASIUN",
-        "🛩️ SKIN BANDARA",
-        "⚓ SKIN PELABUHAN",
-        "🔙 KEMBALI"
-    }, nil, "MENU SKIN")
+local ms = gg.choice({
+    "🐮 SKIN SAPI",
+    "🐔 SKIN AYAM",
+    "🐑 SKIN DOMBA",
+    "🐷 SKIN BABI",
+    "🚁 SKIN HELICOPTER",
+    "🚂 SKIN KERETA",
+    "✈️ SKIN PESAWAT",
+    "🚢 SKIN KAPAL",
+    "🏰 SKIN CASTLE",
+    "🚉 SKIN STASIUN",
+    "🛩️ SKIN BANDARA",
+    "⚓ SKIN PELABUHAN",
+    "🔙 KEMBALI"
+}, nil, "MENU SKIN")
 
-    if ms == 1 then LoadOnline(URL_SKIN_SAPI, "SKIN SAPI") end
-    if ms == 2 then LoadOnline(URL_SKIN_AYAM, "SKIN AYAM") end
-    if ms == 3 then LoadOnline(URL_SKIN_DOMBA, "SKIN DOMBA") end
-    if ms == 4 then LoadOnline(URL_SKIN_BABI, "SKIN BABI") end
-    if ms == 5 then LoadOnline(URL_SKIN_HELICOPTER, "SKIN HELICOPTER") end
-    if ms == 6 then LoadOnline(URL_SKIN_KERETA, "SKIN KERETA") end
-    if ms == 7 then LoadOnline(URL_SKIN_PESAWAT, "SKIN PESAWAT") end
-    if ms == 8 then LoadOnline(URL_SKIN_KAPAL, "SKIN KAPAL") end
-    if ms == 9 then LoadOnline(URL_SKIN_CASTLE, "SKIN CASTLE") end
-    if ms == 10 then LoadOnline(URL_SKIN_STASIUN, "SKIN STASIUN") end
-    if ms == 11 then LoadOnline(URL_SKIN_BANDARA, "SKIN BANDARA") end
-    if ms == 12 then LoadOnline(URL_SKIN_PELABUHAN, "SKIN PELABUHAN") end
-    if ms == 13 or ms == nil then MenuUtama() end
+if ms == 1 then LoadOnline(URL_SKIN_SAPI, "SKIN SAPI") end
+if ms == 2 then LoadOnline(URL_SKIN_AYAM, "SKIN AYAM") end
+if ms == 3 then LoadOnline(URL_SKIN_DOMBA, "SKIN DOMBA") end
+if ms == 4 then LoadOnline(URL_SKIN_BABI, "SKIN BABI") end
+if ms == 5 then LoadOnline(URL_SKIN_HELICOPTER, "SKIN HELICOPTER") end
+if ms == 6 then LoadOnline(URL_SKIN_KERETA, "SKIN KERETA") end
+if ms == 7 then LoadOnline(URL_SKIN_PESAWAT, "SKIN PESAWAT") end
+if ms == 8 then LoadOnline(URL_SKIN_KAPAL, "SKIN KAPAL") end
+if ms == 9 then LoadOnline(URL_SKIN_CASTLE, "SKIN CASTLE") end
+if ms == 10 then LoadOnline(URL_SKIN_STASIUN, "SKIN STASIUN") end
+if ms == 11 then LoadOnline(URL_SKIN_BANDARA, "SKIN BANDARA") end
+if ms == 12 then LoadOnline(URL_SKIN_PELABUHAN, "SKIN PELABUHAN") end
+if ms == 13 or ms == nil then MenuUtama() end
+
 end
 
--- ==========================================
--- LOGIKA FITUR MATA UANG (TIDAK BERUBAH)
--- ==========================================
+-- ========================================== --
+-- LOGIKA FITUR MATA UANG (TIDAK BERUBAH) --
+-- ========================================== --
 
 function MenuMataUang()
-    local m = gg.choice({"1. GOLD/COIN", "2. T-CASH", "3. SEMANGGI", "4. REGATTA TOKEN", "🔙 KEMBALI"}, nil, "MENU MATA UANG")
-    
-    if m == nil or m == 5 then 
-        MenuKebutuhan() 
-    elseif m == 1 then
-        -- [ LOGIKA GOLD/COIN ]
-        local items = gg.getListItems()
-        if #items == 0 then
-            gg.alert("Daftar simpanan kosong! Pastikan data sudah di-save ke list.")
-            MenuMataUang()
-            return
-        end
-        local input = gg.prompt({"MASUKAN NILAI COIN (Maks 100,000):"}, {[1]="0"}, {[1]="number"})
-        if not input then MenuMataUang() return end
-        local nilai_input = tonumber(input[1])
-        if nilai_input > 100000 then
-            gg.alert("Input terlalu besar! Maksimal adalah 100,000.")
-            MenuMataUang()
-            return
-        end
-        local edit_list = {}
-        local count = 0
-        for i, v in ipairs(items) do
-            local name = v.name or ""
-            local found = false
-            if name == "HANZ DATA 1" then v.value = "696F630Ah" v.freeze = true found = true
-            elseif name == "HANZ DATA 2" then v.value = "0000736Eh" v.freeze = true found = true
-            elseif name == "HANZ DATA 3" or name == "HANZ DATA 4" or name == "HANZ DATA 5" or name == "HANZ DATA 6" then v.value = "00000000h" v.freeze = true found = true
-            elseif name == "HANZ NILAI POINTER" then v.value = "0" v.freeze = true found = true
-            elseif name == "HANZ NILAI" then v.value = tostring(nilai_input) v.freeze = true found = true
-            end
-            if found then count = count + 1 edit_list[count] = v end
-        end
-        if count > 0 then
-            gg.setValues(edit_list)
-            gg.addListItems(edit_list)
-            gg.toast("✅ Berhasil mengubah " .. count .. " data HANZ.")
-        else
-            gg.toast("⚠️ Tidak ditemukan data dengan nama yang sesuai.")
-        end
+local m = gg.choice({"1. GOLD/COIN", "2. T-CASH", "3. SEMANGGI", "4. REGATTA TOKEN", "🔙 KEMBALI"}, nil, "MENU MATA UANG")
+
+if m == nil or m == 5 then 
+    MenuKebutuhan() 
+elseif m == 1 then
+    -- [ LOGIKA GOLD/COIN ]
+    local items = gg.getListItems()
+    if #items == 0 then
+        gg.alert("Daftar simpanan kosong! Pastikan data sudah di-save ke list.")
         MenuMataUang()
-
-    elseif m == 2 then
-        -- [ LOGIKA T-CASH ]
-        gg.setVisible(false)
-        local list = gg.getListItems()
-        
-        if #list == 0 then
-            gg.setVisible(true)
-            gg.alert("❌ Tidak ada data di Saved List! Pastikan data sudah di-save dan diberi nama.")
-            MenuMataUang()
-            return
-        end
-
-        local input = gg.prompt({
-            "MASUKAN NILAI T-CASH (Maks 10,000):"
-        }, {0}, {"number"})
-
-        if not input then gg.setVisible(true) MenuMataUang() return end
-
-        local nilai_user = tonumber(input[1])
-        if nilai_user > 10000 then
-            gg.setVisible(true)
-            gg.alert("⚠️ Input melebihi batas! Maksimal adalah 10,000.")
-            MenuMataUang()
-            return
-        end
-
-        local updateList = {}
-        local count = 0
-
-        for i, item in ipairs(list) do
-            if item.name == "HANZ DATA 1" then
-                item.value = "73616308h"
-                item.freeze = true
-            elseif item.name == "HANZ DATA 2" then
-                item.value = "00000068h"
-                item.freeze = true
-            elseif item.name == "HANZ DATA 3" then
-                item.value = "00000000h"
-                item.freeze = true
-            elseif item.name == "HANZ DATA 4" then
-                item.value = "00000000h"
-                item.freeze = true
-            elseif item.name == "HANZ DATA 5" then
-                item.value = "00000000h"
-                item.freeze = true
-            elseif item.name == "HANZ DATA 6" then
-                item.value = "00000000h"
-                item.freeze = true
-            elseif item.name == "HANZ NILAI POINTER" then
-                item.value = 0
-                item.freeze = true
-            elseif item.name == "HANZ NILAI" then
-                item.value = nilai_user
-                item.freeze = true
-            end
-
-            if item.freeze == true then
-                table.insert(updateList, item)
-                count = count + 1
-            end
-        end
-
-        if count > 0 then
-            gg.setValues(updateList)
-            gg.addListItems(updateList)
-            gg.setVisible(true)
-            gg.toast("✅ Berhasil mengubah dan membekukan " .. count .. " data.")
-        else
-            gg.setVisible(true)
-            gg.toast("❓ Tidak ditemukan item dengan nama yang sesuai di Saved List.")
-        end
-        MenuMataUang()
-
-    elseif m == 3 then
-        -- [ LOGIKA SEMANGGI ]
-        gg.setVisible(false)
-        local items = gg.getListItems()
-        local editList = {}
-        local count = 0
-
-        if #items == 0 then
-            gg.setVisible(true)
-            gg.alert("Saved List kosong! Pastikan data sudah di-save ke daftar.")
-            MenuMataUang()
-            return
-        end
-
-        for i, v in ipairs(items) do
-            if v.name == "HANZ DATA 1" then
-                v.value = "6F6C630Ch"
-                v.freeze = true
-            elseif v.name == "HANZ DATA 2" then
-                v.value = "00726576h"
-                v.freeze = true
-            elseif v.name == "HANZ DATA 3" or v.name == "HANZ DATA 4" or v.name == "HANZ DATA 5" or v.name == "HANZ DATA 6" then
-                v.value = "0" 
-                v.freeze = true
-            elseif v.name == "HANZ NILAI POINTER" then
-                v.value = "0"
-                v.freeze = true
-            elseif v.name == "HANZ NILAI" then
-                v.value = "50"
-                v.freeze = true
-            end
-            
-            if v.freeze then
-                table.insert(editList, v)
-                count = count + 1
-            end
-        end
-
-        if count > 0 then
-            gg.setValues(editList)
-            gg.addListItems(editList)
-            gg.setVisible(true)
-            gg.toast("✅ " .. count .. " Data SEMANGGI berhasil diperbarui & dibekukan!")
-        else
-            gg.setVisible(true)
-            gg.toast("⚠️ Tidak ditemukan data HANZ di Saved List.")
-        end
-        MenuMataUang()
-
-    elseif m == 4 then
-        -- [ LOGIKA REGATTA TOKEN ]
-        gg.setVisible(false)
-        local items = gg.getListItems()
-        local edit_list = {}
-        local count = 0
-
-        if #items == 0 then
-            gg.setVisible(true)
-            gg.alert("Saved List kosong! Pastikan data sudah tersimpan di list.")
-            MenuMataUang()
-            return
-        end
-
-        for i, v in ipairs(items) do
-            local isMatch = false
-            if v.name == "HANZ DATA 1" then
-                v.value = "67655214h"
-                v.freeze = true
-                isMatch = true
-            elseif v.name == "HANZ DATA 2" then
-                v.value = "43617461h"
-                v.freeze = true
-                isMatch = true
-            elseif v.name == "HANZ DATA 3" then
-                v.value = "00687361h"
-                v.freeze = true
-                isMatch = true
-            elseif v.name == "HANZ DATA 4" or v.name == "HANZ DATA 5" or v.name == "HANZ DATA 6" then
-                v.value = "0h"
-                v.freeze = true
-                isMatch = true
-            elseif v.name == "HANZ NILAI POINTER" then
-                v.value = "0"
-                v.freeze = true
-                isMatch = true
-            elseif v.name == "HANZ NILAI" then
-                v.value = "1000"
-                v.freeze = true
-                isMatch = true
-            end
-            
-            if isMatch then
-                table.insert(edit_list, v)
-                count = count + 1
-            end
-        end
-
-        if count > 0 then
-            gg.setValues(edit_list)
-            gg.addListItems(edit_list)
-            gg.setVisible(true)
-            gg.toast("✅ Berhasil mengubah dan membekukan " .. count .. " data REGATTA TOKEN.")
-        else
-            gg.setVisible(true)
-            gg.toast("⚠️ Tidak ada nama data yang cocok ditemukan di Saved List.")
-        end
-        MenuMataUang()
+        return
     end
+    local input = gg.prompt({"MASUKAN NILAI COIN (Maks 100,000):"}, {[1]="0"}, {[1]="number"})
+    if not input then MenuMataUang() return end
+    local nilai_input = tonumber(input[1])
+    if nilai_input > 100000 then
+        gg.alert("Input terlalu besar! Maksimal adalah 100,000.")
+        MenuMataUang()
+        return
+    end
+    local edit_list = {}
+    local count = 0
+    for i, v in ipairs(items) do
+        local name = v.name or ""
+        local found = false
+        if name == "HANZ DATA 1" then v.value = "696F630Ah" v.freeze = true found = true
+        elseif name == "HANZ DATA 2" then v.value = "0000736Eh" v.freeze = true found = true
+        elseif name == "HANZ DATA 3" or name == "HANZ DATA 4" or name == "HANZ DATA 5" or name == "HANZ DATA 6" then v.value = "00000000h" v.freeze = true found = true
+        elseif name == "HANZ NILAI POINTER" then v.value = "0" v.freeze = true found = true
+        elseif name == "HANZ NILAI" then v.value = tostring(nilai_input) v.freeze = true found = true
+        end
+        if found then count = count + 1 edit_list[count] = v end
+    end
+    if count > 0 then
+        gg.setValues(edit_list)
+        gg.addListItems(edit_list)
+        gg.toast("✅ Berhasil mengubah " .. count .. " data HANZ.")
+    else
+        gg.toast("⚠️ Tidak ditemukan data dengan nama yang sesuai.")
+    end
+    MenuMataUang()
+
+elseif m == 2 then
+    -- [ LOGIKA T-CASH ]
+    gg.setVisible(false)
+    local list = gg.getListItems()
+    
+    if #list == 0 then
+        gg.setVisible(true)
+        gg.alert("❌ Tidak ada data di Saved List! Pastikan data sudah di-save dan diberi nama.")
+        MenuMataUang()
+        return
+    end
+
+    local input = gg.prompt({
+        "MASUKAN NILAI T-CASH (Maks 10,000):"
+    }, {0}, {"number"})
+
+    if not input then gg.setVisible(true) MenuMataUang() return end
+
+    local nilai_user = tonumber(input[1])
+    if nilai_user > 10000 then
+        gg.setVisible(true)
+        gg.alert("⚠️ Input melebihi batas! Maksimal adalah 10,000.")
+        MenuMataUang()
+        return
+    end
+
+    local updateList = {}
+    local count = 0
+
+    for i, item in ipairs(list) do
+        if item.name == "HANZ DATA 1" then
+            item.value = "73616308h"
+            item.freeze = true
+        elseif item.name == "HANZ DATA 2" then
+            item.value = "00000068h"
+            item.freeze = true
+        elseif item.name == "HANZ DATA 3" then
+            item.value = "00000000h"
+            item.freeze = true
+        elseif item.name == "HANZ DATA 4" then
+            item.value = "00000000h"
+            item.freeze = true
+        elseif item.name == "HANZ DATA 5" then
+            item.value = "00000000h"
+            item.freeze = true
+        elseif item.name == "HANZ DATA 6" then
+            item.value = "00000000h"
+            item.freeze = true
+        elseif item.name == "HANZ NILAI POINTER" then
+            item.value = 0
+            item.freeze = true
+        elseif item.name == "HANZ NILAI" then
+            item.value = nilai_user
+            item.freeze = true
+        end
+
+        if item.freeze == true then
+            table.insert(updateList, item)
+            count = count + 1
+        end
+    end
+
+    if count > 0 then
+        gg.setValues(updateList)
+        gg.addListItems(updateList)
+        gg.setVisible(true)
+        gg.toast("✅ Berhasil mengubah dan membekukan " .. count .. " data.")
+    else
+        gg.setVisible(true)
+        gg.toast("❓ Tidak ditemukan item dengan nama yang sesuai di Saved List.")
+    end
+    MenuMataUang()
+
+elseif m == 3 then
+    -- [ LOGIKA SEMANGGI ]
+    gg.setVisible(false)
+    local items = gg.getListItems()
+    local editList = {}
+    local count = 0
+
+    if #items == 0 then
+        gg.setVisible(true)
+        gg.alert("Saved List kosong! Pastikan data sudah di-save ke daftar.")
+        MenuMataUang()
+        return
+    end
+
+    for i, v in ipairs(items) do
+        if v.name == "HANZ DATA 1" then
+            v.value = "6F6C630Ch"
+            v.freeze = true
+        elseif v.name == "HANZ DATA 2" then
+            v.value = "00726576h"
+            v.freeze = true
+        elseif v.name == "HANZ DATA 3" or v.name == "HANZ DATA 4" or v.name == "HANZ DATA 5" or v.name == "HANZ DATA 6" then
+            v.value = "0" 
+            v.freeze = true
+        elseif v.name == "HANZ NILAI POINTER" then
+            v.value = "0"
+            v.freeze = true
+        elseif v.name == "HANZ NILAI" then
+            v.value = "50"
+            v.freeze = true
+        end
+        
+        if v.freeze then
+            table.insert(editList, v)
+            count = count + 1
+        end
+    end
+
+    if count > 0 then
+        gg.setValues(editList)
+        gg.addListItems(editList)
+        gg.setVisible(true)
+        gg.toast("✅ " .. count .. " Data SEMANGGI berhasil diperbarui & dibekukan!")
+    else
+        gg.setVisible(true)
+        gg.toast("⚠️ Tidak ditemukan data HANZ di Saved List.")
+    end
+    MenuMataUang()
+
+elseif m == 4 then
+    -- [ LOGIKA REGATTA TOKEN ]
+    gg.setVisible(false)
+    local items = gg.getListItems()
+    local edit_list = {}
+    local count = 0
+
+    if #items == 0 then
+        gg.setVisible(true)
+        gg.alert("Saved List kosong! Pastikan data sudah tersimpan di list.")
+        MenuMataUang()
+        return
+    end
+
+    for i, v in ipairs(items) do
+        local isMatch = false
+        if v.name == "HANZ DATA 1" then
+            v.value = "67655214h"
+            v.freeze = true
+            isMatch = true
+        elseif v.name == "HANZ DATA 2" then
+            v.value = "43617461h"
+            v.freeze = true
+            isMatch = true
+        elseif v.name == "HANZ DATA 3" then
+            v.value = "00687361h"
+            v.freeze = true
+            isMatch = true
+        elseif v.name == "HANZ DATA 4" or v.name == "HANZ DATA 5" or v.name == "HANZ DATA 6" then
+            v.value = "0h"
+            v.freeze = true
+            isMatch = true
+        elseif v.name == "HANZ NILAI POINTER" then
+            v.value = "0"
+            v.freeze = true
+            isMatch = true
+        elseif v.name == "HANZ NILAI" then
+            v.value = "1000"
+            v.freeze = true
+            isMatch = true
+        end
+        
+        if isMatch then
+            table.insert(edit_list, v)
+            count = count + 1
+        end
+    end
+
+    if count > 0 then
+        gg.setValues(edit_list)
+        gg.addListItems(edit_list)
+        gg.setVisible(true)
+        gg.toast("✅ Berhasil mengubah dan membekukan " .. count .. " data REGATTA TOKEN.")
+    else
+        gg.setVisible(true)
+        gg.toast("⚠️ Tidak ada nama data yang cocok ditemukan di Saved List.")
+    end
+    MenuMataUang()
 end
 
--- ==========================================
--- PROSES EKSEKUSI (ANTI-EXIT LOOP)
--- ==========================================
+end
+
+-- ========================================== --
+-- PROSES EKSEKUSI (ANTI-EXIT LOOP) --
+-- ========================================== --
 
 -- Jalankan pengecekan koneksi ringan di awal
 local check = gg.makeRequest("https://www.google.com")
 if check.content == nil then
-    gg.alert("❌ Koneksi Internet Diperlukan untuk Menjalankan Script Online HANZ PROJECT!")
-    os.exit()
+gg.alert("❌ Koneksi Internet Diperlukan untuk Menjalankan Script Online HANZ PROJECT!")
+os.exit()
 end
 
 PeringatanAwal()
 Main()
 
-while true do
-    if gg.isVisible(true) then
-        gg.setVisible(false)
-        MenuUtama()
-    end
-    gg.sleep(100)
+while true do 
+if gg.isVisible(true) then 
+    gg.setVisible(false) 
+    MenuUtama() 
+end 
+gg.sleep(100) 
 end
