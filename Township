@@ -22,9 +22,9 @@ local DISPLAY_USER_TYPE = "USER" -- Default
 -- ==========================================
 -- URL CONFIGURATION (WEBHOOK)
 -- ==========================================
-local WEBHOOK_MONITOR = "https://discord.com/api/webhooks/1481830154731913226/BtKIvQgDhTHetaDRyPfIVbbMTmkmbDtCP0J-fOgKPFpyCNiIVomoPSFqWMfCPvn3OTmG" 
-local WEBHOOK_MESSAGE = "https://discord.com/api/webhooks/1486522004139151513/sLAq0aTy2WgS-tbPxlVnfO4eLqw5-4crh2yh7Qt12PdpafefjVzhZoq-DugmOxQACmR-" 
-local WEBHOOK_ENDED   = "https://discord.com/api/webhooks/1486522247765164203/tFZB6MxhJ9IsBdNU47bzW_wvNDU9HVWZeQ_cECgv_QVWYVhjcqm7Pq7TDLjfRJq3IBH0" 
+local WEBHOOK_MONITOR = "https://discord.com/api/webhooks/1520218799079686257/iYjXzWJOlPqEAuMB9lf5dsYteVly-IZ2Ke-VBPw46bxtC_mlkSoliCF2BhI8a8hBkBrL" 
+local WEBHOOK_MESSAGE = "https://discord.com/api/webhooks/1520219066781143210/Fo7lWpPHCbME4obBvQDBooVt1HoVXoBIezcgSUaSykqP2BcniEwU8yICZyBR4-1IOUlZ" 
+local WEBHOOK_ENDED   = "https://discord.com/api/webhooks/1520219632236101753/qeD5jdlp9ewDOLxi1qsm_9rU9pyLnm2OUGK0Heow74bOvuYaPKq43yfjAGNoyO_WnsU1" 
 
 -- ==========================================
 -- ASSET VISUAL SCRIPT PESANAN
